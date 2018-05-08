@@ -1,0 +1,38 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    encoders:
+        App\Entity\Player: bcrypt
+
+    role_hierarchy:
+        ROLE_PLAYER: ROLE_USER
+        ROLE_ADMIN: ROLE_PLAYER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        main:
+            entity: { class: App\Entity\Player, property: mail }
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            anonymous: true
+            provider: main
+            logout:
+                path: /logout
+                target: home
+            remember_me:
+                secret: %secret%
+            guard:
+                authenticators:
+                    - app.security.login_form_authentificator
+
+    access_control:
+        - { path: ^/donjon, roles: ROLE_ADMIN }

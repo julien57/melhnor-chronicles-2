@@ -1,0 +1,42 @@
+{% extends "game-layout.html.twig" %}
+
+{% block content %}
+
+    <h2>Connexion</h2>
+    <div class="container">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey }}</div>
+        {% endif %}
+
+        <div class="col-md-6">
+            {{ form_start(form, {'attr': {'class': 'contact-form'}}) }}
+
+                <div class="row">
+                    <div id="error_input"></div>
+                    <div class="row">
+                        {{ form_label(form._username, "Pseudo", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+
+                        <div class="col-sm-8">
+                            {{ form_widget(form._username) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{ form_label(form._username, "Mot de passe", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+
+                        <div class="col-sm-8">
+                            {{ form_widget(form._password) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-submit"></div>
+                    <div class="col-md-8">
+                        <button type="submit" class="btn">Connexion</button>
+                    </div>
+                </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

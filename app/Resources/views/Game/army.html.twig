@@ -1,0 +1,15 @@
+{% extends "game-layout.html.twig" %}
+
+{% block content %}
+
+    <div class="fluid-container">
+
+        <h2>Armée</h2>
+
+        {% for building in kingdomBuildings %}
+            {{ building.name }}
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

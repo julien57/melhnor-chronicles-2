@@ -1,0 +1,41 @@
+<header id="home">
+    <!-- Main nav -->
+    <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top">
+        <div class="container">
+            <div class="navbar navbar-header">
+                <a class="navbar-brand navbar-logo" href="#home"></a>
+                <button type="button" class="navbar-toggle custom-toggle-btn" data-toggle="collapse" data-target="#main-nav" aria-expanded="false">
+                                <span class="sr-only">
+                                Toggle navigation
+                                </span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="main-nav">
+                {% if is_granted('ROLE_PLAYER') %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="plain-link"><a href="{{ path('trone') }}">Salle du trône</a></li>
+                        <li class="plain-link"><a href="{{ path('kingdom') }}">Royaume</a></li>
+                        <li class="plain-link"><a href="{{ path('army') }}">Armée</a></li>
+                        <li class="plain-link"><a href="#features">Périple</a></li>
+                        <li class="plain-link"><a href="#features">Bataille</a></li>
+                        <li class="plain-link"><a href="#features">Commerce</a></li>
+                        <li class="plain-link"><a href="#features">Messagerie</a></li>
+                        <li class="plain-link"><a href="{{ path('security_logout') }}">Déconnexion</a></li>
+                    </ul>
+                {% else %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="plain-link"><a href="{{ path('home') }}">Accueil</a></li>
+                        <li class="plain-link"><a href="{{ path('registration') }}">Inscription</a></li>
+                        <li class="plain-link"><a href="{{ path('security_login') }}">Connexion</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <h1>
+        <img onload="this.style.opacity='1';" class="big-logo" src="{{ asset('front/img/logo-MC2.png') }}" alt="Melhnor Chronicles 2">
+    </h1>
+</header>

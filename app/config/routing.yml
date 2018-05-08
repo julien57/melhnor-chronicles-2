@@ -1,0 +1,24 @@
+donjon:
+    resource: "@AppBundle/Controller/Donjon/"
+    prefix:   /donjon
+    type: annotation
+
+game:
+   resource: '@AppBundle/Controller/Game/'
+   type: annotation
+
+connection:
+    path: /connexion
+    defaults:
+        _controller: AppBundle:Game\Player:connection
+
+login_check:
+    path: /login_check
+
+target_connection:
+    path: /salle-du-trone
+    defaults:
+        _controller: AppBundle:Game\Kingdom:trone
+
+logout:
+    path: /logout

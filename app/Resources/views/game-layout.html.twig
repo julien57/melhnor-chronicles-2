@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Enrich your precious game by complimenting it with the website it truly deserves. Promote your game's iconic characters, deep & sophisticated gameplay, complex strategies, engulfing quests with rich NPCs and malicious foes, with the most visual way possible through Dragonic's unique design. Thriving with small details, this premium template experience will leave your players in a jaw-dropping awe.">
+    <meta name="keywords" content="game, premium template, gaming, online gaming, pc game, android, ios, google play store, apple appstore, one page template, dragonic, dragons, themeforest">
+    <title>Dragonic: The Ultimate One-Page Premium Gaming Template</title>
+    <!-- Bootstrap -->
+    <link href="https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative" rel="stylesheet">
+    <link href="{{ asset('front/fonts/ionicons/2.0.1/css/ionicons.min.css') }}" type="text/css" media="screen" rel="stylesheet">
+    <link href="{{ asset('front/css/styles.css') }}" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+    <![endif]-->
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('front/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('front/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('front/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('front/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('front/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('front/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('front/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('front/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('front/favicon/apple-icon-180x180.png') }}">
+    <link rel="manifest" href="{{ asset('front/favicon/manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#181818">
+    <meta name="msapplication-TileImage" content="{{ asset('front/favicon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#181818">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon" />
+</head>
+<body data-spy="scroll" data-target=".navbar-custom">
+<div class="container-fluid">
+    <div class="row">
+        <!-- ============== HEADER =============== -->
+        {{ include('Game/views/header.html.twig') }}
+
+    </div>
+    <!-- ============== DIVIDER ============== -->
+    <div class="Divider">
+        <hr class="Divider-rule">
+    </div>
+    <!-- ============== SECTION CONTENT =============== -->
+    <div class="row pattern">
+        <section class="features" id="features">
+
+            {{ include('Game/views/notices.html.twig') }}
+
+            {% block content %} {% endblock %}
+
+        </section>
+    </div>
+    <!-- ============== DIVIDER ============== -->
+    <div class="Divider">
+        <hr class="Divider-rule">
+    </div>
+    <!-- ============== FOOTER =============== -->
+    {{ include('Game/views/footer.html.twig') }}
+
+</div>
+<!-- ============== SCRIPTS =============== -->
+<script src="{{ asset('front/js/jquery-1.12.4.min.js') }}"></script>
+<script src="https://maps-api-ssl.google.com/maps/api/js?key=AIzaSyBqGHoKDotAUnCmJJqIDUzdGO2g3xA0tnY&callback=initMap"></script>
+<script src="{{ asset('front/js/bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ asset('front/js/waypoints/jquery.waypoints.min.js') }}"></script>
+<script src="{{ asset('front/js/app.min.js') }}"></script>
+<script src="{{ asset('front/js/jquery-mobile-custom/jquery.mobile.custom.min.js') }}"></script>
+<script src="{{ asset('front/js/registration.js') }}"></script>
+<script src="{{ asset('front/js/regions.js') }}"></script>
+<script src="{{ asset('front/js/map.js') }}"></script>
+</body>
+</html>

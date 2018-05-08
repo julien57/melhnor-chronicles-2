@@ -1,0 +1,90 @@
+{% extends "game-layout.html.twig" %}
+
+{% block content %}
+    <h2>Inscription</h2>
+
+    <div class="container">
+        <div class="row" id="form-inscription">
+                {{ form_start(form, {'attr': {'class': 'contact-form'}}) }}
+
+                {{ form_errors(form) }}
+                {{ form_errors(form.username) }}
+
+                <div id="form1">
+                    <div class="col-md-6 col-md-offset-2">
+                        <div id="error_input"></div>
+                        <div class="row">
+                            {{ form_label(form.username, "Pseudo", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+
+                            <div class="col-sm-8">
+                                {{ form_widget(form.username) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            {{ form_label(form.password, "Mot de passe", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+
+                            <div class="col-sm-8">
+                                {{ form_widget(form.password) }}
+                                {{ form_errors(form.password) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            {{ form_label(form.mail, "Adresse email", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+
+                            {{ form_errors(form.mail) }}
+
+                            <div class="col-sm-8">
+                                {{ form_widget(form.mail) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <a href="#form-inscription" id="next1" class="col-sm-12 label-container">Suivant</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="form2">
+                    <h3>Région</h3>
+                    <div class="row">
+                        <img src="{{ asset('front/img/map-world.jpg') }}" alt="Carte du monde de Melhnor" id="map_world"/>
+                    </div>
+                    <div class="row">
+                        {{ form_label(form.region, "Choisir une région", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+
+                        {{ form_errors(form.region) }}
+
+                        <div class="col-sm-6">
+                            {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a href="#form-inscription" id="next2" class="col-sm-10 label-container">Suivant</a>
+                    </div>
+                </div>
+                <div id="form3">
+                    <h3>Avatar</h3>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div id="img_avatars" class="col-sm-12"></div>
+                        </div>
+                        <div class="col-md-5">
+                            {{ form_label(form.avatar, "Choisir un avatar :", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+                            <br>
+                            <div class="col-md-9">
+                                {{ form_widget(form.avatar, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="button-submit"></div>
+                        <div class="col-sm-6">
+                            {{ form_widget(form.inscription, {'attr': {'class': 'btn'}}) }}
+                        </div>
+                    </div>
+                </div>
+
+            {{ form_rest(form) }}
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
