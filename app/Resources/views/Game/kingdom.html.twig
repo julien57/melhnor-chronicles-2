@@ -15,8 +15,10 @@
                         <div class="row">
                             <div class="col-md-12">
                                 {{ form_widget(buildBuildingForm.building, {'attr': {'class': 'form-control'}}) }}<br>
-                                {{ form_widget(buildBuildingForm.construire, {'attr': {'class': 'btn'}}) }}
                             </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn">Construire</button>
                         </div>
                         {{ form_rest(buildBuildingForm) }}
                     </form>
@@ -25,22 +27,58 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 panel-item__summary justify-content-md-start">
+                <div class="col-md-8 panel-item__summary justify-content-md-start">
 
-                    {{ form(formBuilding) }}
+                    <h4>Bâtiments du royaume</h4>
+
+                    {{ form_start(formBuilding, {'attr': {'class': 'contact-form'}}) }}
+
+                    {% for kingdomBuilding in formBuilding.KingdomBuildings %}
+
+                        <div class="row">
+                            <div class="col-sm-12 building-icon">
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        Bâtiment :
+                                    </div>
+                                    {{ form_widget(kingdomBuilding.building, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        Niveau :
+                                    </div>
+                                    {{ form_widget(kingdomBuilding.level) }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn">Augmenter</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    {% endfor %}
+
+                    {{ form_end(formBuilding) }}
 
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <h3>Resources</h3>
+            <h3>Ressources</h3>
 
             {% for kingdomResource in kingdomResources %}
                 <p>{{ kingdomResource.resource.name }} : {{ kingdomResource.quantity }}</p>
             {% endfor %}
 
         </div>
-
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <button href="{{ path('production') }}" class="btn">Produire</button>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

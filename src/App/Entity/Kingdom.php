@@ -79,6 +79,13 @@ class Kingdom
         $this->kingdomBuildings = new ArrayCollection();
     }
 
+    public function initKingdom(string $name, Region $region): void
+    {
+        $this->setName('Royaume de '.$name);
+        $this->setDescription('Aucune description');
+        $this->setRegion($region);
+    }
+
     /**
      * @return int
      */

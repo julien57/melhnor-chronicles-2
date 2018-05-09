@@ -16,8 +16,7 @@ class KingdomType extends AbstractType
             ->add('KingdomBuildings', CollectionType::class, [
                 'entry_type' => KingdomBuildingType::class,
                 'allow_add' => true,
-                'allow_delete' => true
-
+                'allow_delete' => true,
             ])
         ;
     }
@@ -25,7 +24,7 @@ class KingdomType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Kingdom::class
+            'data_class' => Kingdom::class,
         ]);
     }
 }

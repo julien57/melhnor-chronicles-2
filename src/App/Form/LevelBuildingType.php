@@ -2,9 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Kingdom;
 use App\Model\LevelBuildingDTO;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +22,7 @@ class LevelBuildingType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => LevelBuildingDTO::class
+            'data_class' => LevelBuildingDTO::class,
         ]);
     }
 }

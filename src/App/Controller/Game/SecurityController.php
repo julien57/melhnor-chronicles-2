@@ -48,31 +48,42 @@ class SecurityController extends Controller
             $data = $form->getData();
 
             $player = new Player();
-            $player->setUsername($data->getUsername());
-            $player->setPlainPassword($data->getPassword());
-            $player->setMail($data->getMail());
-            $player->setAvatar($data->getAvatar());
+            $player->initPlayer(
+                $data->getUsername(),
+                $data->getPassword(),
+                $data->getMail(),
+                $data->getAvatar()
+            );
 
             $kingdom = new Kingdom();
-            $kingdom->setName('Royaume de '.$data->getUsername());
-            $kingdom->setDescription('Aucune description');
-            $kingdom->setRegion($data->getRegion());
+            $kingdom->initKingdom(
+                $data->getUsername(),
+                $data->getRegion()
+            );
+
             $player->setKingdom($kingdom);
 
-            // Init of the Meat
+            // Init Meat
             $meat = $this->em->getRepository(Resource::class)->find(1);
 
             $initKingdomMeat = new KingdomResource();
             $initKingdomMeat->initKingdomResource($kingdom, $meat, KingdomResource::MEAT_STARTER_QUANTITY);
 
-            // Init of the Wood
+            // Init Wood
             $wood = $this->em->getRepository(Resource::class)->find(24);
 
             $initKingdomWood = new KingdomResource();
             $initKingdomWood->initKingdomResource($kingdom, $wood, KingdomResource::WOOD_STARTER_QUANTITY);
 
+            // Init Stone
+            $stone = $this->em->getRepository(Resource::class)->find(23);
+
+            $initKingdomStone = new KingdomResource();
+            $initKingdomStone->initKingdomResource($kingdom, $stone, KingdomResource::STONE_STARTER_QUANTITY);
+
             $this->em->persist($initKingdomMeat);
             $this->em->persist($initKingdomWood);
+            $this->em->persist($initKingdomStone);
             $this->em->persist($player);
             $this->em->flush();
 

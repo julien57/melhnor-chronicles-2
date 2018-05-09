@@ -12,8 +12,10 @@ class KingdomResource
 {
     const MEAT_STARTER_QUANTITY = 1500;
 
-    const WOOD_STARTER_QUANTITY = 1000;
-    
+    const WOOD_STARTER_QUANTITY = 1500;
+
+    const STONE_STARTER_QUANTITY = 1000;
+
     /**
      * @var int
      *
@@ -37,7 +39,7 @@ class KingdomResource
     private $kingdom;
 
     /**
-     * @var Resource
+     * @var resource
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Resource")
      * @ORM\JoinColumn(nullable=false)
@@ -85,7 +87,7 @@ class KingdomResource
     }
 
     /**
-     * @return Resource
+     * @return resource
      */
     public function getResource(): Resource
     {
@@ -93,7 +95,7 @@ class KingdomResource
     }
 
     /**
-     * @param Resource $resource
+     * @param resource $resource
      */
     public function setResource(Resource $resource): void
     {

@@ -15,4 +15,19 @@ class KingdomBuildingRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findLevelBuildingUp($kingdomId, $buildingId, $level)
+    {
+        $qb = $this
+            ->createQueryBuilder('b')
+            ->where('b.kingdom = :kingdom')
+            ->setParameter('kingdom', $kingdomId)
+            ->andWhere('b.building = :building')
+            ->setParameter('building', $buildingId)
+            ->andWhere('b.level != :level')
+            ->setParameter('level', $level)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

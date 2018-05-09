@@ -98,6 +98,14 @@ class Player implements UserInterface
         $this->lastConnection = new \DateTime();
     }
 
+    public function initPlayer(string $username, string $password, string $mail, Avatar $avatar): void
+    {
+        $this->setUsername($username);
+        $this->setPlainPassword($password);
+        $this->setMail($mail);
+        $this->setAvatar($avatar);
+    }
+
     /**
      * @return int
      */

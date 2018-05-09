@@ -7,20 +7,12 @@ use App\Entity\Kingdom;
 use App\Entity\KingdomBuilding;
 use App\Entity\KingdomResource;
 use App\Form\BuildBuildingType;
-use App\Form\BuildingForm;
-use App\Form\BuildingFormType;
-use App\Form\IncreaseBuildingType;
-use App\Form\KingdomBuildingType;
 use App\Form\KingdomType;
-use App\Form\LevelBuildingType;
 use App\Model\BuildBuildingDTO;
-use App\Model\LevelBuildingDTO;
-use App\Model\SetBuildingLevelDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Yaml\Yaml;
 
 class KingdomController extends Controller
 {
@@ -53,7 +45,6 @@ class KingdomController extends Controller
         $buildBuildingForm->handleRequest($request);
 
         if ($buildBuildingForm->isValid()) {
-
             $building = $this->em->getRepository(Building::class)->find($buildBuildingForm->get('building')->getData());
 
             $kingdomBuilding = new KingdomBuilding();
@@ -69,39 +60,45 @@ class KingdomController extends Controller
             return $this->redirectToRoute('kingdom');
         }
 
-        // Find resources and buildings for Player
+        // Buildings and levels Form
         $kingdom = $this->getUser()->getKingdom();
-
-        $kingdomResources = $this->em
-            ->getRepository(KingdomResource::class)
-            ->findBy(['kingdom' => $kingdom])
-        ;
-
-        // Tests Level Buildings
 
         $formBuilding = $this->createForm(KingdomType::class, $kingdom);
         $formBuilding->handleRequest($request);
 
         if ($formBuilding->isValid()) {
+            $modifyLevelBuilding = $this->get('leveling.modify_leveling_building');
 
-            $increaseLevelBuilding = $this->container->get('melhnor.modify_level_building');
-            $increaseLevelBuilding->searchBuilding(1);
+            $resourcesPlayer = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
 
             $kingdomBuildingsForm = $formBuilding->getData()->getKingdomBuildings();
 
+            // Search a building with modified level
             foreach ($kingdomBuildingsForm as $kingdomBuilding) {
-                var_dump($kingdomBuilding->getBuilding()->getId());
+                $modifiedLevels = $this->em->getRepository(KingdomBuilding::class)->findLevelBuildingUp(
+                    $kingdomBuilding->getKingdom()->getId(),
+                    $kingdomBuilding->getBuilding()->getId(),
+                    $kingdomBuilding->getLevel()
+                );
+                if (!empty($modifiedLevels)) {
+                    $resourcesRequired = $modifyLevelBuilding->processingResourcesKingdom($modifiedLevels, $resourcesPlayer);
+                }
             }
-            die();
 
-            $this->em->flush();
+            if (is_null($resourcesRequired)) {
+                $this->addFlash('notice-danger', 'Ressources manquantes !');
 
+                return $this->redirectToRoute('kingdom');
+            }
 
-            // Créer un service qui va calculer les resources nécessaires pour le niveau demandé (S'aider du fichier YML)
-            // Controler si le joueur possède les ressources nécessaires
-                // Si oui : message flash + nouveau niveau bâtiment dans liste bâtiments
-                // Si non : message flash disant que le joueur n'a pas assez de ressources
+            $this->addFlash('notice', 'Niveau du bâtiment augmenté !');
+            $this->redirectToRoute('kingdom');
         }
+
+        $kingdomResources = $this->em
+            ->getRepository(KingdomResource::class)
+            ->findBy(['kingdom' => $kingdom])
+        ;
 
         return $this->render('Game/kingdom.html.twig', [
             'formBuilding' => $formBuilding->createView(),
@@ -111,9 +108,9 @@ class KingdomController extends Controller
     }
 
     /**
-     * @Route("/set-level-building", name="levelBuilding")
+     * @Route("/production", name="production")
      */
-    public function levelBuildingAction(Request $request)
+    public function productionAction()
     {
     }
 }
