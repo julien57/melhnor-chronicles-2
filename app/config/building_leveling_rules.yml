@@ -1,188 +1,188 @@
 # Rules for increase level building
 parameters:
     buildings_rules:
-        hunting_lodge:
-            id: 1
+        1:
+            name: hunting_lodge
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-        vegetable_garden:
-            id: 2
+        2:
+            name: vegetable_garden
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 60
-        plantation:
-            id: 3
+        3:
+            name: plantation
             gold: 70
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 60
-        bakery:
-            id: 4
+        4:
+            name: bakery
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-        dairy_farm:
-            id: 5
+        5:
+            name: dairy_farm
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 60
-        cheese_factory:
-            id: 6
+        6:
+            name: cheese_factory
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-                stone:
-                    id: 23
+                23:
+                    name: stone
                     quantity: 10
-        candle_factory:
-            id: 7
+        7:
+            name: candle_factory
             gold: 70
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-        winery:
-            id: 8
+        8:
+            name: winery
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-                stone:
-                    id: 23
+                23:
+                    name: stone
                     quantity: 5
-        beehives:
-            id: 9
+        9:
+            name: beehives
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-        farm:
-            id: 10
+        10:
+            name: farm
             gold: 40
             resources:
-                wood:
-                  id: 24
-                  quantity: 50
-        grapevine:
-            id: 11
+                24:
+                    name: wood
+                    quantity: 50
+        11:
+            name: grapevine
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-        wheat_field:
-            id: 12
+        12:
+            name: wheat_field
             gold: 40
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 30
-        mill:
-            id: 13
+        13:
+            name: mill
             gold: 60
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 70
-        iron_mine:
-            id: 14
+        14:
+            name: iron_mine
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-        stable:
-            id: 15
+        15:
+            name: stable
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 200
-                stone:
-                    id: 23
+                23:
+                    name: stone
                     quantity: 10
-        forge:
-            id: 16
+        16:
+            name: forge
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-                stone:
-                    id: 23
+                23:
+                    name: stone
                     quantity: 5
-        armory:
-            id: 17
+        17:
+            name: armory
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-                stone:
-                    id: 23
+                23:
+                    name: stone
                     quantity: 5
-        apothecary:
-            id: 18
+        18:
+            name: apothecary
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-        stone_quarry:
-            id: 19
+        19:
+            name: stone_quarry
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-        lamberjack_camp:
-            id: 20
+        20:
+            name: lamberjack_camp
             gold: 50
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 50
-        barrack:
-            id: 21
+        21:
+            name: barrack
             gold: 70
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 70
-                stone:
-                    id: 23
+                23:
+                    name: stone
                     quantity: 15
-        archery:
-            id: 22
+        22:
+            name: archery
             gold: 100
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 100
-                stone:
-                    id: 23
+                23:
+                    name: stone
                     quantity: 10
-        port:
-            id: 23
+        23:
+            name: port
             gold: 100
             resources:
-                wood:
-                    id: 24
+                24:
+                    name: wood
                     quantity: 100
-                stone:
-                    id: 23
+                23:
+                    name: stone
                     quantity: 10

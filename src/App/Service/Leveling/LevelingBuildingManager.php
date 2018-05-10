@@ -2,6 +2,7 @@
 
 namespace App\Service\Leveling;
 
+use App\Entity\KingdomResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -67,156 +68,59 @@ class LevelingBuildingManager
         $this->em = $em;
     }
 
-    private function searchBuilding(int $id)
+    /**
+     * @param $modifiedBuilding
+     * @return bool
+     */
+    public function processingResourcesKingdom($modifiedBuilding)
     {
-        switch ($id) {
-            case 1:
-                $this->building = $this->buildingsRules['hunting_lodge'];
-                break;
-            case 2:
-                $this->building = $this->buildingsRules['vegetable_garden'];
-                break;
-            case 3:
-                $this->building = $this->buildingsRules['plantation'];
-                break;
-            case 4:
-                $this->building = $this->buildingsRules['bakery'];
-                break;
-            case 5:
-                $this->building = $this->buildingsRules['dairy_farm'];
-                break;
-            case 6:
-                $this->building = $this->buildingsRules['cheese_factory'];
-                break;
-            case 7:
-                $this->building = $this->buildingsRules['candle_factory'];
-                break;
-            case 8:
-                $this->building = $this->buildingsRules['winery'];
-                break;
-            case 9:
-                $this->building = $this->buildingsRules['beehives'];
-                break;
-            case 10:
-                $this->building = $this->buildingsRules['farm'];
-                break;
-            case 11:
-                $this->building = $this->buildingsRules['grapevine'];
-                break;
-            case 12:
-                $this->building = $this->buildingsRules['wheat_field'];
-                break;
-            case 13:
-                $this->building = $this->buildingsRules['mill'];
-                break;
-            case 14:
-                $this->building = $this->buildingsRules['iron_mine'];
-                break;
-            case 15:
-                $this->building = $this->buildingsRules['stable'];
-                break;
-            case 16:
-                $this->building = $this->buildingsRules['forge'];
-                break;
-            case 17:
-                $this->building = $this->buildingsRules['armory'];
-                break;
-            case 18:
-                $this->building = $this->buildingsRules['apothecary'];
-                break;
-            case 19:
-                $this->building = $this->buildingsRules['stone_quarry'];
-                break;
-            case 20:
-                $this->building = $this->buildingsRules['lamberjack_camp'];
-                break;
-            case 21:
-                $this->building = $this->buildingsRules['barrack'];
-                break;
-            case 22:
-                $this->building = $this->buildingsRules['archery'];
-                break;
-            case 23:
-                $this->building = $this->buildingsRules['port'];
-                break;
-            default:
-                $this->building = null;
-        }
-    }
+        $this->building = $this->buildingsRules[$modifiedBuilding->getBuilding()->getId()];
 
-    private function goldRequired()
-    {
-        $nbGold = ($this->level * $this->level) * $this->building['gold'];
+        $this->setLevel($modifiedBuilding->getLevel());
+        $this->requiredGoldAmount();
+        $this->requiredResourcesAmount();
 
-        $this->goldRequired += $nbGold;
-
-        return $this->goldRequired;
-    }
-
-    private function resourceRequired()
-    {
-        $nbWood = ($this->level * $this->level) * $this->building['resources']['wood']['quantity'];
-
-        $this->woodRequired += $nbWood;
-
-        if (array_key_exists('stone', $this->building['resources'])) {
-            $this->stoneRequired();
-        }
-
-        return $this->woodRequired;
-    }
-
-    private function stoneRequired()
-    {
-        $nbStone = ($this->level * $this->level) * $this->building['resources']['stone']['quantity'];
-
-        $this->stoneRequired += $nbStone;
-
-        return $this->stoneRequired;
-    }
-
-    public function processingResourcesKingdom($kingdomBuildingsForm, $resourcesPlayer)
-    {
-        foreach ($kingdomBuildingsForm as $kingdomBuilding) {
-            $this->searchBuilding($kingdomBuilding->getBuilding()->getId());
-            $this->setLevel($kingdomBuilding->getLevel());
-
-            // Addition the gold necessary for level up
-            $this->goldRequired();
-
-            // Addition the resources (wood & stone) necessary
-            $this->resourceRequired();
-        }
+        $kingdomPlayer = $this->tokenStorage->getToken()->getUser()->getKingdom();
 
         // Gold Process
-        $goldPlayer = $this->tokenStorage->getToken()->getUser()->getKingdom()->getGold();
+        $goldPlayer = $kingdomPlayer->getGold();
 
         $goldResult = $goldPlayer - $this->goldRequired;
 
         if ($goldResult < 0) {
-            return;
+
+            return false;
+
         } else {
+
             $this->tokenStorage->getToken()->getUser()->getKingdom()->setGold($goldResult);
         }
 
         // Resources process (wood & stone)
-        foreach ($resourcesPlayer as $resourcePlayer) {
-            if ($resourcePlayer->getResource()->getId() === 24) {
-                $woodResult = $resourcePlayer->getQuantity() - $this->woodRequired;
+        $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdomPlayer);
+
+        foreach ($kingdomResources as $kingdomResource) {
+
+            if ($kingdomResource->getResource()->getId() === 24) {
+
+                $woodResult = $kingdomResource->getQuantity() - $this->woodRequired;
 
                 if ($woodResult < 0) {
-                    return;
+                    return false;
                 }
-                $resourcePlayer->setQuantity($woodResult);
+
+                $kingdomResource->setQuantity($woodResult);
             }
 
-            if ($resourcePlayer->getResource()->getId() === 23) {
-                $stoneResult = $resourcePlayer->getQuantity() - $this->stoneRequired;
+            if ($kingdomResource->getResource()->getId() === 23) {
+
+                $stoneResult = $kingdomResource->getQuantity() - $this->stoneRequired;
 
                 if ($stoneResult < 0) {
-                    return;
+                    return false;
                 }
-                $resourcePlayer->setQuantity($stoneResult);
+
+                $kingdomResource->setQuantity($stoneResult);
             }
         }
 
@@ -287,5 +191,26 @@ class LevelingBuildingManager
     public function setStoneRequired(?int $stoneRequired): void
     {
         $this->stoneRequired = $stoneRequired;
+    }
+
+    private function requiredGoldAmount()
+    {
+        $nbGold = ($this->level * $this->level) * $this->building['gold'];
+
+        $this->goldRequired += $nbGold;
+    }
+
+    private function requiredResourcesAmount()
+    {
+        $nbWood = ($this->level * $this->level) * $this->building['resources']['24']['quantity'];
+
+        $this->woodRequired += $nbWood;
+
+        if (array_key_exists('stone', $this->building['resources'])) {
+
+            $nbStone = ($this->level * $this->level) * $this->building['resources']['23']['quantity'];
+
+            $this->stoneRequired += $nbStone;
+        }
     }
 }

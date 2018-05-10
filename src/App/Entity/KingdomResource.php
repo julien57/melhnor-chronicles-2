@@ -46,6 +46,13 @@ class KingdomResource
      */
     private $resource;
 
+    public function __construct(Kingdom $kingdom, Resource $resource, int $quantity)
+    {
+        $this->kingdom = $kingdom;
+        $this->resource = $resource;
+        $this->quantity = $quantity;
+    }
+
     /**
      * @return int
      */
@@ -102,10 +109,10 @@ class KingdomResource
         $this->resource = $resource;
     }
 
-    public function initKingdomResource(Kingdom $kingdom, Resource $resourceStart, int $quantityStart)
+    public function initKingdomResource()
     {
-        $this->setKingdom($kingdom);
-        $this->setResource($resourceStart);
-        $this->setQuantity($quantityStart);
+        $this->setKingdom($this->kingdom);
+        $this->setResource($this->resource);
+        $this->setQuantity($this->quantity);
     }
 }
