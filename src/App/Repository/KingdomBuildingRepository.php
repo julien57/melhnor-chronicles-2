@@ -28,6 +28,6 @@ class KingdomBuildingRepository extends EntityRepository
             ->setParameter('level', $level)
         ;
 
-        return $qb->getQuery()->getResult();
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

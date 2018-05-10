@@ -40,25 +40,26 @@ class KingdomController extends Controller
         $formBuilding->handleRequest($request);
 
         if ($formBuilding->isValid()) {
-            $resourcesPlayer = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
 
             $kingdomBuildingsForm = $formBuilding->getData()->getKingdomBuildings();
 
             // Search a building with modified level
             foreach ($kingdomBuildingsForm as $kingdomBuilding) {
-                $modifiedLevels = $this->em->getRepository(KingdomBuilding::class)->findLevelBuildingUp(
+                $modifiedBuilding = $this->em->getRepository(KingdomBuilding::class)->findLevelBuildingUp(
                     $kingdomBuilding->getKingdom()->getId(),
                     $kingdomBuilding->getBuilding()->getId(),
                     $kingdomBuilding->getLevel()
                 );
-                if (!empty($modifiedLevels)) {
-                    $resourcesRequired = $this->levelingBuildingManager->processingResourcesKingdom($modifiedLevels, $resourcesPlayer);
+
+                if (!is_null($modifiedBuilding)) {
+
+                    $resourcesRequired = $this->levelingBuildingManager->processingResourcesKingdom($modifiedBuilding);
                 }
             }
 
-            if (is_null($resourcesRequired)) {
-                $this->addFlash('notice-danger', 'Ressources manquantes !');
+            if (!$resourcesRequired) {
 
+                $this->addFlash('notice-danger', 'Ressources manquantes !');
                 return $this->redirectToRoute('kingdom');
             }
 
