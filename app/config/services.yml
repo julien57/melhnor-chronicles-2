@@ -13,6 +13,8 @@ services:
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
         public: false
+        bind:
+            $buildingsRules: %buildings_rules%
 
     app.security.login_form_authentificator:
         class: App\Security\LoginFormAuthentificator
@@ -24,14 +26,8 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
-    leveling.modify_leveling_building:
-        class: App\Service\Leveling\ModifyLevelBuilding
+    App\Service\Leveling\LevelingBuildingManager:
         public: true
-        arguments:
-            - %buildings_rules%
-            - '@security.token_storage'
-            - '@session'
-            - '@doctrine.orm.entity_manager'
 
 # makes classes in src/GameBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

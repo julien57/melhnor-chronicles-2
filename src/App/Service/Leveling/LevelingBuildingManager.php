@@ -3,11 +3,10 @@
 namespace App\Service\Leveling;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ModifyLevelBuilding
+class LevelingBuildingManager
 {
     /**
      * @var int
@@ -57,9 +56,9 @@ class ModifyLevelBuilding
     private $em;
 
     public function __construct(
-        array $buildingsRules,
+        $buildingsRules,
         TokenStorageInterface $tokenStorage,
-        Session $session,
+        SessionInterface $session,
         EntityManagerInterface $em
     ) {
         $this->buildingsRules = $buildingsRules;
@@ -68,84 +67,12 @@ class ModifyLevelBuilding
         $this->em = $em;
     }
 
-    public function searchBuilding(int $id)
+    private function searchBuilding(int $id)
     {
-        switch ($id) {
-            case 1:
-                $this->building = $this->buildingsRules['hunting_lodge'];
-                break;
-            case 2:
-                $this->building = $this->buildingsRules['vegetable_garden'];
-                break;
-            case 3:
-                $this->building = $this->buildingsRules['plantation'];
-                break;
-            case 4:
-                $this->building = $this->buildingsRules['bakery'];
-                break;
-            case 5:
-                $this->building = $this->buildingsRules['dairy_farm'];
-                break;
-            case 6:
-                $this->building = $this->buildingsRules['cheese_factory'];
-                break;
-            case 7:
-                $this->building = $this->buildingsRules['candle_factory'];
-                break;
-            case 8:
-                $this->building = $this->buildingsRules['winery'];
-                break;
-            case 9:
-                $this->building = $this->buildingsRules['beehives'];
-                break;
-            case 10:
-                $this->building = $this->buildingsRules['farm'];
-                break;
-            case 11:
-                $this->building = $this->buildingsRules['grapevine'];
-                break;
-            case 12:
-                $this->building = $this->buildingsRules['wheat_field'];
-                break;
-            case 13:
-                $this->building = $this->buildingsRules['mill'];
-                break;
-            case 14:
-                $this->building = $this->buildingsRules['iron_mine'];
-                break;
-            case 15:
-                $this->building = $this->buildingsRules['stable'];
-                break;
-            case 16:
-                $this->building = $this->buildingsRules['forge'];
-                break;
-            case 17:
-                $this->building = $this->buildingsRules['armory'];
-                break;
-            case 18:
-                $this->building = $this->buildingsRules['apothecary'];
-                break;
-            case 19:
-                $this->building = $this->buildingsRules['stone_quarry'];
-                break;
-            case 20:
-                $this->building = $this->buildingsRules['lamberjack_camp'];
-                break;
-            case 21:
-                $this->building = $this->buildingsRules['barrack'];
-                break;
-            case 22:
-                $this->building = $this->buildingsRules['archery'];
-                break;
-            case 23:
-                $this->building = $this->buildingsRules['port'];
-                break;
-            default:
-                $this->building = null;
-        }
+        $this->building = $this->buildingsRules[$id];
     }
 
-    public function goldRequired()
+    private function goldRequired()
     {
         $nbGold = ($this->level * $this->level) * $this->building['gold'];
 
@@ -154,7 +81,7 @@ class ModifyLevelBuilding
         return $this->goldRequired;
     }
 
-    public function resourceRequired()
+    private function resourceRequired()
     {
         $nbWood = ($this->level * $this->level) * $this->building['resources']['wood']['quantity'];
 
@@ -167,7 +94,7 @@ class ModifyLevelBuilding
         return $this->woodRequired;
     }
 
-    public function stoneRequired()
+    private function stoneRequired()
     {
         $nbStone = ($this->level * $this->level) * $this->building['resources']['stone']['quantity'];
 

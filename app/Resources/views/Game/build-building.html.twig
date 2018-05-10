@@ -1,0 +1,25 @@
+{% extends "game-layout.html.twig" %}
+
+{% block content %}
+
+    <div class="fluid-container">
+
+        <h3>Construire un bâtiment</h3>
+
+        <div class="col-md-3 col-md-offset-4">
+            <form action="{{ path('build-building') }}" method="post" class="contact-form">
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_widget(buildBuildingForm.building, {'attr': {'class': 'form-control'}}) }}<br>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn">Construire</button>
+                </div>
+                {{ form_rest(buildBuildingForm) }}
+            </form>
+        </div>
+
+    </div>
+
+{% endblock %}
