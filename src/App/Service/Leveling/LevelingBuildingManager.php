@@ -3,11 +3,10 @@
 namespace App\Service\Leveling;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ModifyLevelBuilding
+class LevelingBuildingManager
 {
     /**
      * @var int
@@ -57,9 +56,9 @@ class ModifyLevelBuilding
     private $em;
 
     public function __construct(
-        array $buildingsRules,
+        $buildingsRules,
         TokenStorageInterface $tokenStorage,
-        Session $session,
+        SessionInterface $session,
         EntityManagerInterface $em
     ) {
         $this->buildingsRules = $buildingsRules;
@@ -68,7 +67,7 @@ class ModifyLevelBuilding
         $this->em = $em;
     }
 
-    public function searchBuilding(int $id)
+    private function searchBuilding(int $id)
     {
         switch ($id) {
             case 1:
@@ -145,7 +144,7 @@ class ModifyLevelBuilding
         }
     }
 
-    public function goldRequired()
+    private function goldRequired()
     {
         $nbGold = ($this->level * $this->level) * $this->building['gold'];
 
@@ -154,7 +153,7 @@ class ModifyLevelBuilding
         return $this->goldRequired;
     }
 
-    public function resourceRequired()
+    private function resourceRequired()
     {
         $nbWood = ($this->level * $this->level) * $this->building['resources']['wood']['quantity'];
 
@@ -167,7 +166,7 @@ class ModifyLevelBuilding
         return $this->woodRequired;
     }
 
-    public function stoneRequired()
+    private function stoneRequired()
     {
         $nbStone = ($this->level * $this->level) * $this->building['resources']['stone']['quantity'];
 
