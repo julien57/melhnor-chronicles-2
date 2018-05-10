@@ -40,7 +40,6 @@ class KingdomController extends Controller
         $formBuilding->handleRequest($request);
 
         if ($formBuilding->isValid()) {
-
             $resourcesPlayer = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
 
             $kingdomBuildingsForm = $formBuilding->getData()->getKingdomBuildings();
@@ -74,7 +73,7 @@ class KingdomController extends Controller
 
         return $this->render('Game/kingdom.html.twig', [
             'formBuilding' => $formBuilding->createView(),
-            'kingdomResources' => $kingdomResources
+            'kingdomResources' => $kingdomResources,
         ]);
     }
 }
