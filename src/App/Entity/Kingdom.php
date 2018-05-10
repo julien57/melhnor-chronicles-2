@@ -74,16 +74,11 @@ class Kingdom
      */
     private $kingdomBuildings;
 
-    public function __construct()
+    public function __construct(string $name, Region $region)
     {
         $this->kingdomBuildings = new ArrayCollection();
-    }
-
-    public function initKingdom(string $name, Region $region): void
-    {
-        $this->setName('Royaume de '.$name);
-        $this->setDescription('Aucune description');
-        $this->setRegion($region);
+        $this->name = $name;
+        $this->region = $region;
     }
 
     /**
@@ -234,5 +229,12 @@ class Kingdom
     public function getKingdomBuildings()
     {
         return $this->kingdomBuildings;
+    }
+
+    public function initKingdom(): void
+    {
+        $this->setName('Royaume de '.$this->name);
+        $this->setDescription('Aucune description');
+        $this->setRegion($this->region);
     }
 }

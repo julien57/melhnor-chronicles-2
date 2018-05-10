@@ -47,44 +47,60 @@ class SecurityController extends Controller
         if ($form->isValid()) {
             $data = $form->getData();
 
-            $player = new Player();
-            $player->initPlayer(
+            $player = new Player(
                 $data->getUsername(),
                 $data->getPassword(),
                 $data->getMail(),
                 $data->getAvatar()
             );
 
-            $kingdom = new Kingdom();
-            $kingdom->initKingdom(
+            $player->initPlayer();
+
+            $kingdom = new Kingdom(
                 $data->getUsername(),
                 $data->getRegion()
             );
+
+            $kingdom->initKingdom();
 
             $player->setKingdom($kingdom);
 
             // Init Meat
             $meat = $this->em->getRepository(Resource::class)->find(1);
 
-            $initKingdomMeat = new KingdomResource();
-            $initKingdomMeat->initKingdomResource($kingdom, $meat, KingdomResource::MEAT_STARTER_QUANTITY);
+            $initKingdomMeat = new KingdomResource(
+                $kingdom,
+                $meat,
+                KingdomResource::MEAT_STARTER_QUANTITY
+            );
 
             // Init Wood
             $wood = $this->em->getRepository(Resource::class)->find(24);
 
-            $initKingdomWood = new KingdomResource();
-            $initKingdomWood->initKingdomResource($kingdom, $wood, KingdomResource::WOOD_STARTER_QUANTITY);
+            $initKingdomWood = new KingdomResource(
+                $kingdom,
+                $wood,
+                KingdomResource::WOOD_STARTER_QUANTITY
+            );
 
             // Init Stone
             $stone = $this->em->getRepository(Resource::class)->find(23);
 
-            $initKingdomStone = new KingdomResource();
-            $initKingdomStone->initKingdomResource($kingdom, $stone, KingdomResource::STONE_STARTER_QUANTITY);
+            $initKingdomStone = new KingdomResource(
+                $kingdom,
+                $stone,
+                KingdomResource::STONE_STARTER_QUANTITY
+            );
+
+            $initKingdomMeat->initKingdomResource();
+            $initKingdomWood->initKingdomResource();
+            $initKingdomStone->initKingdomResource();
 
             $this->em->persist($initKingdomMeat);
             $this->em->persist($initKingdomWood);
             $this->em->persist($initKingdomStone);
             $this->em->persist($player);
+
             $this->em->flush();
 
             $this->addFlash(

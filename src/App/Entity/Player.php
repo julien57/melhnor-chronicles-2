@@ -92,18 +92,14 @@ class Player implements UserInterface
      */
     private $kingdom;
 
-    public function __construct()
+    public function __construct(string $username, string $password, string $mail, Avatar $avatar)
     {
         $this->dateRegistration = new \DateTime();
         $this->lastConnection = new \DateTime();
-    }
-
-    public function initPlayer(string $username, string $password, string $mail, Avatar $avatar): void
-    {
-        $this->setUsername($username);
-        $this->setPlainPassword($password);
-        $this->setMail($mail);
-        $this->setAvatar($avatar);
+        $this->username = $username;
+        $this->password = $password;
+        $this->mail = $mail;
+        $this->avatar = $avatar;
     }
 
     /**
@@ -314,5 +310,13 @@ class Player implements UserInterface
     public function eraseCredentials()
     {
         $this->plainPassword = null;
+    }
+
+    public function initPlayer(): void
+    {
+        $this->setUsername($this->username);
+        $this->setPlainPassword($this->password);
+        $this->setMail($this->mail);
+        $this->setAvatar($this->avatar);
     }
 }
