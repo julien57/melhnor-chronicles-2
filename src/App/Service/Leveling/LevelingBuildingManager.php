@@ -68,11 +68,7 @@ class LevelingBuildingManager
         $this->em = $em;
     }
 
-    /**
-     * @param $modifiedBuilding
-     * @return bool
-     */
-    public function processingResourcesKingdom($modifiedBuilding)
+    public function processingResourcesKingdom($kingdomBuildingsForm, $resourcesPlayer)
     {
         $this->building = $this->buildingsRules[$modifiedBuilding->getBuilding()->getId()];
 
