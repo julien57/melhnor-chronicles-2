@@ -29,6 +29,9 @@ services:
     App\Service\Leveling\LevelingBuildingManager:
         public: true
 
+    App\Service\Production\ProductionResourcesManager:
+        public: true
+
 # makes classes in src/GameBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
