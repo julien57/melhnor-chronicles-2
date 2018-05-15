@@ -3,8 +3,11 @@
 namespace App\Service\Production;
 
 use App\Entity\BuildingResource;
+use App\Entity\Kingdom;
 use App\Entity\KingdomBuilding;
 use App\Entity\KingdomResource;
+use App\Entity\Player;
+use App\Entity\Resource;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -20,11 +23,11 @@ class ProductionResourcesManager
      */
     private $tokenStorage;
 
+    private $resourcesProduced = [];
+
+    private $resourcesRequired = [];
+
     private $buildingsResource = [];
-
-    private $resourceForUse = [];
-
-    private $resultProduction = [];
 
     public function __construct(EntityManagerInterface $em, TokenStorageInterface $tokenStorage)
     {
@@ -34,91 +37,125 @@ class ProductionResourcesManager
 
     public function processProduction()
     {
-        $kingdom = $this->tokenStorage->getToken()->getUser()->getKingdom();
-
+        /** @var Player $user */
+        $user = $this->tokenStorage->getToken()->getUser();
+        $kingdom = $user->getKingdom();
         $population = $kingdom->getPopulation();
 
         $kingdomBuildings = $this->em->getRepository(KingdomBuilding::class)->findByKingdom($kingdom);
 
+        /** @var KingdomBuilding $kingdomBuilding */
         foreach ($kingdomBuildings as $kingdomBuilding) {
-
-            $this->buildingsResource[] = $this->em->getRepository(BuildingResource::class)->findByBuilding($kingdomBuilding->getBuilding());
+            $building = $kingdomBuilding->getBuilding();
+            $buildingResources = $this->em->getRepository(BuildingResource::class)->findByBuilding($building);
         }
 
+        foreach ($this->buildingsResource as $buildingsResource) {
+            foreach ($buildingsResource as $buildingResource) {
+                // If building no produced resources is null (Archery for exemple)
+                if (!is_null($buildingResource)) {
+                    if ($buildingResource->isrequired()) {
+                        $resourceExist = $this->em->getRepository(KingdomResource::class)->resourcesExistsInKingdom($kingdom, $buildingResource->getResource());
 
-        foreach ($this->buildingsResource as $buildingResources) {
+                        if ($resourceExist) {
+                            $quantityOfResource = $resourceExist->getQuantity();
 
-            foreach ($buildingResources as $buildingResource) {
+                            // Use between 30% at 75% from resource available
+                            $resourceUsed = $this->randomResultProduction(
+                                ($quantityOfResource * 30) / 100,
+                                ($quantityOfResource * 75) / 100
+                            );
 
-                $kingdomBuilding = $this->em->getRepository(KingdomBuilding::class)->findOneByBuilding($buildingResource->getBuilding());
-
-                if ($buildingResource->isRequired()) {
-
-                    $resourceRequired = $buildingResource->getResource();
-
-                    $resourcesAvailableInKingdom = $this->em->getRepository(KingdomResource::class)->findOneByResource($resourceRequired);
-
-                    if (!is_null($resourcesAvailableInKingdom)) {
-
-                        $this->resourceForUse[$buildingResource->getBuilding()->getId()] = $resourcesAvailableInKingdom->getQuantity();
-                    }
-                }
-
-                if ($buildingResource->isProduction()) {
-
-                    if (array_key_exists($buildingResource->getBuilding()->getId(), $this->resourceForUse)) {
-
-                        $resourceRequiredForProduce = $this->em->getRepository(BuildingResource::class)->findOneByBuilding($buildingResource->getBuilding());
-
-                        $availableResource = $this->resourceForUse[$buildingResource->getBuilding()->getId()];
-
-                        // Use between 50% at 75% from resource available
-                        $resourceUsed = $this->randomResultProduction(
-                            ($availableResource * 50) / 100,
-                            ($availableResource * 75) / 100
-                        );
-
-                        $this->resultProduction['used'][$resourceRequiredForProduce->getResource()->getId()] = $resourceUsed;
-
+                            $this->resourcesRequired[$buildingResource->getBuilding()->getId()][$buildingResource->getResource()->getName()] = $resourceUsed;
+                        }
                     }
 
-                    $resourcesProduce = $this->randomResultProduction(
-                        ($population / 20) * $kingdomBuilding->getLevel(),
-                        ($population / 15) * $kingdomBuilding->getLevel()
-                    );
+                    if ($buildingResource->isProduction()) {
+                        $kingdomBuilding = $this->em->getRepository(KingdomBuilding::class)->findOneByBuilding($buildingResource->getBuilding());
 
-                    $resource = $buildingResource->getResource();
+                        // If resource required is available in kingdom
+                        if (array_key_exists($buildingResource->getBuilding()->getId(), $this->resourcesRequired)) {
+                            $availableResourceRequired = $this->resourcesRequired[
+                                $buildingResource->getBuilding()->getId()
+                            ];
 
-                    $resourceFromKingdom = $this->em->getRepository(KingdomResource::class)->resourcesExistsInKingdom($kingdom, $resource);
+                            $idResource = key($availableResourceRequired);
 
-                    // If resource ever exist in kingdom
-                    if ($resourceFromKingdom) {
+                            $quantityResource = $availableResourceRequired[$idResource];
 
-                        $quantityInKingdom = $resourceFromKingdom->getQuantity();
+                            // Use between 60 at 85% for this resource for the production
+                            $quantityUsedInKingdom = $this->randomResultProduction(
+                                ($quantityResource * 60) / 100,
+                                ($quantityResource * 85) / 100
+                            );
 
-                        $quantityResult = $quantityInKingdom + $resourcesProduce;
+                            $resourceQuantityInKingdom = $this->em->getRepository(KingdomResource::class)->resourcesExistsInKingdom($kingdom, $idResource);
 
-                        $resourceFromKingdom->setQuantity($quantityResult);
+                            $resultQuantityWithUsed = $resourceQuantityInKingdom->getQuantity() - $quantityUsedInKingdom;
 
-                    // Else creating a new KingdomResource
-                    } else {
+                            // If quantity > 0, register in BDD
+                            if ($resultQuantityWithUsed > 0) {
+                                $resourceQuantityInKingdom->setQuantity($resultQuantityWithUsed);
 
-                        $kingdomResource = new KingdomResource($kingdom, $resource, $resourcesProduce);
+                                // else this building no produce
+                            } else {
+                                continue;
+                            }
 
-                        $this->em->persist($kingdomResource);
+                            $resourceName = $this->em->getRepository(Resource::class)->find($idResource);
+
+                            $resourceProduce = intval(($quantityUsedInKingdom * $kingdomBuilding->getLevel()) / 10);
+
+                            $this->resourcesProduced['used'][$resourceName->getId()] = $quantityUsedInKingdom;
+
+                            $this->resourcesProduced['produced'][$buildingResource->getResource()->getName()] = $resourceProduce;
+
+                            // If building no required resource, he simply produce
+                        } else {
+                            $resourceProduce = $this->randomResultProduction(
+                                ($population / 20) * $kingdomBuilding->getLevel(),
+                                ($population / 15) * $kingdomBuilding->getLevel()
+                            );
+
+                            $this->resourcesProduced['produced'][$buildingResource->getResource()->getName()] = $resourceProduce;
+                        }
+
+                        $resource = $buildingResource->getResource();
+
+                        $resourceFromKingdom = $this->em->getRepository(KingdomResource::class)->resourcesExistsInKingdom($kingdom, $resource);
+
+                        // Update if resource exist in kingdom
+                        if ($resourceFromKingdom) {
+                            $quantityInKingdom = $resourceFromKingdom->getQuantity();
+
+                            $quantityResult = $quantityInKingdom + $resourceProduce;
+
+                            $resourceFromKingdom->setQuantity($quantityResult);
+
+                            // Create resource if no exist
+                        } else {
+                            $kingdomResource = new KingdomResource($kingdom, $resource, $resourceProduce);
+
+                            $this->em->persist($kingdomResource);
+                        }
                     }
-
-                    $this->resultProduction['produced'][$buildingResource->getResource()->getId()] = $resourcesProduce;
                 }
             }
         }
-        var_dump($this->resultProduction);
-        die();
+
+        $this->em->flush();
+
+        return $this->resourcesProduced;
+    }
+
+    public function addPopulation()
+    {
     }
 
     /**
      * @param int $min
      * @param int $max
+     *
      * @return int
      */
     private function randomResultProduction(int $min, int $max): int

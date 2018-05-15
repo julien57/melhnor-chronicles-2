@@ -217,7 +217,7 @@ class Player implements UserInterface
     /**
      * @return Kingdom
      */
-    public function getKingdom()
+    public function getKingdom(): ?Kingdom
     {
         return $this->kingdom;
     }

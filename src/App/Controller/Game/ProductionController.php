@@ -3,7 +3,6 @@
 namespace App\Controller\Game;
 
 use App\Service\Production\ProductionResourcesManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -14,15 +13,9 @@ class ProductionController extends Controller
      */
     private $productionResourcesManager;
 
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    public function __construct(EntityManagerInterface $em, ProductionResourcesManager $productionResourcesManager)
+    public function __construct(ProductionResourcesManager $productionResourcesManager)
     {
         $this->productionResourcesManager = $productionResourcesManager;
-        $this->em = $em;
     }
 
     /**
@@ -32,8 +25,8 @@ class ProductionController extends Controller
     {
         $resultProduce = $this->productionResourcesManager->processProduction();
 
-        var_dump($resultProduce); die();
-
-        return $this->render('Game/production.html.twig');
+        return $this->render('Game/production.html.twig', [
+            'resultProduce' => $resultProduce,
+        ]);
     }
 }

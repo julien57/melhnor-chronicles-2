@@ -43,102 +43,127 @@ class CreateResourceCommand extends Command
             [
                 'name' => 'Viande',
                 'price' => 4,
+                'isFood' => true,
             ],
             [
                 'name' => 'Légumes',
                 'price' => 4,
+                'isFood' => true,
             ],
             [
                 'name' => 'Fruits',
                 'price' => 4,
+                'isFood' => true,
             ],
             [
                 'name' => 'Pain',
                 'price' => 8,
+                'isFood' => true,
             ],
             [
                 'name' => 'Lait',
                 'price' => 8,
+                'isFood' => true,
             ],
             [
                 'name' => 'Miel',
                 'price' => 6,
+                'isFood' => true,
             ],
             [
                 'name' => 'Épices',
                 'price' => 20,
+                'isFood' => true,
             ],
             [
                 'name' => 'Fromage',
                 'price' => 40,
+                'isFood' => true,
             ],
             [
                 'name' => 'Bougies',
                 'price' => 40,
+                'isFood' => true,
             ],
             [
                 'name' => 'Bouteilles de vin',
                 'price' => 40,
+                'isFood' => true,
             ],
             [
                 'name' => 'Chevaux',
                 'price' => 1500,
+                'isFood' => false,
             ],
             [
                 'name' => 'Armes',
                 'price' => 180,
+                'isFood' => false,
             ],
             [
                 'name' => 'Arcs',
                 'price' => 100,
+                'isFood' => false,
             ],
             [
                 'name' => 'Armures',
                 'price' => 140,
+                'isFood' => false,
             ],
             [
                 'name' => 'Plantes Médicinales',
                 'price' => 4,
+                'isFood' => false,
             ],
             [
                 'name' => 'Cire d\'Abeilles',
                 'price' => 4,
+                'isFood' => false,
             ],
             [
                 'name' => 'Vaches',
                 'price' => 1000,
+                'isFood' => false,
             ],
             [
                 'name' => 'Raisin',
                 'price' => 4,
+                'isFood' => true,
             ],
             [
                 'name' => 'Blé',
                 'price' => 4,
+                'isFood' => false,
             ],
             [
                 'name' => 'Farine',
                 'price' => 10,
+                'isFood' => false,
             ],
             [
                 'name' => 'Fer',
                 'price' => 6,
+                'isFood' => false,
             ],
             [
                 'name' => 'Potions de Soin',
                 'price' => 20,
+                'isFood' => false,
             ],
             [
                 'name' => 'Pierre',
                 'price' => 4,
+                'isFood' => false,
             ],
             [
                 'name' => 'Bois',
                 'price' => 2,
+                'isFood' => false,
             ],
             [
                 'name' => 'Foin',
                 'price' => 4,
+                'isFood' => false,
             ],
         ];
 
@@ -146,6 +171,7 @@ class CreateResourceCommand extends Command
             $resource = new Resource();
             $resource->setName($name['name']);
             $resource->setPrice($name['price']);
+            $resource->setIsFood($name['isFood']);
 
             $this->em->persist($resource);
         }
