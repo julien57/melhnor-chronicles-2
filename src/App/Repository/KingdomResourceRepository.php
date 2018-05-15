@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityRepository;
 
 class KingdomResourceRepository extends EntityRepository
 {
-    public function resourcesExistsInKingdom($kingdom, $resource)
+    public function getKingdomExistingResource($kingdom, $resource)
     {
         $qb = $this
             ->createQueryBuilder('k')

@@ -18,7 +18,7 @@
                 <h3>Ressources utilisées</h3>
 
                 {% if resultProduce.used is defined %}
-                    {% for resource, quantity in resultUse.used %}
+                    {% for resource, quantity in resultProduce.used %}
                         <p>{{ resource }} : {{ quantity }}</p>
                     {% endfor %}
                 {% endif %}

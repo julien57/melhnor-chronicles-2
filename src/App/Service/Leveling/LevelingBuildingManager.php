@@ -98,6 +98,7 @@ class LevelingBuildingManager
         $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdomPlayer);
 
         foreach ($kingdomResources as $kingdomResource) {
+
             if ($kingdomResource->getResource()->getId() === 24) {
                 $woodResult = $kingdomResource->getQuantity() - $this->woodRequired;
 
@@ -109,6 +110,7 @@ class LevelingBuildingManager
             }
 
             if ($kingdomResource->getResource()->getId() === 23) {
+
                 $stoneResult = $kingdomResource->getQuantity() - $this->stoneRequired;
 
                 if ($stoneResult < 0) {
@@ -201,7 +203,7 @@ class LevelingBuildingManager
 
         $this->woodRequired += $nbWood;
 
-        if (array_key_exists('stone', $this->building['resources'])) {
+        if (array_key_exists('23', $this->building['resources'])) {
             $nbStone = ($this->level * $this->level) * $this->building['resources']['23']['quantity'];
 
             $this->stoneRequired += $nbStone;
