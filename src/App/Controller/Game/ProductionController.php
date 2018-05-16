@@ -2,6 +2,7 @@
 
 namespace App\Controller\Game;
 
+use App\Service\Production\ProductionPopulationManager;
 use App\Service\Production\ProductionResourcesManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,11 +12,17 @@ class ProductionController extends Controller
     /**
      * @var ProductionResourcesManager
      */
-    private $productionResourcesManager;
+    private $resourcesManager;
 
-    public function __construct(ProductionResourcesManager $productionResourcesManager)
+    /**
+     * @var ProductionPopulationManager
+     */
+    private $populationManager;
+
+    public function __construct(ProductionResourcesManager $resourcesManager, ProductionPopulationManager $populationManager)
     {
-        $this->productionResourcesManager = $productionResourcesManager;
+        $this->resourcesManager = $resourcesManager;
+        $this->populationManager = $populationManager;
     }
 
     /**
@@ -23,7 +30,8 @@ class ProductionController extends Controller
      */
     public function productionAction()
     {
-        $resultProduce = $this->productionResourcesManager->processProduction();
+        $resultProduce = $this->resourcesManager->processProduction();
+        $this->populationManager->addPopulation();
 
         return $this->render('Game/production.html.twig', [
             'resultProduce' => $resultProduce,

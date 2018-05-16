@@ -2,6 +2,7 @@
 
 namespace App\Service\Production;
 
+use App\Entity\Building;
 use App\Entity\BuildingResource;
 use App\Entity\Kingdom;
 use App\Entity\KingdomBuilding;
@@ -23,10 +24,30 @@ class ProductionResourcesManager
      */
     private $tokenStorage;
 
+    /**
+     * contains the resources produced and used for display in /production
+     * [produced]
+     *      resourceName => quantity
+     * [used]
+     *      resourceName => quantity
+     *
+     * @var array
+     */
     private $resourcesProduced = [];
 
+    /**
+     * Resources required for production
+     * IdResource => quantity
+     *
+     * @var array
+     */
     private $resourcesRequired = [];
 
+    /**
+     * Contain a buildingId if resource required no exist in kingdom for cancel the production
+     *
+     * @var array
+     */
     private $productionUnavailable = [];
 
     public function __construct(EntityManagerInterface $em, TokenStorageInterface $tokenStorage)
@@ -35,10 +56,14 @@ class ProductionResourcesManager
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function processProduction()
+    /**
+     * @return array
+     */
+    public function processProduction(): array
     {
         /** @var Player $user */
         $user = $this->tokenStorage->getToken()->getUser();
+        /** @var Kingdom $kingdom */
         $kingdom = $user->getKingdom();
 
         $kingdomBuildings = $this->em->getRepository(KingdomBuilding::class)->findByKingdom($kingdom);
@@ -50,6 +75,7 @@ class ProductionResourcesManager
 
             /** @var BuildingResource $buildingResource */
             foreach ($buildingResources as $buildingResource) {
+                /** @var Resource $resource */
                 $resource = $buildingResource->getResource();
 
                 // If building no produced resources is null (Archery for exemple)
@@ -58,13 +84,12 @@ class ProductionResourcesManager
                 }
 
                 if ($buildingResource->isRequired()) {
-
                     $this->resourceRequiredInProduction($building, $resource, $kingdom);
                 }
             }
 
             foreach ($buildingResources as $buildingResource) {
-                // If building no produced resources is null (Archery for exemple)
+                /** @var Resource $resource */
                 $resource = $buildingResource->getResource();
 
                 if (is_null($buildingResource)) {
@@ -76,13 +101,17 @@ class ProductionResourcesManager
                 }
             }
         }
-
         $this->em->flush();
 
         return $this->resourcesProduced;
     }
 
-    private function resourceRequiredInProduction($building, $resource, $kingdom)
+    /**
+     * @param Building $building
+     * @param Resource $resource
+     * @param Kingdom $kingdom
+     */
+    private function resourceRequiredInProduction(Building $building, Resource $resource, Kingdom $kingdom)
     {
         $kingdomResource = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $resource);
 
@@ -102,10 +131,15 @@ class ProductionResourcesManager
         $this->resourcesRequired[$building->getId()][$resource->getId()] = $resourceUsed;
     }
 
-    private function resourceProducedInProduction($building, $resource, $kingdom)
+    /**
+     * @param Building $building
+     * @param Resource $resource
+     * @param Kingdom $kingdom
+     */
+    private function resourceProducedInProduction(Building $building, Resource $resource, Kingdom $kingdom)
     {
         $population = $kingdom->getPopulation();
-
+        /** @var KingdomBuilding $kingdomBuilding */
         $kingdomBuilding = $this->em->getRepository(KingdomBuilding::class)->findOneByBuilding($building);
 
         if (array_key_exists($building->getId(), $this->productionUnavailable)) {
@@ -146,12 +180,13 @@ class ProductionResourcesManager
                 return;
             }
 
-
             $resourceProduce = intval(($quantityUsedInKingdom * $kingdomBuilding->getLevel()) / 10);
 
             $this->resourcesProduced['used'][$resourceQuantityInKingdom->getResource()->getName()] = $quantityUsedInKingdom;
 
             $this->resourcesProduced['produced'][$resource->getName()] = $resourceProduce;
+
+            return;
 
             // If building no required resource, he simply produce
         } else {
