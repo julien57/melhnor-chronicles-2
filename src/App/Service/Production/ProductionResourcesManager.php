@@ -71,11 +71,15 @@ class ProductionResourcesManager
         /** @var KingdomBuilding $kingdomBuilding */
         foreach ($kingdomBuildings as $kingdomBuilding) {
             $building = $kingdomBuilding->getBuilding();
-            $buildingResources = $this->em->getRepository(BuildingResource::class)->findByBuilding($building);
+            $buildingResources = $this
+                ->em
+                ->getRepository(BuildingResource::class)
+                ->findByBuilding($building)
+            ;
 
             /** @var BuildingResource $buildingResource */
             foreach ($buildingResources as $buildingResource) {
-                /** @var Resource $resource */
+                /** @var resource $resource */
                 $resource = $buildingResource->getResource();
 
                 // If building no produced resources is null (Archery for exemple)
@@ -84,39 +88,48 @@ class ProductionResourcesManager
                 }
 
                 if ($buildingResource->isRequired()) {
-                    $this->resourceRequiredInProduction($building, $resource, $kingdom);
+                    $this->resourceRequiredInProduction($kingdomBuilding, $resource);
                 }
             }
 
             foreach ($buildingResources as $buildingResource) {
-                /** @var Resource $resource */
+                /** @var resource $resource */
                 $resource = $buildingResource->getResource();
 
+                // If building no produced resources is null (Archery for exemple)
                 if (is_null($buildingResource)) {
                     continue;
                 }
 
                 if ($buildingResource->isProduction()) {
-                    $this->resourceProducedInProduction($building, $resource, $kingdom);
+                    $this->resourceProducedInProduction($kingdomBuilding, $resource);
                 }
             }
         }
+
         $this->em->flush();
 
         return $this->resourcesProduced;
     }
 
     /**
-     * @param Building $building
-     * @param Resource $resource
-     * @param Kingdom $kingdom
+     * @param KingdomBuilding $kingdomBuilding
+     * @param resource        $resource
      */
-    private function resourceRequiredInProduction(Building $building, Resource $resource, Kingdom $kingdom)
+    private function resourceRequiredInProduction(KingdomBuilding $kingdomBuilding, Resource $resource): void
     {
-        $kingdomResource = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $resource);
+        $kingdom = $kingdomBuilding->getKingdom();
+        $building = $kingdomBuilding->getBuilding();
+
+        $kingdomResource = $this
+            ->em
+            ->getRepository(KingdomResource::class)
+            ->getKingdomExistingResource($kingdom, $resource)
+        ;
 
         if (!$kingdomResource instanceof KingdomResource) {
             $this->productionUnavailable[$building->getId()] = $building->getName();
+
             return;
         }
 
@@ -132,15 +145,14 @@ class ProductionResourcesManager
     }
 
     /**
-     * @param Building $building
-     * @param Resource $resource
-     * @param Kingdom $kingdom
+     * @param KingdomBuilding $kingdomBuilding
+     * @param resource        $resource
      */
-    private function resourceProducedInProduction(Building $building, Resource $resource, Kingdom $kingdom)
+    private function resourceProducedInProduction(KingdomBuilding $kingdomBuilding, Resource $resource): void
     {
+        $building = $kingdomBuilding->getBuilding();
+        $kingdom = $kingdomBuilding->getKingdom();
         $population = $kingdom->getPopulation();
-        /** @var KingdomBuilding $kingdomBuilding */
-        $kingdomBuilding = $this->em->getRepository(KingdomBuilding::class)->findOneByBuilding($building);
 
         if (array_key_exists($building->getId(), $this->productionUnavailable)) {
             return;
@@ -148,15 +160,19 @@ class ProductionResourcesManager
 
         // If resource required is available in kingdom
         if (array_key_exists($building->getId(), $this->resourcesRequired)) {
-
             $availableResourceRequired = $this->resourcesRequired[$building->getId()];
 
             $idResource = key($availableResourceRequired);
 
-            $resourceQuantityInKingdom = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $idResource);
+            $resourceQuantityInKingdom = $this
+                ->em
+                ->getRepository(KingdomResource::class)
+                ->getKingdomExistingResource($kingdom, $idResource)
+            ;
 
             if (is_null($resourceQuantityInKingdom)) {
                 $this->productionUnavailable[$building->getId()] = $building->getName();
+
                 return;
             }
 
@@ -164,41 +180,55 @@ class ProductionResourcesManager
 
             // Use between 60 at 85% for this resource for the production
             $quantityUsedInKingdom = $this->randomResultProduction(
-                ($quantityResource * 60) / 100,
-                ($quantityResource * 85) / 100
+                ($quantityResource * 10) / 100,
+                ($quantityResource * 25) / 100
             );
 
             $resultQuantityWithUsed = $resourceQuantityInKingdom->getQuantity() - $quantityUsedInKingdom;
 
             // If quantity > 0, register in BDD
             if ($resultQuantityWithUsed > 0) {
-                $resourceQuantityInKingdom->setQuantity($resultQuantityWithUsed);
+                $resourceQuantity = $this
+                    ->em
+                    ->getRepository(KingdomResource::class)
+                    ->getKingdomExistingResource($kingdom, $resource->getId())
+                ;
+
+                if (is_null($resourceQuantity)) {
+                    $kingdomResource = new KingdomResource($kingdom, $resource, $quantityUsedInKingdom);
+                    $this->em->persist($kingdomResource);
+                } else {
+                    $resourceProduce = intval(($quantityUsedInKingdom * $kingdomBuilding->getLevel()) / 10);
+                    $resourceRemaining = $resourceQuantityInKingdom->getQuantity() - $resourceProduce;
+
+                    $resourceQuantityInKingdom->setQuantity($resourceRemaining);
+                }
 
                 $this->em->flush();
+
                 // else this building no produce
             } else {
                 return;
             }
 
-            $resourceProduce = intval(($quantityUsedInKingdom * $kingdomBuilding->getLevel()) / 10);
-
-            $this->resourcesProduced['used'][$resourceQuantityInKingdom->getResource()->getName()] = $quantityUsedInKingdom;
-
-            $this->resourcesProduced['produced'][$resource->getName()] = $resourceProduce;
-
-            return;
+            $this->resourcesProduced['used'][$resourceQuantityInKingdom->getResource()->getName()] = $resourceProduce;
+            $this->resourcesProduced['produced'][$resource->getName()] = $quantityUsedInKingdom;
 
             // If building no required resource, he simply produce
         } else {
             $resourceProduce = $this->randomResultProduction(
-                ($population / 20) * $kingdomBuilding->getLevel(),
-                ($population / 15) * $kingdomBuilding->getLevel()
+                ($population / 50) * $kingdomBuilding->getLevel(),
+                ($population / 35) * $kingdomBuilding->getLevel()
             );
 
             $this->resourcesProduced['produced'][$resource->getName()] = $resourceProduce;
         }
 
-        $resourceFromKingdom = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $resource);
+        $resourceFromKingdom = $this
+            ->em
+            ->getRepository(KingdomResource::class)
+            ->getKingdomExistingResource($kingdom, $resource)
+        ;
 
         // Update if resource exist in kingdom
         if ($resourceFromKingdom) {

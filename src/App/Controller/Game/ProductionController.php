@@ -31,10 +31,12 @@ class ProductionController extends Controller
     public function productionAction()
     {
         $resultProduce = $this->resourcesManager->processProduction();
-        $this->populationManager->addPopulation();
+
+        $resourcesConsumed = $this->populationManager->addPopulation();
 
         return $this->render('Game/production.html.twig', [
             'resultProduce' => $resultProduce,
+            'resourcesConsumed' => $resourcesConsumed,
         ]);
     }
 }

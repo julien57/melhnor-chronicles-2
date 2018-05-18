@@ -128,7 +128,7 @@ class CreateResourceCommand extends Command
             [
                 'name' => 'Raisin',
                 'price' => 4,
-                'isFood' => true,
+                'isFood' => false,
             ],
             [
                 'name' => 'Blé',

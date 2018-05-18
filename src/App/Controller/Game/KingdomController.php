@@ -54,6 +54,7 @@ class KingdomController extends Controller
                     $resourcesRequired = $this->levelingBuildingManager->processingResourcesKingdom($modifiedBuilding);
                 }
             }
+
             if (!$resourcesRequired) {
                 $this->addFlash('notice-danger', 'Ressources manquantes !');
 

@@ -3,18 +3,21 @@
 {% block content %}
 
     <h2>Production</h2>
+    <p class="section-description">
+        La population a augmenté de {{ resourcesConsumed.population }} habitants.
+    </p>
 
-    <div class="container">
+    <div class="container-fluid">
 
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <h3>Ressources Produites</h3>
 
                 {% for resource, quantity in resultProduce.produced %}
                     <p>{{ resource }} : {{ quantity }}</p>
                 {% endfor %}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <h3>Ressources utilisées</h3>
 
                 {% if resultProduce.used is defined %}
@@ -22,7 +25,15 @@
                         <p>{{ resource }} : {{ quantity }}</p>
                     {% endfor %}
                 {% endif %}
+            </div>
+            <div class="col-md-4">
+                <h3>Resources Consommées</h3>
 
+                {% if resourcesConsumed.consumed is defined %}
+                    {% for resource, quantity in resourcesConsumed.consumed %}
+                        <p>{{ resource }} : {{ quantity }}</p>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
