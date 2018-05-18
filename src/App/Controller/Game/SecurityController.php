@@ -66,6 +66,7 @@ class SecurityController extends Controller
             $player->setKingdom($kingdom);
 
             // Init Meat
+            /** @var Resource $meat */
             $meat = $this->em->getRepository(Resource::class)->find(1);
 
             $initKingdomMeat = new KingdomResource(
@@ -75,6 +76,7 @@ class SecurityController extends Controller
             );
 
             // Init Wood
+            /** @var Resource $wood */
             $wood = $this->em->getRepository(Resource::class)->find(24);
 
             $initKingdomWood = new KingdomResource(
@@ -84,6 +86,7 @@ class SecurityController extends Controller
             );
 
             // Init Stone
+            /** @var Resource $stone */
             $stone = $this->em->getRepository(Resource::class)->find(23);
 
             $initKingdomStone = new KingdomResource(
