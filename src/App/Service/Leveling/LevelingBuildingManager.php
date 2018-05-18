@@ -2,6 +2,7 @@
 
 namespace App\Service\Leveling;
 
+use App\Entity\KingdomBuilding;
 use App\Entity\KingdomResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -9,16 +10,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class LevelingBuildingManager
 {
-    /**
-     * @var int
-     */
-    private $level;
-
-    /**
-     * @var array|null
-     */
-    private $building = null;
-
     /**
      * Array contains rules for buildings from building_leveling_rules.yml
      *
@@ -73,30 +64,31 @@ class LevelingBuildingManager
      *
      * @return bool
      */
-    public function processingResourcesKingdom($modifiedBuilding)
+    public function processingResourcesKingdom(KingdomBuilding $modifiedBuilding)
     {
-        $this->building = $this->buildingsRules[$modifiedBuilding->getBuilding()->getId()];
+        $user = $this->tokenStorage->getToken()->getUser();
+        $building = $this->buildingsRules[$modifiedBuilding->getBuilding()->getId()];
+        $level = $modifiedBuilding->getLevel();
 
-        $this->setLevel($modifiedBuilding->getLevel());
-        $this->requiredGoldAmount();
-        $this->requiredResourcesAmount();
+        $this->calculateRequiredGoldAmount($building, $level);
+        $this->calculateRequiredResourcesAmount($building, $level);
 
-        $kingdomPlayer = $this->tokenStorage->getToken()->getUser()->getKingdom();
+        $kingdom = $user->getKingdom();
 
         // Gold Process
-        $goldPlayer = $kingdomPlayer->getGold();
+        $goldPlayer = $kingdom->getGold();
 
         $goldResult = $goldPlayer - $this->goldRequired;
 
         if ($goldResult < 0) {
             return false;
         } else {
-            $this->tokenStorage->getToken()->getUser()->getKingdom()->setGold($goldResult);
+            $user->getKingdom()->setGold($goldResult);
         }
 
-        // Resources process (wood & stone)
-        $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdomPlayer);
-
+        // Process leveling (wood & stone)
+        $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
+        /** @var KingdomResource $kingdomResource */
         foreach ($kingdomResources as $kingdomResource) {
             if ($kingdomResource->getResource()->getId() === 24) {
                 $woodResult = $kingdomResource->getQuantity() - $this->woodRequired;
@@ -104,7 +96,6 @@ class LevelingBuildingManager
                 if ($woodResult < 0) {
                     return false;
                 }
-
                 $kingdomResource->setQuantity($woodResult);
             }
 
@@ -114,7 +105,6 @@ class LevelingBuildingManager
                 if ($stoneResult < 0) {
                     return false;
                 }
-
                 $kingdomResource->setQuantity($stoneResult);
             }
         }
@@ -122,38 +112,6 @@ class LevelingBuildingManager
         $this->em->flush();
 
         return true;
-    }
-
-    /**
-     * @return int
-     */
-    public function getLevel(): int
-    {
-        return $this->level;
-    }
-
-    /**
-     * @param int $level
-     */
-    public function setLevel(int $level): void
-    {
-        $this->level = $level;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getBuilding(): ?array
-    {
-        return $this->building;
-    }
-
-    /**
-     * @param array|null $building
-     */
-    public function setBuilding(?array $building): void
-    {
-        $this->building = $building;
     }
 
     /**
@@ -188,21 +146,21 @@ class LevelingBuildingManager
         $this->stoneRequired = $stoneRequired;
     }
 
-    private function requiredGoldAmount()
+    private function calculateRequiredGoldAmount(array $building, int $level): void
     {
-        $nbGold = ($this->level * $this->level) * $this->building['gold'];
+        $nbGold = ($level * $level) * $building['gold'];
 
         $this->goldRequired += $nbGold;
     }
 
-    private function requiredResourcesAmount()
+    private function calculateRequiredResourcesAmount(array $building, int $level): void
     {
-        $nbWood = ($this->level * $this->level) * $this->building['resources']['24']['quantity'];
+        $nbWood = ($level * $level) * $building['resources']['24']['quantity'];
 
         $this->woodRequired += $nbWood;
 
-        if (array_key_exists('23', $this->building['resources'])) {
-            $nbStone = ($this->level * $this->level) * $this->building['resources']['23']['quantity'];
+        if (array_key_exists(23, $building['resources'])) {
+            $nbStone = ($level * $level) * $building['resources']['23']['quantity'];
 
             $this->stoneRequired += $nbStone;
         }
