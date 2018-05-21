@@ -44,6 +44,7 @@ class KingdomController extends Controller
             $kingdomBuildingsForm = $formBuilding->getData()->getKingdomBuildings();
 
             // Search a building with modified level
+            /** @var KingdomBuilding $kingdomBuilding */
             foreach ($kingdomBuildingsForm as $kingdomBuilding) {
                 $modifiedBuilding = $this->em->getRepository(KingdomBuilding::class)->findLevelBuildingUp(
                     $kingdomBuilding->getKingdom()->getId(),
