@@ -4,6 +4,7 @@ namespace App\Service\Production;
 
 use App\Entity\Kingdom;
 use App\Entity\KingdomResource;
+use App\Entity\Player;
 use App\Entity\Resource;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -33,8 +34,9 @@ class ProductionPopulationManager
      */
     public function addPopulation(): array
     {
-        /** @var Kingdom $kingdom */
-        $kingdom = $this->tokenStorage->getToken()->getUser()->getKingdom();
+        /** @var Player $kingdom */
+        $user = $this->tokenStorage->getToken()->getUser();
+        $kingdom = $user->getKingdom();
         $population = $kingdom->getPopulation();
         $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
 
@@ -68,6 +70,10 @@ class ProductionPopulationManager
         $kingdom->setPopulation($populationTotal);
 
         $this->resourceConsumed['population'] = $addPopulation;
+
+        $actionPoints = $user->getActionPoints();
+        $remainingPoints = $actionPoints - 10;
+        $user->setActionPoints($remainingPoints);
 
         $this->em->flush();
 
