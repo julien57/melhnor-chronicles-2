@@ -217,7 +217,7 @@ class Player implements UserInterface
     /**
      * @return Kingdom
      */
-    public function getKingdom()
+    public function getKingdom(): ?Kingdom
     {
         return $this->kingdom;
     }
@@ -233,7 +233,7 @@ class Player implements UserInterface
     /**
      * @return string
      */
-    public function getPlainPassword(): string
+    public function getPlainPassword()
     {
         return $this->plainPassword;
     }

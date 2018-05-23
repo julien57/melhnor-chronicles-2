@@ -201,7 +201,7 @@ class LevelingBuildingManager
 
         $this->woodRequired += $nbWood;
 
-        if (array_key_exists('stone', $this->building['resources'])) {
+        if (array_key_exists('23', $this->building['resources'])) {
             $nbStone = ($this->level * $this->level) * $this->building['resources']['23']['quantity'];
 
             $this->stoneRequired += $nbStone;

@@ -5,6 +5,7 @@
     <div class="fluid-container">
 
         <h2>{{ app.user.kingdom.name }}</h2>
+        <h3>Pièces d'or : {{ app.user.kingdom.gold }}</h3>
 
         <div class="col-md-6">
 
@@ -60,7 +61,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <button href="" class="btn">Produire</button>
+                <a href="{{ path('production') }}" class="btn">Produire</a>
             </div>
         </div>
     </div>

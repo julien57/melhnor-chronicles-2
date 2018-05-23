@@ -35,6 +35,13 @@ class Resource
     private $price;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_food", type="boolean")
+     */
+    private $isFood = false;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(
@@ -91,6 +98,22 @@ class Resource
     public function setPrice(int $price): void
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFood(): bool
+    {
+        return $this->isFood;
+    }
+
+    /**
+     * @param bool $isFood
+     */
+    public function setIsFood(bool $isFood): void
+    {
+        $this->isFood = $isFood;
     }
 
     /**

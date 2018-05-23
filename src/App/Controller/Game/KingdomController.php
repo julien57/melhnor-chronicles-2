@@ -34,7 +34,8 @@ class KingdomController extends Controller
      */
     public function kingdomAction(Request $request)
     {
-        $kingdom = $this->getUser()->getKingdom();
+        $user = $this->getUser();
+        $kingdom = $user->getKingdom();
 
         $formBuilding = $this->createForm(KingdomType::class, $kingdom);
         $formBuilding->handleRequest($request);
@@ -54,6 +55,7 @@ class KingdomController extends Controller
                     $resourcesRequired = $this->levelingBuildingManager->processingResourcesKingdom($modifiedBuilding);
                 }
             }
+
             if (!$resourcesRequired) {
                 $this->addFlash('notice-danger', 'Ressources manquantes !');
 
@@ -61,7 +63,8 @@ class KingdomController extends Controller
             }
 
             $this->addFlash('notice', 'Niveau du bâtiment augmenté !');
-            $this->redirectToRoute('kingdom');
+
+            return $this->redirectToRoute('kingdom');
         }
 
         $kingdomResources = $this->em
