@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class TroneController extends Controller
+class ThroneController extends Controller
 {
     /**
      * @Route("/salle-du-trone", name="trone")

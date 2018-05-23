@@ -2,7 +2,6 @@
 
 namespace App\Command;
 
-
 use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -18,7 +17,6 @@ class addActionPointsCommand extends Command
 
     public function __construct(EntityManagerInterface $em)
     {
-
         $this->em = $em;
         parent::__construct();
     }
@@ -37,13 +35,11 @@ class addActionPointsCommand extends Command
         $players = $this->em->getRepository(Player::class)->findAll();
 
         foreach ($players as $player) {
-
             $pointsOfPlayer = $player->getActionPoints();
             $totalPoints = $pointsOfPlayer += 5;
 
             if ($totalPoints >= 50) {
                 $player->setActionPoints(50);
-
             } else {
                 $player->setActionPoints($totalPoints);
             }
@@ -53,5 +49,4 @@ class addActionPointsCommand extends Command
 
         $output->writeln('Les joueurs on été crédités de 5 points d\'action !');
     }
-
 }

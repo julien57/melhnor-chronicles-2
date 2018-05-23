@@ -4,7 +4,6 @@ namespace App\Controller\Game;
 
 use App\Service\Production\ProductionPopulationManager;
 use App\Service\Production\ProductionResourcesManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -35,14 +34,15 @@ class ProductionController extends Controller
 
         if ($user->getActionPoints() < 10) {
             $this->addFlash('notice-danger', 'Pas assez de points d\'action !');
+
             return $this->redirectToRoute('kingdom');
         }
 
-        $resultProduce = $this->resourcesManager->processProduction();
+        $productionResult = $this->resourcesManager->processProduction();
         $resourcesConsumed = $this->populationManager->addPopulation();
 
         return $this->render('Game/production.html.twig', [
-            'resultProduce' => $resultProduce,
+            'resultProduce' => $productionResult,
             'resourcesConsumed' => $resourcesConsumed,
         ]);
     }

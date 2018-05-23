@@ -2,7 +2,6 @@
 
 namespace App\Service\Production;
 
-use App\Entity\Kingdom;
 use App\Entity\KingdomResource;
 use App\Entity\Player;
 use App\Entity\Resource;

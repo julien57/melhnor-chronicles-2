@@ -41,7 +41,6 @@ class KingdomController extends Controller
         $formBuilding->handleRequest($request);
 
         if ($formBuilding->isValid()) {
-
             $kingdomBuildingsForm = $formBuilding->getData()->getKingdomBuildings();
 
             // Search a building with modified level
@@ -59,10 +58,12 @@ class KingdomController extends Controller
 
             if (!$resourcesRequired) {
                 $this->addFlash('notice-danger', 'Ressources manquantes !');
+
                 return $this->redirectToRoute('kingdom');
             }
 
             $this->addFlash('notice', 'Niveau du bâtiment augmenté !');
+
             return $this->redirectToRoute('kingdom');
         }
 
