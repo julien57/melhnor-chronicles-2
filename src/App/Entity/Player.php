@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\CreatePlayerDTO;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -92,14 +93,10 @@ class Player implements UserInterface
      */
     private $kingdom;
 
-    public function __construct(string $username, string $password, string $mail, Avatar $avatar)
+    public function __construct()
     {
         $this->dateRegistration = new \DateTime();
         $this->lastConnection = new \DateTime();
-        $this->username = $username;
-        $this->password = $password;
-        $this->mail = $mail;
-        $this->avatar = $avatar;
     }
 
     /**
@@ -312,11 +309,16 @@ class Player implements UserInterface
         $this->plainPassword = null;
     }
 
-    public function initPlayer(): void
+    public static function initPlayer(CreatePlayerDTO $createPlayerDTO, Kingdom $kingdom): self
     {
-        $this->setUsername($this->username);
-        $this->setPlainPassword($this->password);
-        $this->setMail($this->mail);
-        $this->setAvatar($this->avatar);
+        $player = new self();
+
+        $player->username = $createPlayerDTO->getUsername();
+        $player->password = $createPlayerDTO->getPassword();
+        $player->mail = $createPlayerDTO->getMail();
+        $player->avatar = $createPlayerDTO->getAvatar();
+        $player->kingdom = $kingdom;
+
+        return $player;
     }
 }

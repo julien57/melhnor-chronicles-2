@@ -11,6 +11,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Resource
 {
+    const MEAT_ID = 1;
+
+    const WOOD_ID = 24;
+
+    const STONE_ID = 23;
+
     /**
      * @var int
      *

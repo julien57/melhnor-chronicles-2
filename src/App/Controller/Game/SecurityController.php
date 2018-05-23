@@ -45,28 +45,14 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $data = $form->getData();
 
-            $player = new Player(
-                $data->getUsername(),
-                $data->getPassword(),
-                $data->getMail(),
-                $data->getAvatar()
-            );
+            $kingdom = Kingdom::initKingdom($registrationDTO);
 
-            $player->initPlayer();
-
-            $kingdom = new Kingdom(
-                $data->getUsername(),
-                $data->getRegion()
-            );
-
-            $kingdom->initKingdom();
-
-            $player->setKingdom($kingdom);
+            $player = Player::initPlayer($registrationDTO, $kingdom);
 
             // Init Meat
-            $meat = $this->em->getRepository(Resource::class)->find(1);
+            /** @var Resource $meat */
+            $meat = $this->em->getRepository(Resource::class)->find(Resource::MEAT_ID);
 
             $initKingdomMeat = new KingdomResource(
                 $kingdom,
@@ -75,7 +61,8 @@ class SecurityController extends Controller
             );
 
             // Init Wood
-            $wood = $this->em->getRepository(Resource::class)->find(24);
+            /** @var Resource $wood */
+            $wood = $this->em->getRepository(Resource::class)->find(Resource::WOOD_ID);
 
             $initKingdomWood = new KingdomResource(
                 $kingdom,
@@ -84,7 +71,8 @@ class SecurityController extends Controller
             );
 
             // Init Stone
-            $stone = $this->em->getRepository(Resource::class)->find(23);
+            /** @var Resource $stone */
+            $stone = $this->em->getRepository(Resource::class)->find(Resource::STONE_ID);
 
             $initKingdomStone = new KingdomResource(
                 $kingdom,
