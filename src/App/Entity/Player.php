@@ -309,7 +309,7 @@ class Player implements UserInterface
         $this->plainPassword = null;
     }
 
-    public static function initPlayer(CreatePlayerDTO $createPlayerDTO): self
+    public static function initPlayer(CreatePlayerDTO $createPlayerDTO, Kingdom $kingdom): self
     {
         $player = new self();
 
@@ -317,6 +317,7 @@ class Player implements UserInterface
         $player->password = $createPlayerDTO->getPassword();
         $player->mail = $createPlayerDTO->getMail();
         $player->avatar = $createPlayerDTO->getAvatar();
+        $player->kingdom = $kingdom;
 
         return $player;
     }

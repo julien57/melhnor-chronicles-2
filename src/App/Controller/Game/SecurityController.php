@@ -48,13 +48,11 @@ class SecurityController extends Controller
 
             $kingdom = Kingdom::initKingdom($registrationDTO);
 
-            $player = Player::initPlayer($registrationDTO);
-
-            $player->setKingdom($kingdom);
+            $player = Player::initPlayer($registrationDTO, $kingdom);
 
             // Init Meat
             /** @var Resource $meat */
-            $meat = $this->em->getRepository(Resource::class)->find(1);
+            $meat = $this->em->getRepository(Resource::class)->find(Resource::MEAT_ID);
 
             $initKingdomMeat = new KingdomResource(
                 $kingdom,
@@ -64,7 +62,7 @@ class SecurityController extends Controller
 
             // Init Wood
             /** @var Resource $wood */
-            $wood = $this->em->getRepository(Resource::class)->find(24);
+            $wood = $this->em->getRepository(Resource::class)->find(Resource::WOOD_ID);
 
             $initKingdomWood = new KingdomResource(
                 $kingdom,
@@ -74,7 +72,7 @@ class SecurityController extends Controller
 
             // Init Stone
             /** @var Resource $stone */
-            $stone = $this->em->getRepository(Resource::class)->find(23);
+            $stone = $this->em->getRepository(Resource::class)->find(Resource::STONE_ID);
 
             $initKingdomStone = new KingdomResource(
                 $kingdom,
