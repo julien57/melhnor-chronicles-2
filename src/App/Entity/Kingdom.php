@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\CreatePlayerDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -73,13 +74,6 @@ class Kingdom
      * @ORM\OneToMany(targetEntity="App\Entity\KingdomBuilding", mappedBy="kingdom")
      */
     private $kingdomBuildings;
-
-    public function __construct(string $name, Region $region)
-    {
-        $this->kingdomBuildings = new ArrayCollection();
-        $this->name = $name;
-        $this->region = $region;
-    }
 
     /**
      * @return int
@@ -231,10 +225,13 @@ class Kingdom
         return $this->kingdomBuildings;
     }
 
-    public function initKingdom(): void
+    public static function initKingdom(CreatePlayerDTO $createPlayerDTO): self
     {
-        $this->setName('Royaume de '.$this->name);
-        $this->setDescription('Aucune description');
-        $this->setRegion($this->region);
+        $kingdom = new self();
+        $kingdom->name = $createPlayerDTO->getUsername();
+        $kingdom->description = 'Aucune Description';
+        $kingdom->region = $createPlayerDTO->getRegion();
+
+        return $kingdom;
     }
 }
