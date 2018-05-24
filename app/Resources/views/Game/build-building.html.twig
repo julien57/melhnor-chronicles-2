@@ -4,7 +4,7 @@
 
     <div class="fluid-container">
 
-        <h3>Construire un bâtiment</h3>
+        <h3>{{ 'title.build-building'|trans }}</h3>
 
         <div class="col-md-3 col-md-offset-4">
             <form action="{{ path('build-building') }}" method="post" class="contact-form">
@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button type="submit" class="btn">Construire</button>
+                    <button type="submit" class="btn">{{ 'button.build'|trans }}</button>
                 </div>
                 {{ form_rest(buildBuildingForm) }}
             </form>

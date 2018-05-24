@@ -4,7 +4,7 @@
 
     <div class="fluid-container">
 
-        <h2>Salle du trône</h2>
+        <h2>{{ 'menu.throne'|trans }}</h2>
 
         <div class="row">
             <div id="dark-window" class="col-md-5">
@@ -15,13 +15,13 @@
                     <p><img src="/web/front/img/avatars/{{ app.user.avatar.idavatar }}.jpg" alt="Avatar de {{ app.user.username }}" class="image_avatar"/></p>
 
                     <p class="features-p">
-                        Points d'action : {{ app.user.actionpoints }}
+                        {{ 'title.action-points'|trans }} : {{ app.user.actionpoints }}
                         &nbsp;<br>
-                        Population : {{ app.user.kingdom.population }}
+                        {{ 'title.population'|trans }} : {{ app.user.kingdom.population }}
                         &nbsp;<br>
-                        Puissance : {{ app.user.kingdom.power }}
+                        {{ 'title.power'|trans }} : {{ app.user.kingdom.power }}
                         &nbsp;<br>
-                        Pièces d'or : {{ app.user.kingdom.gold }}
+                        {{ 'title.gold'|trans }} : {{ app.user.kingdom.gold }}
                     </p>
                 </div>
             </div>
