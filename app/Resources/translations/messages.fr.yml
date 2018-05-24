@@ -25,8 +25,8 @@ title:
     produced-resources: Ressources produites
     used-resources: Ressources utilisées
     consumed-resources: Ressources consommées
-    region: region
-    avatar: avatar
+    region: Region
+    avatar: Avatar
     action-points: Points d'action
     population: Population
     power: Puissance
@@ -36,8 +36,8 @@ message:
     population-gain: La population a augmenté de %number% habitants.
 
 button:
-    next: suivant
+    next: Suivant
     build: Construire
-    connection: connexion
+    connection: Connexion
     increase: Augmenter
     produce: Produire
