@@ -36,15 +36,18 @@ class sellResourceController extends Controller
             $isResourceAvailable = $this->saleResourceManager->isResourceAvailableToSale($saleResourceDTO);
 
             if (!$isResourceAvailable) {
+
                 $this->addFlash(
                     'notice-danger',
                     'La ressource sélectionnée n\'existe pas ou la quantité est trop élevée.'
                 );
-
                 return $this->redirectToRoute('saleResource');
             }
 
             $this->saleResourceManager->processingSaleResource($isResourceAvailable, $saleResourceDTO);
+
+            $this->addFlash('notice', 'Ressource ajoutée au marché !');
+            return $this->redirectToRoute('saleResource');
         }
 
         return $this->render('Game/addResource.html.twig', ['form' => $form->createView()]);

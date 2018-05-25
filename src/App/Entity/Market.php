@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Controller\Game\sellResourceController;
+use App\Model\SaleResourceDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,6 +35,12 @@ class Market
      * @ORM\Column(name="price", type="integer")
      */
     private $price;
+
+    /**
+     * @var int
+     * @ORM\Column(name="kingdom_id", type="integer")
+     */
+    private $kingdomId;
 
     /**
      * @var KingdomResource
@@ -109,4 +117,32 @@ class Market
     {
         $this->kingdomResources = $kingdomResources;
     }
+
+    /**
+     * @return int
+     */
+    public function getKingdomId(): int
+    {
+        return $this->kingdomId;
+    }
+
+    /**
+     * @param int $kingdomId
+     */
+    public function setKingdomId(int $kingdomId): void
+    {
+        $this->kingdomId = $kingdomId;
+    }
+
+    public static function saleResource(SaleResourceDTO $saleResourceDTO, int $sellingPrice, int $kingdomId)
+    {
+        $market = new self();
+
+        $market->quantity = $saleResourceDTO->getQuantity();
+        $market->price = $sellingPrice;
+        $market->kingdomId = $kingdomId;
+
+        return $market;
+    }
+
 }

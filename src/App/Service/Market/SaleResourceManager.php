@@ -3,6 +3,7 @@
 namespace App\Service\Market;
 
 use App\Entity\KingdomResource;
+use App\Entity\Market;
 use App\Model\SaleResourceDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -52,8 +53,23 @@ class SaleResourceManager
         return false;
     }
 
-    public function processingSaleResource(KingdomResource $kingdomResource, SaleResourceDTO $saleResourceDTO)
+    /**
+     * @param KingdomResource $kingdomResource
+     * @param SaleResourceDTO $saleResourceDTO
+     */
+    public function processingSaleResource(KingdomResource $kingdomResource, SaleResourceDTO $saleResourceDTO): void
     {
+        $remainingQuantity = $kingdomResource->getQuantity() - $saleResourceDTO->getQuantity();
+        $kingdomResource->setQuantity($remainingQuantity);
 
+        $unitPrice = $kingdomResource->getResource()->getPrice();
+        $sellingPrice = $unitPrice * $saleResourceDTO->getQuantity();
+
+        $kingdomId = $kingdomResource->getKingdom()->getId();
+
+        $resourceForSale = Market::saleResource($saleResourceDTO, $sellingPrice, $kingdomId);
+
+        $this->em->persist($resourceForSale);
+        $this->em->flush();
     }
 }
