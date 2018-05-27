@@ -65,9 +65,7 @@ class SaleResourceManager
         $unitPrice = $kingdomResource->getResource()->getPrice();
         $sellingPrice = $unitPrice * $saleResourceDTO->getQuantity();
 
-        $kingdomId = $kingdomResource->getKingdom()->getId();
-
-        $resourceForSale = Market::saleResource($saleResourceDTO, $sellingPrice, $kingdomId);
+        $resourceForSale = Market::saleResource($saleResourceDTO, $sellingPrice, $kingdomResource);
 
         $this->em->persist($resourceForSale);
         $this->em->flush();

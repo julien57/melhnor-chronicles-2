@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 use App\Controller\Game\sellResourceController;
+use App\Entity\KingdomResource;
 use App\Model\SaleResourceDTO;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="market")
- * @ORM\Entity(repositoryClass="")
+ * @ORM\Entity(repositoryClass="App\Repository\MarketRepository")
  */
 class Market
 {
@@ -37,22 +38,11 @@ class Market
     private $price;
 
     /**
-     * @var int
-     * @ORM\Column(name="kingdom_id", type="integer")
-     */
-    private $kingdomId;
-
-    /**
      * @var KingdomResource
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\KingdomResource", mappedBy="market")
+     * @ORM\ManyToOne(targetEntity="App\Entity\KingdomResource", cascade={"persist"})
      */
-    private $kingdomResources;
-
-    public function __construct()
-    {
-        $this->kingdomResources = new ArrayCollection();
-    }
+    private $kingdomResource;
 
     /**
      * @return int
@@ -103,46 +93,29 @@ class Market
     }
 
     /**
-     * @return KingdomResource
+     * @return \App\Entity\KingdomResource
      */
-    public function getKingdomResources(): KingdomResource
+    public function getKingdomResource(): \App\Entity\KingdomResource
     {
-        return $this->kingdomResources;
+        return $this->kingdomResource;
     }
 
     /**
-     * @param KingdomResource $kingdomResources
+     * @param \App\Entity\KingdomResource $kingdomResource
      */
-    public function setKingdomResources(KingdomResource $kingdomResources): void
+    public function setKingdomResource(\App\Entity\KingdomResource $kingdomResource): void
     {
-        $this->kingdomResources = $kingdomResources;
+        $this->kingdomResource = $kingdomResource;
     }
 
-    /**
-     * @return int
-     */
-    public function getKingdomId(): int
-    {
-        return $this->kingdomId;
-    }
-
-    /**
-     * @param int $kingdomId
-     */
-    public function setKingdomId(int $kingdomId): void
-    {
-        $this->kingdomId = $kingdomId;
-    }
-
-    public static function saleResource(SaleResourceDTO $saleResourceDTO, int $sellingPrice, int $kingdomId)
+    public static function saleResource(SaleResourceDTO $saleResourceDTO, int $sellingPrice, KingdomResource $kingdomResource)
     {
         $market = new self();
 
         $market->quantity = $saleResourceDTO->getQuantity();
         $market->price = $sellingPrice;
-        $market->kingdomId = $kingdomId;
+        $market->kingdomResource = $kingdomResource;
 
         return $market;
     }
-
 }

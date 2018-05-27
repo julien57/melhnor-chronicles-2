@@ -47,13 +47,6 @@ class KingdomResource
      */
     private $resource;
 
-    /**
-     * @var Market
-     *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Market", inversedBy="kingdomResources")
-     */
-    private $market;
-
     public function __construct(Kingdom $kingdom, Resource $resource, int $quantity)
     {
         $this->kingdom = $kingdom;
