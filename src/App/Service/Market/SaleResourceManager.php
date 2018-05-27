@@ -34,8 +34,7 @@ class SaleResourceManager
      */
     public function isResourceAvailableToSale(SaleResourceDTO $saleResourceDTO)
     {
-        $user = $this->tokenStorage->getToken()->getUser();
-        $kingdom = $user->getKingdom();
+        $kingdom = $this->tokenStorage->getToken()->getUser()->getKingdom();
 
         $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
         /** @var KingdomResource $kingdomResource */

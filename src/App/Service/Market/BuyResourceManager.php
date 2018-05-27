@@ -32,9 +32,8 @@ class BuyResourceManager
      */
     public function isPossibleToBuy(Market $resourcePurchased): bool
     {
-        $user = $this->tokenStorage->getToken()->getUser();
         /** @var Kingdom $kingdom */
-        $kingdom = $user->getKingdom();
+        $kingdom = $this->tokenStorage->getToken()->getUser()->getKingdom();
 
         if ($kingdom->getGold() < $resourcePurchased->getPrice()) {
             return false;
@@ -63,7 +62,7 @@ class BuyResourceManager
         /** @var KingdomResource $kingdomResource */
         foreach ($kingdomResources as $kingdomResource) {
 
-            $existingResources[$kingdomResource->getResource()->getId()] = $kingdomResource->getResource()->getId();
+            $existingResources[] = $kingdomResource->getResource()->getId();
             if ($kingdomResource->getResource() !== $resourceSold) {
                 continue;
             }
@@ -73,8 +72,8 @@ class BuyResourceManager
                 $kingdomResource->setQuantity($addQuantityResource);
             }
         }
-        // If idResource no exist, create a new KingdomResource
-        if (!array_key_exists($resourceSold->getId(), $existingResources)) {
+        // If idResource no exist in Kingdom, create a new KingdomResource
+        if (!in_array($resourceSold->getId(), $existingResources)) {
             $kingdomResource = new KingdomResource($kingdom, $resourceSold, $resourcePurchased->getQuantity());
             $this->em->persist($kingdomResource);
         }

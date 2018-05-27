@@ -6,6 +6,7 @@ use App\Entity\Market;
 use App\Service\Market\BuyResourceManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MarketController extends Controller
@@ -38,9 +39,11 @@ class MarketController extends Controller
     }
 
     /**
+     * @param int $id
+     *
      * @Route("/achat-ressource/{id}", name="buyResource")
      */
-    public function buyAction($id)
+    public function buyAction(int $id): RedirectResponse
     {
         $resourceMarket = $this->em->getRepository(Market::class)->find($id);
 

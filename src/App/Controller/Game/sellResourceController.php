@@ -6,7 +6,9 @@ use App\Form\SaleResourceType;
 use App\Model\SaleResourceDTO;
 use App\Service\Market\SaleResourceManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class sellResourceController extends Controller
@@ -22,6 +24,9 @@ class sellResourceController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     *
      * @Route("/vendre-ressource", name="saleResource")
      */
     public function addResourceAction(Request $request)
@@ -47,7 +52,7 @@ class sellResourceController extends Controller
             $this->saleResourceManager->processingSaleResource($isResourceAvailable, $saleResourceDTO);
 
             $this->addFlash('notice', 'Ressource ajoutée au marché !');
-            return $this->redirectToRoute('saleResource');
+            return $this->redirectToRoute('market');
         }
 
         return $this->render('Game/addResource.html.twig', ['form' => $form->createView()]);
