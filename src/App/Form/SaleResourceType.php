@@ -12,7 +12,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SaleResourceType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -28,7 +27,7 @@ class SaleResourceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => SaleResourceDTO::class
+            'data_class' => SaleResourceDTO::class,
         ]);
     }
 }

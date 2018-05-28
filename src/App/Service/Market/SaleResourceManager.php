@@ -30,6 +30,7 @@ class SaleResourceManager
      * Verify if resource is available and quantity is sufficient
      *
      * @param SaleResourceDTO $saleResourceDTO
+     *
      * @return KingdomResource|bool
      */
     public function isResourceAvailableToSale(SaleResourceDTO $saleResourceDTO)
@@ -39,9 +40,7 @@ class SaleResourceManager
         $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
         /** @var KingdomResource $kingdomResource */
         foreach ($kingdomResources as $kingdomResource) {
-
             if ($kingdomResource->getResource() === $saleResourceDTO->getResource()) {
-
                 if ($kingdomResource->getQuantity() < $saleResourceDTO->getQuantity()) {
                     return false;
                 }
@@ -49,6 +48,7 @@ class SaleResourceManager
                 return $kingdomResource;
             }
         }
+
         return false;
     }
 

@@ -2,10 +2,7 @@
 
 namespace App\Entity;
 
-use App\Controller\Game\sellResourceController;
-use App\Entity\KingdomResource;
 use App\Model\SaleResourceDTO;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -93,17 +90,17 @@ class Market
     }
 
     /**
-     * @return \App\Entity\KingdomResource
+     * @return KingdomResource
      */
-    public function getKingdomResource(): \App\Entity\KingdomResource
+    public function getKingdomResource(): KingdomResource
     {
         return $this->kingdomResource;
     }
 
     /**
-     * @param \App\Entity\KingdomResource $kingdomResource
+     * @param KingdomResource $kingdomResource
      */
-    public function setKingdomResource(\App\Entity\KingdomResource $kingdomResource): void
+    public function setKingdomResource(KingdomResource $kingdomResource): void
     {
         $this->kingdomResource = $kingdomResource;
     }

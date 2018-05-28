@@ -7,7 +7,7 @@ use App\Entity\Resource;
 class SaleResourceDTO
 {
     /**
-     * @var Resource|null
+     * @var resource|null
      */
     private $resource;
 
@@ -17,7 +17,7 @@ class SaleResourceDTO
     private $quantity;
 
     /**
-     * @return null|Resource
+     * @return null|resource
      */
     public function getResource(): ?Resource
     {
@@ -25,7 +25,7 @@ class SaleResourceDTO
     }
 
     /**
-     * @param null|Resource $resource
+     * @param null|resource $resource
      */
     public function setResource(?Resource $resource): void
     {

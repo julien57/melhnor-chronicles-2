@@ -3,7 +3,7 @@
 namespace App\Controller\Game;
 
 use App\Entity\Market;
-use App\Service\Market\BuyResourceManager;
+use App\Service\Market\PurchaseResourceManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -17,14 +17,14 @@ class MarketController extends Controller
     private $em;
 
     /**
-     * @var BuyResourceManager
+     * @var PurchaseResourceManager
      */
-    private $buyResourceManager;
+    private $purchaseResourceManager;
 
-    public function __construct(EntityManagerInterface $em, BuyResourceManager $buyResourceManager)
+    public function __construct(EntityManagerInterface $em, PurchaseResourceManager $purchaseResourceManager)
     {
         $this->em = $em;
-        $this->buyResourceManager = $buyResourceManager;
+        $this->purchaseResourceManager = $purchaseResourceManager;
     }
 
     /**
@@ -45,6 +45,7 @@ class MarketController extends Controller
      */
     public function buyAction(int $id): RedirectResponse
     {
+        $buyer = $this->getUser();
         $resourceMarket = $this->em->getRepository(Market::class)->find($id);
 
         if (!$resourceMarket) {
@@ -52,21 +53,23 @@ class MarketController extends Controller
                 'notice-danger',
                 'La ressource sélectionnée n\'est plus disponible au marché.'
             );
+
             return $this->redirectToRoute('market');
         }
 
-        $isPossibleToBuy = $this->buyResourceManager->isPossibleToBuy($resourceMarket);
+        $isPossibleToBuy = $this->purchaseResourceManager->canPlayerBuyResource($resourceMarket, $buyer);
 
         if (!$isPossibleToBuy) {
             $this->addFlash(
                 'notice-danger',
                 'Vous n\'avez pas assez d\'or pour acheter cette quantité de resource.'
             );
+
             return $this->redirectToRoute('market');
         }
 
         // Process at transaction
-        $this->buyResourceManager->processingBuyResource($resourceMarket);
+        $this->purchaseResourceManager->processTransaction($resourceMarket, $buyer);
 
         // When the the transaction is perform, remove the advert
         $this->em->remove($resourceMarket);
@@ -78,7 +81,7 @@ class MarketController extends Controller
             'notice',
             'Vous venez d\'acheter une quantité de '.$resourceMarket->getQuantity().' de '.$resourceName
         );
+
         return $this->redirectToRoute('market');
     }
-
 }
