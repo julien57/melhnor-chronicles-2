@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\WriteMessageDTO;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -144,5 +145,17 @@ class Messaging
     public function setAtDate(\DateTime $atDate): void
     {
         $this->atDate = $atDate;
+    }
+
+    public static function createMessage(WriteMessageDTO $messageDTO, Player $recipient)
+    {
+        $messaging = new self();
+
+        $messaging->recipient = $recipient;
+        $messaging->sender = $messageDTO->getSender();
+        $messaging->subject = $messageDTO->getSubject();
+        $messaging->message = $messageDTO->getMessage();
+
+        return $messaging;
     }
 }

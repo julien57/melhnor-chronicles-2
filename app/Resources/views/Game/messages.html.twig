@@ -2,6 +2,25 @@
 
 {% block content %}
 
-    <h2>Messagerie</h2>
+    <div class="container">
+        <h2>Messagerie</h2>
+
+        <a href="{{ path('write_message') }}" class="btn">Ecrire un message</a>
+
+        <div class="col-md-10">
+            {% for message in listMessages %}
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="{{ asset('/web/front/img/avatars/' ~ message.recipient.avatar.idAvatar ~ '.jpg') }}" id="avatar_messaging">
+                    </div>
+                    <div class="col-md-8 text-message messages">
+                        <h3>{{ message.subject }}</h3>
+                        <p>De {{ message.recipient.username }} le {{ message.atDate|date("m/d/Y") }} à {{ message.atDate|date("H:i") }}</p>
+                        <p>{{ message.message }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}

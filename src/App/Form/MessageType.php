@@ -19,7 +19,7 @@ class MessageType extends AbstractType
         $builder
             ->add('subject', TextType::class)
             ->add('message', TextareaType::class, [
-                'attr' => ['cols' => '80']
+                'attr' => ['cols' => '80'],
             ])
             ->add('sender', EntityType::class, [
                 'class' => Player::class,
@@ -27,7 +27,7 @@ class MessageType extends AbstractType
                     return $er->createQueryBuilder('p')
                         ->orderBy('p.username', 'ASC');
                 },
-                'choice_label' => 'username'
+                'choice_label' => 'username',
             ])
         ;
     }
@@ -35,7 +35,7 @@ class MessageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => WriteMessageDTO::class
+            'data_class' => WriteMessageDTO::class,
         ]);
     }
 }
