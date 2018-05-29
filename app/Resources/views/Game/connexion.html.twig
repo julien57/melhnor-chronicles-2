@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h2>Connexion</h2>
+    <h2>{{ 'menu.connection'|trans }}</h2>
     <div class="container">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey }}</div>
@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="button-submit"></div>
                     <div class="col-md-8">
-                        <button type="submit" class="btn">Connexion</button>
+                        <button type="submit" class="btn">{{ 'button.connection'|trans }}</button>
                     </div>
                 </div>
 
