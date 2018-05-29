@@ -4,6 +4,7 @@ namespace App\Service\Market;
 
 use App\Entity\KingdomResource;
 use App\Entity\Market;
+use App\Entity\Player;
 use App\Model\SaleResourceDTO;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -31,25 +32,13 @@ class SaleResourceManager
      *
      * @param SaleResourceDTO $saleResourceDTO
      *
-     * @return KingdomResource|bool
+     * @return KingdomResource|null
      */
-    public function isResourceAvailableToSale(SaleResourceDTO $saleResourceDTO)
+    public function isResourceAvailableToSale(SaleResourceDTO $saleResourceDTO, Player $player): ?KingdomResource
     {
-        $kingdom = $this->tokenStorage->getToken()->getUser()->getKingdom();
+        $kingdom = $player->getKingdom();
 
-        $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
-        /** @var KingdomResource $kingdomResource */
-        foreach ($kingdomResources as $kingdomResource) {
-            if ($kingdomResource->getResource() === $saleResourceDTO->getResource()) {
-                if ($kingdomResource->getQuantity() < $saleResourceDTO->getQuantity()) {
-                    return false;
-                }
-
-                return $kingdomResource;
-            }
-        }
-
-        return false;
+        return $kingdom->getKingdomResource($saleResourceDTO->getResource());
     }
 
     /**

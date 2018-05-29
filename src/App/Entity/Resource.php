@@ -59,6 +59,22 @@ class Resource
     private $buildingResources;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\KingdomResource",
+     *     mappedBy="resource",
+     *     fetch="EXTRA_LAZY"
+     * )
+     */
+    private $kingdomResources;
+
+    public function __construct()
+    {
+        $this->kingdomResources = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -136,5 +152,13 @@ class Resource
     public function setBuildingResources(ArrayCollection $buildingResources): void
     {
         $this->buildingResources = $buildingResources;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getKingdomResources(): ArrayCollection
+    {
+        return $this->kingdomResources;
     }
 }

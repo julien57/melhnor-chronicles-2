@@ -32,13 +32,16 @@ class SalesResourceController extends Controller
      */
     public function addResourceAction(Request $request)
     {
+        $user = $this->getUser();
         $saleResourceDTO = new SaleResourceDTO();
 
-        $form = $this->createForm(SaleResourceType::class, $saleResourceDTO);
+        $form = $this->createForm(SaleResourceType::class, $saleResourceDTO, [
+            'kingdom' => $user->getKingdom(),
+        ]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $isResourceAvailable = $this->saleResourceManager->isResourceAvailableToSale($saleResourceDTO);
+            $isResourceAvailable = $this->saleResourceManager->isResourceAvailableToSale($saleResourceDTO, $user);
 
             if (!$isResourceAvailable) {
                 $this->addFlash(
