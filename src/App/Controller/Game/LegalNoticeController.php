@@ -5,7 +5,7 @@ namespace App\Controller\Game;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 
-class TosController extends Controller
+class LegalNoticeController extends Controller
 {
     /**
      * @Route("/cgu", name="tos")
@@ -13,5 +13,13 @@ class TosController extends Controller
     public function tosAction()
     {
         return $this->render('Game/tos.html.twig');
+    }
+
+    /**
+     * @Route("/mentions-legales", name="legal-notice")
+     */
+    public function legalNoticeAction()
+    {
+        return $this->render('Game/legal-notice.html.twig');
     }
 }

@@ -38,3 +38,15 @@ cgu:
         Toute tentative de représentation totale ou partielle du site et de son contenu sans autorisation du site MC2,
         est strictement interdite sous peine d'entrer en infraction avec le Code de la Propriété intellectuelle qui
         sanctionne les délits de contrefaçon.
+
+legal-notice:
+    title: Mentions Légales
+    administrator: Administrateur
+    creator_name: Julien Montel
+    creator_site: http://graphx.fr
+    map_author: Maxime Delcambre
+    map_author_job: Concept-Artist chez Ubisoft
+    map_author_link: https://www.artstation.com/maxime-delcambre
+    host_title: Hébergement
+    host_name: OVH
+    host_adresse: 2 rue Kellermann - 59100 Roubaix - France
