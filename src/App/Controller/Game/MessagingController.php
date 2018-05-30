@@ -3,6 +3,7 @@
 namespace App\Controller\Game;
 
 use App\Entity\Messaging;
+use App\Entity\Player;
 use App\Form\MessageType;
 use App\Model\WriteMessageDTO;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,7 +30,7 @@ class MessagingController extends Controller
      *
      * @Route("/messages", name="messaging")
      */
-    public function messagesAction()
+    public function messagesAction(): Response
     {
         $player = $this->getUser();
 
@@ -44,15 +45,29 @@ class MessagingController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param int|null $idRecipient
+     * @param Request  $request
+     *
      * @return RedirectResponse|Response
      *
-     * @Route("/envoyer-message", name="write_message")
+     * @Route("/envoyer-message/{idRecipient}", requirements={"idRecipient" = "\d+"}, name="write_message")
      */
-    public function writeMessageAction(Request $request)
+    public function writeMessageAction(int $idRecipient = null, Request $request)
     {
+        if ($idRecipient !== null) {
+            $recipient = $this->em->getRepository(Player::class)->find($idRecipient);
+            if (!$recipient) {
+                $this->addFlash(
+                    'notice-danger',
+                    'Ce joueur n\'existe pas ! Merci de sélectionner un joueur dans la liste.'
+                );
+
+                return $this->redirectToRoute('write_message');
+            }
+        }
+
         $writeMessageDTO = new WriteMessageDTO();
-        $form = $this->createForm(MessageType::class, $writeMessageDTO);
+        $form = $this->createForm(MessageType::class, $writeMessageDTO, ['idRecipient' => $idRecipient]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

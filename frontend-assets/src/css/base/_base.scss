@@ -123,4 +123,9 @@ input:focus, textarea:focus, button:focus {
     background: url('/web/front/img/window_messaging.png') no-repeat;
     background-size: contain;
     padding: 0 30px;
+
+    .message-body {
+        overflow-y: scroll;
+        height: 40%;
+    }
 }

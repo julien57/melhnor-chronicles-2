@@ -3091,6 +3091,9 @@ input:focus, textarea:focus, button:focus {
   background: url("/web/front/img/window_messaging.png") no-repeat;
   background-size: contain;
   padding: 0 30px; }
+  .messages .message-body {
+    overflow-y: scroll;
+    height: 40%; }
 
 .pattern {
   background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)), url(../img/dark_wall.png); }
