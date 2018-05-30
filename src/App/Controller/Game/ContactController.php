@@ -34,7 +34,7 @@ class ContactController extends Controller
             $this->contactAdminManager->contactAdmin($contactAdminDTO);
 
             $this->addFlash('notice', 'Votre mail a bien été envoyé !');
-            $this->redirectToRoute('contact');
+            $this->redirectToRoute('home');
         }
 
         return $this->render('Game/contact.html.twig', ['form' => $form->createView()]);

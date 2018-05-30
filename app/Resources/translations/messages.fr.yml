@@ -41,12 +41,19 @@ cgu:
 
 legal-notice:
     title: Mentions Légales
-    administrator: Administrateur
+    administrator: Réalisation et administration du site
     creator_name: Julien Montel
+    siret_title: Siret
+    creator_siret: 75373985300012
     creator_site: http://graphx.fr
+    map_title: Réalisation de map du monde
     map_author: Maxime Delcambre
     map_author_job: Concept-Artist chez Ubisoft
     map_author_link: https://www.artstation.com/maxime-delcambre
-    host_title: Hébergement
+    host_title: Hébergement du site
     host_name: OVH
     host_adresse: 2 rue Kellermann - 59100 Roubaix - France
+    host_site: https://www.ovh.com/fr/
+
+social:
+    facebook_link: https://www.facebook.com/melhnor/
