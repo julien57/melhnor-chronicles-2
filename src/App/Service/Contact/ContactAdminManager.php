@@ -16,13 +16,13 @@ class ContactAdminManager
         $this->mailer = $mailer;
     }
 
-    public function contactAdmin(ContactAdminDTO $contactAdminDTO)
+    public function contactAdmin($contact)
     {
         $message = \Swift_Message::newInstance()
-            ->setSubject($contactAdminDTO->getSubject())
-            ->setFrom($contactAdminDTO->getMail())
+            ->setSubject($contact['subject'])
+            ->setFrom($contact['mail'])
             ->setTo('julien.montel@sfr.fr')
-            ->setBody($contactAdminDTO->getBody())
+            ->setBody($contact['body'])
         ;
 
         $this->mailer->send($message);

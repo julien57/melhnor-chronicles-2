@@ -5,8 +5,12 @@ namespace App\Controller\Game;
 use App\Form\ContactType;
 use App\Model\ContactAdminDTO;
 use App\Service\Contact\ContactAdminManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends Controller
@@ -28,13 +32,14 @@ class ContactController extends Controller
     {
         $contactAdminDTO = new ContactAdminDTO();
         $form = $this->createForm(ContactType::class, $contactAdminDTO);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $this->contactAdminManager->contactAdmin($contactAdminDTO);
 
-            $this->addFlash('notice', 'Votre mail a bien été envoyé !');
-            $this->redirectToRoute('home');
+        if ($request->isMethod('POST')) {
+
+            $contact = $request->request->get('contact');
+
+            $this->contactAdminManager->contactAdmin($contact);
+            return $this->render('Game/contact.html.twig', ['form' => $form->createView()]);
         }
 
         return $this->render('Game/contact.html.twig', ['form' => $form->createView()]);

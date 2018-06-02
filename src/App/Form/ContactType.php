@@ -26,6 +26,7 @@ class ContactType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ContactAdminDTO::class,
+            'csrf_protection' => false
         ]);
     }
 }
