@@ -1,35 +1,31 @@
-$(function() {
-    var form = $('#ajax-contact');
-    var formMessages = $('#form-messages');
 
-    $(form).submit(function(event) {
-        event.preventDefault();
+$(function() {
 
-        var formData = $(form).serialize();
-        console.log(formData);
+    $('#ajax-contact').submit(function(e) {
+        e.preventDefault();
+        var name = $('#contact_name').val();
+        var mail = $('#contact_mail').val();
+        var subject = $('#contact_subject').val();
+        var body = $('#contact_body').val();
+        var info_champs = "Merci de remplir le champs manquant.";
+
+        var $this = $(this);
+
+        var formData = {};
+        var $form = $(e.currentTarget);
+        $.each($form.serializeArray(), function(key, fieldData) {
+            formData[fieldData.name] = fieldData.value
+        });
+
         $.ajax({
-            type: 'POST',
-            url: $(form).attr('action'),
-            data: formData
-        }).done(function(response) {
-            $(formMessages).removeClass('error');
-            $(formMessages).addClass('success');
-
-            $(formMessages).text(response);
-
-            $('#contact_name').val('');
-            $('#contact_mail').val('');
-            $('#contact_subject').val('');
-            $('#contact_body').val('');
-        }).fail(function(data) {
-            $(formMessages).removeClass('success');
-            $(formMessages).addClass('error');
-
-            if (data.responseText !== '') {
-                $(formMessages).text(data.responseText);
-            } else {
-                $(formMessages).text('Oops! An error occured and your message could not be sent.');
+            type: $form.attr('method'),
+            url: $form.attr('action'),
+            data: JSON.stringify(formData),
+            success: function() {
+                console.log(this.data);
+                console.log(this.type);
+                console.log(this.url);
             }
         });
-    })
+    });
 });
