@@ -2,7 +2,7 @@
 $(function() {
 
     $('#ajax-contact').submit(function(e) {
-        e.preventDefault();
+
         var name = $('#contact_name').val();
         var mail = $('#contact_mail').val();
         var subject = $('#contact_subject').val();
