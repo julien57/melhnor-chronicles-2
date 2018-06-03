@@ -76,7 +76,7 @@
                         <p>Pages : {% include 'Pagination/pagination.html.twig' %}</p>
 
                         {% for player in players %}
-                            <p>{{ player.username }} | <a href="{{ path('deletePlayer', {'id': player.id}) }}">Supprimer ce joueur</a> </p>
+                            <p>{{ player.username }} | <a href="{{ path('playerCard', {'id': player.id}) }}">Fiche joueur</a> </p>
                         {% endfor %}
 
                     </div>

@@ -161,7 +161,8 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
         if (!$targetPath) {
             $targetPath = $this->router->generate('trone');
         }
-
+        $token->getUser()->setLastConnection(new \DateTime());
+        $this->em->flush();
         return new RedirectResponse($targetPath);
     }
 }
