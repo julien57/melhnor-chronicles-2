@@ -2,14 +2,7 @@
 $(function() {
 
     $('#ajax-contact').submit(function(e) {
-       
-        var name = $('#contact_name').val();
-        var mail = $('#contact_mail').val();
-        var subject = $('#contact_subject').val();
-        var body = $('#contact_body').val();
-        var info_champs = "Merci de remplir le champs manquant.";
-
-        var $this = $(this);
+        e.preventDefault();
 
         var formData = {};
         var $form = $(e.currentTarget);

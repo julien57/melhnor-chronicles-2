@@ -2,8 +2,6 @@
 
 namespace App\Service\Contact;
 
-use App\Model\ContactAdminDTO;
-
 class ContactAdminManager
 {
     /**
@@ -16,7 +14,10 @@ class ContactAdminManager
         $this->mailer = $mailer;
     }
 
-    public function contactAdmin($contact)
+    /**
+     * @param $contact
+     */
+    public function contactAdmin($contact): void
     {
         $message = \Swift_Message::newInstance()
             ->setSubject($contact['subject'])

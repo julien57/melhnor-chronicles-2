@@ -26,13 +26,15 @@ class ContactController extends Controller
     }
 
     /**
-     * @Route("/contact", name="contact")
+     * @param Request $request
+     * @return Response
+     *
+     * @Route("/contact", name="contact"): Response
      */
     public function contactAction(Request $request)
     {
         $contactAdminDTO = new ContactAdminDTO();
         $form = $this->createForm(ContactType::class, $contactAdminDTO);
-
 
         if ($request->isMethod('POST')) {
 

@@ -25,8 +25,7 @@ class ContactType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ContactAdminDTO::class,
-            'csrf_protection' => false
+            'data_class' => ContactAdminDTO::class
         ]);
     }
 }
