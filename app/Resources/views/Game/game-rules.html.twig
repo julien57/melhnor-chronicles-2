@@ -1,0 +1,72 @@
+{% extends 'game-layout.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h2>Règles du jeu</h2>
+
+        <ul>
+            <li><a href="#regions">Les régions</a> </li>
+            <li><a href="#buildings">Les bâtiments</a> </li>
+            <li><a href="#resources">Les ressources</a> </li>
+        </ul>
+
+        <div class="row" id="regions">
+            <h3>Regions</h3>
+
+            <p class="section-description">
+                {{ 'game-rules.regions-description'|trans }}
+            </p>
+        </div>
+        <div class="row">
+            {% for region in regions %}
+                <p>{{ region.name }} : <span class="panel-item__summary">{{ region.description }}</span></p>
+            {% endfor %}
+        </div>
+
+        <div class="row" id="buildings">
+            <h3>Bâtiments</h3>
+
+            <p class="section-description">
+                {{ 'game-rules.buildings-description'|trans }}
+            </p>
+        </div>
+        <div class="row">
+            {% for building in buildings %}
+                <p>{{ building.name }} : <span class="panel-item__summary">{{ building.description }}</span></p>
+            {% endfor %}
+        </div>
+
+        <div class="row" id="resources">
+            <h3>Resources</h3>
+
+            <p class="section-description">
+                {{ 'game-rules.resources-description'|trans }}
+            </p>
+        </div>
+
+        <table class="table-condensed">
+            <thead>
+            <tr>
+                <th>Bâtiment</th>
+                <th>Ressource produite</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for buildingResource in buildingsResources %}
+
+                    {% if buildingResource.production %}
+                        <tr>
+                            <td><span class="panel-item__summary">{{ buildingResource.building.name }}</span> =></td>
+                            <td><span class="panel-item__summary">{{ buildingResource.resource.name }}</span></td>
+                        </tr>
+                    {% endif %}
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}

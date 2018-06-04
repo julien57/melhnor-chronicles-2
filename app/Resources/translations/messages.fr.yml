@@ -57,3 +57,8 @@ legal-notice:
 
 social:
     facebook_link: https://www.facebook.com/melhnor/
+
+game-rules:
+    buildings-description: Voici la liste des bâtiments ainsi que leur fonction.
+    resources-description: Descriptif des ressources du jeu avec les besoins lors de production.
+    regions-description: Le monde de Melhnor Chronicles se divise en 20 régions. Toutes les régions sont toutes différentes.
