@@ -29,19 +29,22 @@ class ContactController extends Controller
      * @param Request $request
      * @return Response
      *
-     * @Route("/contact", name="contact"): Response
+     * @Route("/contact", name="contact")
      */
     public function contactAction(Request $request)
     {
         $contactAdminDTO = new ContactAdminDTO();
         $form = $this->createForm(ContactType::class, $contactAdminDTO);
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST')) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            $contact = $request->request->get('contact');
+            $this->contactAdminManager->contactAdmin($contactAdminDTO);
 
-            $this->contactAdminManager->contactAdmin($contact);
-            return $this->render('Game/contact.html.twig', ['form' => $form->createView()]);
+            return new JsonResponse([
+                'successMessage' => 'Formulaire envoyé ! nous vous recontacterons dans les plus brefs délais.',
+                'errorMessage' => 'Le formulaire n\'a pas pu être envoyé.'
+            ]);
         }
 
         return $this->render('Game/contact.html.twig', ['form' => $form->createView()]);

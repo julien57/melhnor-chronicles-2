@@ -40,24 +40,4 @@ class LegalNoticeController extends Controller
     {
         return $this->render('Game/legal-notice.html.twig');
     }
-
-    /**
-     * @return Response
-     *
-     * @Route("regles-du-jeu", name="gameRules")
-     */
-    public function gameRulesAction():Response
-    {
-        $buildings = $this->em->getRepository(Building::class)->findAll();
-
-        $buildingsResources = $this->em->getRepository(BuildingResource::class)->getBuildingsWithResources();
-
-        $regions = $this->em->getRepository(Region::class)->findAll();
-
-        return $this->render('Game/game-rules.html.twig', [
-            'buildings' => $buildings,
-            'buildingsResources' => $buildingsResources,
-            'regions' => $regions
-        ]);
-    }
 }
