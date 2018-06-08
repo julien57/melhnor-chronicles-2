@@ -45,13 +45,12 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-
             $kingdom = Kingdom::initKingdom($registrationDTO);
 
             $player = Player::initPlayer($registrationDTO, $kingdom);
 
             // Init Meat
-            /** @var Resource $meat */
+            /** @var resource $meat */
             $meat = $this->em->getRepository(Resource::class)->find(Resource::MEAT_ID);
 
             $initKingdomMeat = new KingdomResource(
@@ -61,7 +60,7 @@ class SecurityController extends Controller
             );
 
             // Init Wood
-            /** @var Resource $wood */
+            /** @var resource $wood */
             $wood = $this->em->getRepository(Resource::class)->find(Resource::WOOD_ID);
 
             $initKingdomWood = new KingdomResource(
@@ -71,7 +70,7 @@ class SecurityController extends Controller
             );
 
             // Init Stone
-            /** @var Resource $stone */
+            /** @var resource $stone */
             $stone = $this->em->getRepository(Resource::class)->find(Resource::STONE_ID);
 
             $initKingdomStone = new KingdomResource(
