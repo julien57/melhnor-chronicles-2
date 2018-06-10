@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Model\CreatePlayerDTO;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -73,6 +75,23 @@ class Kingdom
      * @ORM\OneToMany(targetEntity="App\Entity\KingdomBuilding", mappedBy="kingdom")
      */
     private $kingdomBuildings;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\KingdomResource",
+     *     mappedBy="kingdom",
+     *     fetch="EXTRA_LAZY"
+     * )
+     */
+    private $kingdomResources;
+
+    public function __construct()
+    {
+        $this->kingdomResources = new ArrayCollection();
+        $this->kingdomBuildings = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -232,5 +251,23 @@ class Kingdom
         $kingdom->region = $createPlayerDTO->getRegion();
 
         return $kingdom;
+    }
+
+    public function getKingdomResources(): Collection
+    {
+        return $this->kingdomResources;
+    }
+
+    public function getKingdomResource(Resource $resource): ?KingdomResource
+    {
+        $filteredKingdomResources = $this->kingdomResources->filter(function (KingdomResource $kingdomResource) use ($resource) {
+            return $kingdomResource->getResource() === $resource;
+        });
+
+        if ($filteredKingdomResources->isEmpty()) {
+            return null;
+        }
+
+        return $filteredKingdomResources->first();
     }
 }

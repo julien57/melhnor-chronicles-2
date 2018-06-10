@@ -1,0 +1,31 @@
+{% extends "game-layout.html.twig" %}
+
+{% block content %}
+
+    <div class="fluid-container">
+
+        <h2>Commerce</h2>
+
+        <div class="section-description">
+            <a href="{{ path('saleResource') }}" class="btn">Vendre une ressource</a>
+        </div>
+
+        <div class="col-md-12">
+            {% for resourceForSale in ressourcesForSale %}
+                <div class="sale_resource col-md-6">
+                    <h3>{{ resourceForSale.kingdomResource.resource.name }}</h3>
+                    <p class="section-description">Quantité : {{ resourceForSale.quantity }}<br>
+                        {{ resourceForSale.kingdomResource.kingdom.name }}<br>
+
+                        <span>Prix : {{ resourceForSale.price }}</span>
+                    </p>
+                    <div class="col-md-6 col-md-offset-3">
+                        <a href="{{ path('buyResource', {'id': resourceForSale.id}) }}" class="btn">Acheter</a>
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

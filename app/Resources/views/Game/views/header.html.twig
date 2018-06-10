@@ -16,12 +16,11 @@
             <div class="collapse navbar-collapse" id="main-nav">
                 {% if is_granted('ROLE_PLAYER') %}
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="plain-link"><a href="{{ path('trone') }}">Salle du trône</a></li>
-                        <li class="plain-link"><a href="{{ path('kingdom') }}">Royaume</a></li>
-                        <li class="plain-link"><a href="#features">Périple</a></li>
-                        <li class="plain-link"><a href="#features">Commerce</a></li>
-                        <li class="plain-link"><a href="{{ path('messaging') }}">Messagerie</a></li>
-                        <li class="plain-link"><a href="{{ path('security_logout') }}">Déconnexion</a></li>
+                        <li class="plain-link"><a href="{{ path('trone') }}">{{ 'menu.throne'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('kingdom') }}">{{ 'menu.kingdom'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('market') }}">{{ 'menu.market'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('messaging') }}">{{ 'menu.messaging'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('security_logout') }}">{{ 'menu.disconnection'|trans }}</a></li>
                     </ul>
                 {% else %}
                     <ul class="nav navbar-nav navbar-right">
