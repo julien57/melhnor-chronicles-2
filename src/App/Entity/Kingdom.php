@@ -75,6 +75,22 @@ class Kingdom
     private $kingdomBuildings;
 
     /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\KingdomResource",
+     *     mappedBy="kingdom",
+     *     fetch="EXTRA_LAZY"
+     * )
+     */
+    private $kingdomResources;
+
+    public function __construct()
+    {
+        $this->kingdomResources = new ArrayCollection();
+    }
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -232,5 +248,23 @@ class Kingdom
         $kingdom->region = $createPlayerDTO->getRegion();
 
         return $kingdom;
+    }
+
+    public function getKingdomResources(): Collection
+    {
+        return $this->kingdomResources;
+    }
+
+    public function getKingdomResource(Resource $resource): ?KingdomResource
+    {
+        $filteredKingdomResources = $this->kingdomResources->filter(function (KingdomResource $kingdomResource) use ($resource) {
+            return $kingdomResource->getResource() === $resource;
+        });
+
+        if ($filteredKingdomResources->isEmpty()) {
+            return null;
+        }
+
+        return $filteredKingdomResources->first();
     }
 }

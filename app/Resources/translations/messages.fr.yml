@@ -62,3 +62,47 @@ game-rules:
     buildings-description: Voici la liste des bâtiments ainsi que leur fonction.
     resources-description: Descriptif des ressources du jeu avec les besoins lors de production.
     regions-description: Le monde de Melhnor Chronicles se divise en 20 régions. Toutes les régions sont différentes.
+=======
+menu:
+    home: Accueil
+    disconnection: Déconnexion
+    connection: Connexion
+    registration: Inscription
+    tos: CGU
+    legale-notice: Mentions légales
+    contact: Contact
+    throne: Salle du trône
+    kingdom: Royaume
+    shifting: Périple
+    battle: Bataille
+    market: Commerce
+    messaging: Messagerie
+
+title:
+    build-building: Construire un bâtiment
+    history: L'histoire
+    buildings: Bâtiments
+    building: Bâtiment
+    level: Niveau
+    kingdom-buildings: Bâtiments du royaume
+    resources: Resources
+    production: production
+    produced-resources: Ressources produites
+    used-resources: Ressources utilisées
+    consumed-resources: Ressources consommées
+    region: Region
+    avatar: Avatar
+    action-points: Points d'action
+    population: Population
+    power: Puissance
+    gold: Pièces d'or
+
+message:
+    population-gain: La population a augmenté de %number% habitants.
+
+button:
+    next: Suivant
+    build: Construire
+    connection: Connexion
+    increase: Augmenter
+    produce: Produire

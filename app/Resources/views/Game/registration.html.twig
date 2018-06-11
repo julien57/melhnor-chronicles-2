@@ -1,7 +1,7 @@
 {% extends "game-layout.html.twig" %}
 
 {% block content %}
-    <h2>Inscription</h2>
+    <h2>{{ 'menu.registration'|trans }}</h2>
 
     <div class="container">
         <div class="row" id="form-inscription">
@@ -38,12 +38,12 @@
                             </div>
                         </div>
                         <div class="row">
-                            <a href="#form-inscription" id="next1" class="col-sm-12 label-container">Suivant</a>
+                            <a href="#form-inscription" id="next1" class="col-sm-12 label-container">{{ 'button.next'|trans }}</a>
                         </div>
                     </div>
                 </div>
                 <div id="form2">
-                    <h3>Région</h3>
+                    <h3>{{ 'title.region'|trans }}</h3>
                     <div class="row">
                         <img src="{{ asset('front/img/map-world.jpg') }}" alt="Carte du monde de Melhnor" id="map_world"/>
                     </div>
@@ -57,11 +57,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <a href="#form-inscription" id="next2" class="col-sm-10 label-container">Suivant</a>
+                        <a href="#form-inscription" id="next2" class="col-sm-10 label-container">{{ 'button.next'|trans }}</a>
                     </div>
                 </div>
                 <div id="form3">
-                    <h3>Avatar</h3>
+                    <h3>{{ 'title.avatar'|trans }}</h3>
                     <div class="row">
                         <div class="col-md-7">
                             <div id="img_avatars" class="col-sm-12"></div>
