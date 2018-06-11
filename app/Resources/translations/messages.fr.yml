@@ -41,3 +41,6 @@ button:
     connection: Connexion
     increase: Augmenter
     produce: Produire
+
+messaging:
+    title: Messagerie

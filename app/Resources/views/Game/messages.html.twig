@@ -3,17 +3,17 @@
 {% block content %}
 
     <div class="container">
-        <h2>Messagerie</h2>
+        <h2>{{ 'messaging.title'|trans }}</h2>
 
         <div class="row">
             <a href="{{ path('write_message') }}" class="btn">Ecrire un message</a>
         </div>
         <div class="col-md-10">
 
-            {% for message in listMessages %}
+            {% for message in messages %}
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="{{ asset('/web/front/img/avatars/' ~ message.recipient.avatar.idAvatar ~ '.jpg') }}" id="avatar_messaging">
+                        <img src="{{ asset('front/img/avatars/' ~ message.recipient.avatar.idAvatar ~ '.jpg') }}" id="avatar_messaging">
                     </div>
                     <div class="col-md-8 text-message messages">
                         <h3>{{ message.subject }}</h3>

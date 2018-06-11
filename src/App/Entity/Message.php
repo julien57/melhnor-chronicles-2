@@ -6,10 +6,10 @@ use App\Model\WriteMessageDTO;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Table(name="messaging")
- * @ORM\Entity(repositoryClass="App\Repository\MessagingRepository")
+ * @ORM\Table(name="message")
+ * @ORM\Entity(repositoryClass="App\Repository\MessageRepository")
  */
-class Messaging
+class Message
 {
     /**
      * @var int

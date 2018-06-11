@@ -2,7 +2,7 @@
 
 namespace App\Controller\Game;
 
-use App\Entity\Messaging;
+use App\Entity\Message;
 use App\Entity\Player;
 use App\Form\MessageType;
 use App\Model\WriteMessageDTO;
@@ -34,27 +34,32 @@ class MessagingController extends Controller
     {
         $player = $this->getUser();
 
-        $listMessages = $this->em->getRepository(Messaging::class)->findBy(
+        $messages = $this->em->getRepository(Message::class)->findBy(
             ['sender' => $player],
             ['atDate' => 'desc'],
             30,
             0
         );
 
-        return $this->render('Game/messages.html.twig', ['listMessages' => $listMessages]);
+        return $this->render('Game/messages.html.twig', ['messages' => $messages]);
     }
 
     /**
-     * @param int|null $idRecipient
      * @param Request  $request
+     * @param int|null $idRecipient
      *
      * @return RedirectResponse|Response
      *
-     * @Route("/envoyer-message/{idRecipient}", requirements={"idRecipient" = "\d+"}, name="write_message")
+     * @Route(
+     *     "/envoyer-message/{idRecipient}",
+     *     requirements={"idRecipient" = "\d+"},
+     *     defaults={"idRecipient" = null},
+     *     name="write_message"
+     * )
      */
-    public function writeMessageAction(int $idRecipient = null, Request $request)
+    public function writeMessageAction(Request $request, ?int $idRecipient)
     {
-        if ($idRecipient !== null) {
+        if ($idRecipient) {
             $recipient = $this->em->getRepository(Player::class)->find($idRecipient);
             if (!$recipient) {
                 $this->addFlash(
@@ -73,7 +78,7 @@ class MessagingController extends Controller
         if ($form->isValid()) {
             $recipient = $this->getUser();
 
-            $message = Messaging::createMessage($writeMessageDTO, $recipient);
+            $message = Message::createMessage($writeMessageDTO, $recipient);
 
             $this->em->persist($message);
             $this->em->flush();
