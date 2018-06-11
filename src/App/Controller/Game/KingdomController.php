@@ -34,36 +34,24 @@ class KingdomController extends Controller
      */
     public function kingdomAction(Request $request)
     {
-        $user = $this->getUser();
-        $kingdom = $user->getKingdom();
+        $kingdom = $this->getUser()->getKingdom();
 
         $formBuilding = $this->createForm(KingdomType::class, $kingdom);
         $formBuilding->handleRequest($request);
 
-        if ($formBuilding->isValid()) {
-            $kingdomBuildingsForm = $formBuilding->getData()->getKingdomBuildings();
-
+        if ($formBuilding->isSubmitted() && $formBuilding->isValid()) {
             // Search a building with modified level
-            foreach ($kingdomBuildingsForm as $kingdomBuilding) {
-                $modifiedBuilding = $this->em->getRepository(KingdomBuilding::class)->findLevelBuildingUp(
-                    $kingdomBuilding->getKingdom()->getId(),
-                    $kingdomBuilding->getBuilding()->getId(),
-                    $kingdomBuilding->getLevel()
-                );
+            // And call a private function if is possible to increase level (return bool)
+            $isPossibleToIncrease = $this->levelingBuildingManager->searchLevelModified(
+                $formBuilding->getData()->getKingdomBuildings()
+            );
 
-                if (!is_null($modifiedBuilding)) {
-                    $resourcesRequired = $this->levelingBuildingManager->processingResourcesKingdom($modifiedBuilding);
-                }
-            }
-
-            if (!$resourcesRequired) {
+            if (!$isPossibleToIncrease) {
                 $this->addFlash('notice-danger', 'Ressources manquantes !');
-
                 return $this->redirectToRoute('kingdom');
             }
 
             $this->addFlash('notice', 'Niveau du bâtiment augmenté !');
-
             return $this->redirectToRoute('kingdom');
         }
 

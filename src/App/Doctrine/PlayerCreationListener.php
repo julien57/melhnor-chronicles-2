@@ -2,6 +2,7 @@
 
 namespace App\Doctrine;
 
+use App\Entity\Kingdom;
 use App\Service\Player\InitGamePlayerManager;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
@@ -20,7 +21,11 @@ class PlayerCreationListener
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getObject();
-        dump($entity); die();
-        $this->initGamePlayerManager->createKingdom($entity);
+
+        if (!$entity instanceof Kingdom) {
+            return;
+        }
+
+        $this->initGamePlayerManager->initKingdomResources($entity);
     }
 }

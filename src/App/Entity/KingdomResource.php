@@ -109,11 +109,4 @@ class KingdomResource
     {
         $this->resource = $resource;
     }
-
-    public function initKingdomResource()
-    {
-        $this->setKingdom($this->kingdom);
-        $this->setResource($this->resource);
-        $this->setQuantity($this->quantity);
-    }
 }

@@ -312,7 +312,6 @@ class Player implements UserInterface
     public static function initPlayer(CreatePlayerDTO $createPlayerDTO, Kingdom $kingdom): self
     {
         $player = new self();
-
         $player->username = $createPlayerDTO->getUsername();
         $player->password = $createPlayerDTO->getPassword();
         $player->mail = $createPlayerDTO->getMail();

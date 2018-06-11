@@ -3,9 +3,7 @@
 namespace App\Controller\Game;
 
 use App\Entity\Kingdom;
-use App\Entity\KingdomResource;
 use App\Entity\Player;
-use App\Entity\Resource;
 use App\Form\LoginType;
 use App\Form\RegistrationType;
 use App\Model\CreatePlayerDTO;
@@ -44,58 +42,19 @@ class SecurityController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $kingdom = Kingdom::initKingdom($registrationDTO);
-
             $player = Player::initPlayer($registrationDTO, $kingdom);
 
-            // Init Meat
-            /** @var Resource $meat */
-            $meat = $this->em->getRepository(Resource::class)->find(Resource::MEAT_ID);
-
-            $initKingdomMeat = new KingdomResource(
-                $kingdom,
-                $meat,
-                KingdomResource::MEAT_STARTER_QUANTITY
-            );
-
-            // Init Wood
-            /** @var Resource $wood */
-            $wood = $this->em->getRepository(Resource::class)->find(Resource::WOOD_ID);
-
-            $initKingdomWood = new KingdomResource(
-                $kingdom,
-                $wood,
-                KingdomResource::WOOD_STARTER_QUANTITY
-            );
-
-            // Init Stone
-            /** @var Resource $stone */
-            $stone = $this->em->getRepository(Resource::class)->find(Resource::STONE_ID);
-
-            $initKingdomStone = new KingdomResource(
-                $kingdom,
-                $stone,
-                KingdomResource::STONE_STARTER_QUANTITY
-            );
-
-            $initKingdomMeat->initKingdomResource();
-            $initKingdomWood->initKingdomResource();
-            $initKingdomStone->initKingdomResource();
-
-            $this->em->persist($initKingdomMeat);
-            $this->em->persist($initKingdomWood);
-            $this->em->persist($initKingdomStone);
+            $this->em->persist($kingdom);
             $this->em->persist($player);
-
             $this->em->flush();
 
             $this->addFlash(
                 'notice',
                 'Bienvenue sur Melhnor, vous pouvez maintenant vous connecter !'
             );
-
             return $this->redirectToRoute('connection');
         }
 
