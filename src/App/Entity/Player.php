@@ -78,6 +78,13 @@ class Player implements UserInterface
     private $lastConnection;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(type="json_array")
+     */
+    private $roles = array();
+
+    /**
      * @var Avatar
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", cascade={"persist"})
@@ -220,14 +227,6 @@ class Player implements UserInterface
     }
 
     /**
-     * @param null|string $password
-     */
-    public function setPassword(?string $password): void
-    {
-        $this->password = $password;
-    }
-
-    /**
      * @return string
      */
     public function getPlainPassword()
@@ -243,6 +242,14 @@ class Player implements UserInterface
         $this->plainPassword = $plainPassword;
 
         $this->password = null;
+    }
+
+    /**
+     * @param null|string $password
+     */
+    public function setPassword(?string $password): void
+    {
+        $this->password = $password;
     }
 
     /**
@@ -315,6 +322,7 @@ class Player implements UserInterface
         $player->username = $createPlayerDTO->getUsername();
         $player->password = $createPlayerDTO->getPassword();
         $player->mail = $createPlayerDTO->getMail();
+        $player->roles = ['ROLE_PLAYER'];
         $player->avatar = $createPlayerDTO->getAvatar();
         $player->kingdom = $kingdom;
 

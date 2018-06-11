@@ -7,7 +7,10 @@ use App\Entity\KingdomBuilding;
 use App\Entity\KingdomResource;
 use App\Entity\Resource;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 class LevelingBuildingManager
 {
@@ -44,30 +47,35 @@ class LevelingBuildingManager
     private $stoneRequired;
 
     /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
      * @var EntityManagerInterface
      */
     private $em;
 
+    /**
+     * @var SessionInterface
+     */
+    private $session;
+    /**
+     * @var Router
+     */
+    private $router;
+
     public function __construct(
         $buildingsRules,
-        TokenStorageInterface $tokenStorage,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        SessionInterface $session,
+        RouterInterface $router
     ) {
         $this->buildingsRules = $buildingsRules;
-        $this->tokenStorage = $tokenStorage;
         $this->em = $em;
+        $this->session = $session;
+        $this->router = $router;
     }
 
     /**
      * @param $kingdomBuildingsForm
-     * @return bool
      */
-    public function searchLevelModified($kingdomBuildingsForm): bool
+    public function searchLevelModified($kingdomBuildingsForm)
     {
         /** @var KingdomBuilding $kingdomBuilding */
         foreach ($kingdomBuildingsForm as $kingdomBuilding) {
@@ -81,13 +89,13 @@ class LevelingBuildingManager
                 $resourcesRequired = $this->processingResourcesKingdom($modifiedBuilding);
 
                 if (!$resourcesRequired) {
-                    return false;
+                    $this->session->getFlashBag()->add('notice-danger', 'Ressources manquantes !');
+                    return new RedirectResponse($this->router->generate('kingdom'));
                 }
-                return true;
+                $this->session->getFlashBag()->add('notice', 'Niveau du bâtiment augmenté !');
+                return new RedirectResponse($this->router->generate('kingdom'));
             }
         }
-
-        return false;
     }
 
     /**
@@ -98,12 +106,11 @@ class LevelingBuildingManager
     private function processingResourcesKingdom(KingdomBuilding $modifiedBuilding): bool
     {
         $this->building = $this->buildingsRules[$modifiedBuilding->getBuilding()->getId()];
-
-        $this->setLevel($modifiedBuilding->getLevel());
+        $this->level = $modifiedBuilding->getLevel();
         $this->requiredGoldAmount();
         $this->requiredResourcesAmount();
         /** @var Kingdom $kingdomPlayer */
-        $kingdomPlayer = $this->tokenStorage->getToken()->getUser()->getKingdom();
+        $kingdomPlayer = $modifiedBuilding->getKingdom();
 
         // Gold Process
         $goldPlayer = $kingdomPlayer->getGold();
@@ -147,18 +154,9 @@ class LevelingBuildingManager
         return true;
     }
 
-    /**
-     * @param int $level
-     */
-    private function setLevel(int $level): void
-    {
-        $this->level = $level;
-    }
-
     private function requiredGoldAmount()
     {
         $nbGold = ($this->level * $this->level) * $this->building['gold'];
-
         $this->goldRequired += $nbGold;
     }
 
