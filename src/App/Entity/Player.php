@@ -82,7 +82,7 @@ class Player implements UserInterface
      *
      * @ORM\Column(type="json_array")
      */
-    private $roles = array();
+    private $roles = [];
 
     /**
      * @var Avatar

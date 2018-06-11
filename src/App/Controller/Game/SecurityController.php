@@ -2,13 +2,10 @@
 
 namespace App\Controller\Game;
 
-use App\Entity\Kingdom;
-use App\Entity\Player;
 use App\Form\LoginType;
 use App\Form\RegistrationType;
 use App\Model\CreatePlayerDTO;
 use App\Service\Player\InitGamePlayerManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,7 +29,6 @@ class SecurityController extends Controller
 
         $form = $this->createForm(RegistrationType::class, $createPlayerDTO)->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $initGamePlayerManager->initPlayerWithKingdom($createPlayerDTO);
         }
 

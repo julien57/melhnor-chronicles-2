@@ -2,7 +2,6 @@
 
 namespace App\Controller\Game;
 
-use App\Entity\KingdomBuilding;
 use App\Entity\KingdomResource;
 use App\Form\KingdomType;
 use App\Service\Leveling\LevelingBuildingManager;
@@ -22,7 +21,6 @@ class KingdomController extends Controller
 
         $formBuilding = $this->createForm(KingdomType::class, $kingdom)->handleRequest($request);
         if ($formBuilding->isSubmitted() && $formBuilding->isValid()) {
-
             $levelingBuildingManager->searchLevelModified($formBuilding->getData()->getKingdomBuildings());
         }
 

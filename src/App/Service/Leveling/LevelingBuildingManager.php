@@ -90,9 +90,11 @@ class LevelingBuildingManager
 
                 if (!$resourcesRequired) {
                     $this->session->getFlashBag()->add('notice-danger', 'Ressources manquantes !');
+
                     return new RedirectResponse($this->router->generate('kingdom'));
                 }
                 $this->session->getFlashBag()->add('notice', 'Niveau du bâtiment augmenté !');
+
                 return new RedirectResponse($this->router->generate('kingdom'));
             }
         }
@@ -167,7 +169,6 @@ class LevelingBuildingManager
         $this->woodRequired += $nbWood;
 
         if (array_key_exists(Resource::STONE_ID, $this->building['resources'])) {
-
             $nbStone = ($this->level * $this->level) * $this->building['resources']['23']['quantity'];
             $this->stoneRequired += $nbStone;
         }

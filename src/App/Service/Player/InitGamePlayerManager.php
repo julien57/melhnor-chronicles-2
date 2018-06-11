@@ -38,6 +38,7 @@ class InitGamePlayerManager
 
     /**
      * @param CreatePlayerDTO $createPlayerDTO
+     *
      * @return RedirectResponse
      */
     public function initPlayerWithKingdom(CreatePlayerDTO $createPlayerDTO): RedirectResponse
@@ -50,6 +51,7 @@ class InitGamePlayerManager
         $this->em->flush();
 
         $this->session->getFlashBag()->add('notice', 'Bienvenue sur Melhnor, vous pouvez maintenant vous connecter !');
+
         return new RedirectResponse($this->router->generate('security_login'));
     }
 
@@ -84,14 +86,15 @@ class InitGamePlayerManager
     }
 
     /**
-     * @param int $resourceId
+     * @param int     $resourceId
      * @param Kingdom $kingdom
-     * @param int $quantity
+     * @param int     $quantity
+     *
      * @return KingdomResource
      */
     private function initResource(int $resourceId, Kingdom $kingdom, int $quantity): KingdomResource
     {
-        /** @var Resource $resource */
+        /** @var resource $resource */
         $resource = $this->em->getRepository(Resource::class)->find($resourceId);
 
         $kingdomResource = new KingdomResource(
