@@ -1,0 +1,34 @@
+{% extends 'game-layout.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h2>{{ 'legal-notice.title'|trans }}</h2>
+
+        <h3>{{ 'legal-notice.administrator'|trans }}</h3>
+
+        <p class="features-p">
+            {{ 'legal-notice.creator_name'|trans }}<br>
+            {{ 'legal-notice.siret_title'|trans }} : {{ 'legal-notice.creator_siret'|trans }}<br>
+            <a href="{{ 'legal-notice.creator_site'|trans }}" target="_blank">{{ 'legal-notice.creator_site'|trans }}</a></p>
+
+        <h3>{{ 'legal-notice.map_title'|trans }}</h3>
+
+        <p class="features-p">
+            {{ 'legal-notice.map_author'|trans }}<br>
+            {{ 'legal-notice.map_author_job'|trans }}<br>
+            <a href="{{ 'legal-notice.map_author_link'|trans }}" target="_blank">{{ 'legal-notice.map_author_link'|trans }}</a>
+        </p>
+
+        <h3>{{ 'legal-notice.host_title'|trans }}</h3>
+
+        <p class="features-p">
+            {{ 'legal-notice.host_name'|trans }}<br>
+            {{ 'legal-notice.host_adresse'|trans }}<br>
+            <a href="{{ 'legal-notice.host_site'|trans }}" target="_blank">{{ 'legal-notice.host_site'|trans }}</a>
+        </p>
+
+    </div>
+
+{% endblock %}

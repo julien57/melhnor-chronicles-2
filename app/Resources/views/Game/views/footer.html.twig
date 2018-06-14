@@ -4,18 +4,16 @@
             <div class="col-xs-12 col-sm-6">
                 <nav class="footer-nav">
                     <ul>
-                        <li><a href="#gallery">{{ 'menu.tos'|trans }}</a></li>
-                        <li><a href="#features">{{ 'menu.legale-notice'|trans }}</a></li>
-                        <li><a href="#store">{{ 'menu.contact'|trans }}</a></li>
+                        <li><a href="{{ path('game-rules') }}">Règles du jeu</a></li>
+                        <li><a href="{{ path('tos') }}">{{ 'menu.tos'|trans }}</a></li>
+                        <li><a href="{{ path('legal-notice') }}">{{ 'menu.legale-notice'|trans }}</a></li>
+                        <li><a href="{{ path('contact') }}">{{ 'menu.contact'|trans }}</a></li>
                     </ul>
                 </nav>
             </div>
             <div class="col-xs-12 col-sm-6">
                 <nav class="social-nav">
-                    <a href="#"><span class="ion-social-facebook"></span></a>
-                    <a href="#"><span class="ion-social-twitter"></span></a>
-                    <a href="#"><span class="ion-social-youtube"></span></a>
-                    <a href="#"><span class="ion-social-instagram"></span></a>
+                    <a href="{{ 'social.facebook_link'|trans }}" target="_blank"><span class="ion-social-facebook"></span></a>
                 </nav>
             </div>
         </div>

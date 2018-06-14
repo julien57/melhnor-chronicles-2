@@ -35,6 +35,9 @@ services:
     App\Service\Production\ProductionPopulationManager:
         public: true
 
+    App\Service\Contact\ContactAdminManager:
+        public: true
+        
     App\Service\Player\InitGamePlayerManager:
         public: true
 

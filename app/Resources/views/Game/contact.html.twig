@@ -1,0 +1,57 @@
+{% extends 'game-layout.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>Contactez-Nous</h2>
+
+        <div id="form-messages"></div>
+        <form method="post" action="{{ path('contact') }}" id="ajax-contact" class="contact-form">
+
+            {{ form_errors(form) }}
+
+            <div class="col-md-6 col-md-offset-2">
+                <div id="error_input"></div>
+                <div class="row">
+                    {{ form_label(form.name, "Nom :", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+
+                    <div class="col-sm-8">
+                        {{ form_widget(form.name) }}
+                    </div>
+                </div>
+                <div class="row">
+                    {{ form_label(form.mail, "Adresse Mail :", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+
+                    <div class="col-sm-8">
+                        {{ form_widget(form.mail) }}
+                    </div>
+                </div>
+                <div class="row">
+                    {{ form_label(form.subject, "Sujet :", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+
+                    <div class="col-sm-8">
+                        {{ form_widget(form.subject) }}
+                    </div>
+                </div>
+                <div class="row">
+                    {{ form_label(form.body, "Votre message :", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+
+                    <div class="col-sm-8">
+                        {{ form_widget(form.body, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="button-submit"></div>
+                    <div class="col-md-8 col-md-offset-4">
+                        <button type="submit" class="btn">Envoyer</button>
+                    </div>
+                </div>
+            </div>
+
+            {{ form_rest(form) }}
+
+        </form>
+
+    </div>
+
+{% endblock %}
