@@ -62,7 +62,7 @@ game-rules:
     buildings-description: Voici la liste des bâtiments ainsi que leur fonction.
     resources-description: Descriptif des ressources du jeu avec les besoins lors de production.
     regions-description: Le monde de Melhnor Chronicles se divise en 20 régions. Toutes les régions sont différentes.
-=======
+
 menu:
     home: Accueil
     disconnection: Déconnexion
@@ -106,3 +106,6 @@ button:
     connection: Connexion
     increase: Augmenter
     produce: Produire
+
+messaging:
+    title: Messagerie

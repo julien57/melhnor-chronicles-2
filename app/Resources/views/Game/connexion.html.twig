@@ -9,7 +9,7 @@
         {% endif %}
 
         <div class="col-md-6">
-            {{ form_start(form, {'attr': {'class': 'contact-form'}}) }}
+            <form action="{{ path('security_login') }}" class="contact-form" method="POST">
 
                 <div class="row">
                     <div id="error_input"></div>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-            {{ form_end(form) }}
+            </form>
         </div>
     </div>
 
