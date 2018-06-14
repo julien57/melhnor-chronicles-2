@@ -47,7 +47,7 @@ let registration = {
             imgAvatar.src = '/web/front/img/avatars/nains' + nameValue + '.jpg';
 
         } else if (nameValue > 34 && nameValue <= 47) {
-            imgAvatar.src = '/web/front/img/avatars/nao-oitte' + nameValue + '.jpg';
+            imgAvatar.src = '/web/front/img/avatars/nao-oitte' + e.target.value + '.jpg';
 
         } else if (nameValue > 47 && nameValue <= 56) {
             imgAvatar.src = '/web/front/img/avatars/marchands' + nameValue + '.jpg';

@@ -18,10 +18,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="plain-link"><a href="{{ path('trone') }}">{{ 'menu.throne'|trans }}</a></li>
                         <li class="plain-link"><a href="{{ path('kingdom') }}">{{ 'menu.kingdom'|trans }}</a></li>
-                        <li class="plain-link"><a href="#features">{{ 'menu.shifting'|trans }}</a></li>
-                        <li class="plain-link"><a href="#features">{{ 'menu.battle'|trans }}</a></li>
-                        <li class="plain-link"><a href="#features">{{ 'menu.market'|trans }}</a></li>
-                        <li class="plain-link"><a href="#features">{{ 'menu.messaging'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('market') }}">{{ 'menu.market'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('messaging') }}">{{ 'menu.messaging'|trans }}</a></li>
                         <li class="plain-link"><a href="{{ path('security_logout') }}">{{ 'menu.disconnection'|trans }}</a></li>
                     </ul>
                 {% else %}

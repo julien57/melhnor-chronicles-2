@@ -105,3 +105,45 @@ input:focus, textarea:focus, button:focus {
     background-size: contain;
     padding: 15px 5px;
 }
+
+#avatar_messaging {
+    width: 140px;
+    height: 250px;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px black;
+}
+
+.text-message {
+    color: white;
+    font-size: 0.7em;
+}
+
+.messages {
+    height: 330px;
+    background: url('/web/front/img/window_messaging.png') no-repeat;
+    background-size: contain;
+    padding: 0 30px;
+
+    .message-body {
+        overflow-y: scroll;
+        height: 40%;
+    }
+}
+
+.sale_resource {
+    width: 600px;
+    height: 250px;
+    background: url('/web/front/img/window_market.png') no-repeat;
+    background-size: contain;
+    margin-bottom: 50px;
+
+    .section-description {
+        font-weight: bold;
+        color: #673903;
+        text-shadow: 0px 1px 0px #FAE1C1, 0px -2px 0px rgba(0,0,0,.7);
+
+        span {
+            font-size: xx-large;
+        }
+    }
+}

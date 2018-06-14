@@ -1,3 +1,68 @@
+cgu:
+    title: Conditions Générales d'Utilisation
+    title_first_section: Informations Légales
+    first_section: >
+        La participation au jeu virtuel par navigateur Melhnor Chronicles 2, nommé MC2 par la suite
+        , est soumise à la lecture et à l'acceptation des conditions générales d'utilisation suivantes. MC2 est un jeu
+        virtuel entièrement gratuit, hors l'accès internet, dont les éventuels coûts sont à la charge de l'utilisateur.
+    second_section: |
+        L'exercice de la liberté d'expression comporte, au regard notamment de l'article 10 de la Convention européenne
+        des droits de l'Homme, des droits et des responsabilités. L'utilisateur du jeu MC2 doit notamment veiller à ne
+        pas proférer d'insultes ou de propos diffamants à l'encontre de toute personne morale ou physique, de ne poster
+        aucun message à caractère raciste, violent ou faisant l'apologie des crimes de guerre, faisant l'apologie ou la
+        publicité de substances illicites, du piratage informatique, ni aucun message à caractère pornographique.
+    third_section: |
+        Tout utilisateur convaincu d'avoir contrevenu à l'une quelconque de ces règles verra son compte supprimé sans
+        autre forme de procès, et sans possibilité de contestation. Par ailleurs, les administrateurs du jeu se
+        réservent le droit de poursuivre en justice, selon les lois françaises, tout utilisateur contrevenant, s'ils
+        estimaient que le délit était suffisamment grave.
+    title_second_section: Le Jeu
+    first_second_section: >
+        Toute tentative de triche, d'utilisation d'une faille du jeu (connue ou non encore
+        répertoriée) afin d'en retirer ou non un avantage, ou de hackage du site MC2 est strictement interdite. Par
+        hackage, on entend toute intrusion ou tentative d'intrusion dans un système de traitement automatique de
+        données, qu'il ait altéré ou non ledit système.
+    second_second_section: >
+        MC2 respecte la CNIL (commission nationale de l'informatique et des libertés). En application de la loi nº78-17
+        du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés, vous disposez des droits d'opposition
+        (art.26 de la loi), d'accès (art.34 à 38 de la loi), et de rectification (art.36 de la loi) des données vous
+        concernant. Les données récupérées sur MC ne sont en aucun cas revendues ou transmises à une quelconque entité.
+        Ainsi, vous pouvez exiger que soient rectifiées, complétées, clarifiées, mises à jour ou effacées les
+        informations vous concernant qui sont inexactes, incomplètes, équivoques, périmées ou dont la collecte,
+        l'utilisation ou la conservation est interdite.
+    third_second_section: >
+        Chaque joueur ne peut posséder qu'un seul compte. L'utilisation de plusieurs comptes pour un seul joueur est
+        interdit. MC2 se garde le droit de supprimer sans avertissement un ou tous les comptes d'un même joueur s'il
+        transgresse cette règle.
+    fourth_second_section: >
+        Toute tentative de représentation totale ou partielle du site et de son contenu sans autorisation du site MC2,
+        est strictement interdite sous peine d'entrer en infraction avec le Code de la Propriété intellectuelle qui
+        sanctionne les délits de contrefaçon.
+
+legal-notice:
+    title: Mentions Légales
+    administrator: Réalisation et administration du site
+    creator_name: Julien Montel
+    siret_title: Siret
+    creator_siret: 75373985300012
+    creator_site: http://graphx.fr
+    map_title: Réalisation de map du monde
+    map_author: Maxime Delcambre
+    map_author_job: Concept-Artist chez Ubisoft
+    map_author_link: https://www.artstation.com/maxime-delcambre
+    host_title: Hébergement du site
+    host_name: OVH
+    host_adresse: 2 rue Kellermann - 59100 Roubaix - France
+    host_site: https://www.ovh.com/fr/
+
+social:
+    facebook_link: https://www.facebook.com/melhnor/
+
+game-rules:
+    buildings-description: Voici la liste des bâtiments ainsi que leur fonction.
+    resources-description: Descriptif des ressources du jeu avec les besoins lors de production.
+    regions-description: Le monde de Melhnor Chronicles se divise en 20 régions. Toutes les régions sont différentes.
+
 menu:
     home: Accueil
     disconnection: Déconnexion
@@ -41,3 +106,6 @@ button:
     connection: Connexion
     increase: Augmenter
     produce: Produire
+
+messaging:
+    title: Messagerie

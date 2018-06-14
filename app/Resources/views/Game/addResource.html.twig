@@ -1,0 +1,37 @@
+{% extends "game-layout.html.twig" %}
+
+{% block content %}
+
+    <div class="fluid-container">
+
+        <h2>Vendre une ressource</h2>
+
+        <div class="col-md-3 col-md-offset-4">
+            <form action="{{ path('saleResource') }}" method="post" class="contact-form">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_label(form.resource, "Resource à vendre :") }}
+
+                        {{ form_widget(form.resource, {'attr': {'class': 'form-control'}}) }}<br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ form_label(form.quantity, "Quantité :") }}
+
+                        {{ form_widget(form.quantity, {'attr': {'class': 'form-control'}}) }}<br>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <button type="submit" class="btn">Vendre au marché</button>
+                </div>
+
+                {{ form_rest(form) }}
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

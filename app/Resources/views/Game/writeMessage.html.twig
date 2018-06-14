@@ -1,0 +1,38 @@
+{% extends 'game-layout.html.twig' %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h2>Envoyer un message</h2>
+
+        <div class="col-md-6">
+
+            {{ form_start(form, {'attr': {'class': 'contact-form'}}) }}
+                <div class="row">
+                    {{ form_label(form.subject, "Sujet :", {'label_attr': {'class': 'label-container'}}) }}
+
+                    {{ form_widget(form.subject, {'attr': {'class': 'form-control'}}) }}
+                </div>
+
+                <div class="row">
+                    {{ form_widget(form.message, {'attr': {'class': 'col-sm-12 control-label', 'placeholder': 'Votre message...'}}) }}
+                </div>
+                <div class="row">
+                    {{ form_label(form.sender, "Pseudo :", {'label_attr': {'class': 'label-container'}}) }}
+
+                    {{ form_widget(form.sender, {'attr': {'class': 'col-sm-4 form-control'}}) }}
+                </div>
+
+                <div class="row">
+                    <div class="button-submit"></div>
+                    <div class="col-md-10">
+                        <button type="submit" class="btn">Envoyer le message</button>
+                    </div>
+                </div>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+
+{% endblock %}

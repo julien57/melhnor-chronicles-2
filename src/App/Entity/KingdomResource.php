@@ -34,7 +34,7 @@ class KingdomResource
     /**
      * @var Kingdom
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Kingdom", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Kingdom")
      * @ORM\JoinColumn(nullable=false)
      */
     private $kingdom;
