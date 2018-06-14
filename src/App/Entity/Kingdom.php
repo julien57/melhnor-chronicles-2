@@ -90,6 +90,7 @@ class Kingdom
     public function __construct()
     {
         $this->kingdomResources = new ArrayCollection();
+        $this->kingdomBuildings = new ArrayCollection();
     }
 
     /**

@@ -3076,6 +3076,25 @@ input:focus, textarea:focus, button:focus {
   background-size: contain;
   padding: 15px 5px; }
 
+#avatar_messaging {
+  width: 140px;
+  height: 250px;
+  border-radius: 5px;
+  box-shadow: 3px 3px 3px black; }
+
+.text-message {
+  color: white;
+  font-size: 0.7em; }
+
+.messages {
+  height: 330px;
+  background: url("/web/front/img/window_messaging.png") no-repeat;
+  background-size: contain;
+  padding: 0 30px; }
+  .messages .message-body {
+    overflow-y: scroll;
+    height: 40%; }
+
 .sale_resource {
   width: 600px;
   height: 250px;
