@@ -35,4 +35,4 @@ security:
                     - app.security.login_form_authentificator
 
     access_control:
-        #- { path: ^/donjon, roles: ROLE_ADMIN }
+        - { path: ^/donjon, roles: ROLE_ADMIN }

@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Player implements UserInterface
 {
+    const ROLE_ADMIN_USERNAME = 'julien@gmail.com';
+
     const ACTION_POINTS_STARTER = 50;
 
     /**
@@ -76,13 +78,6 @@ class Player implements UserInterface
      * @ORM\Column(name="last_connection", type="datetime")
      */
     private $lastConnection;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(type="json_array")
-     */
-    private $roles = [];
 
     /**
      * @var Avatar
@@ -291,6 +286,10 @@ class Player implements UserInterface
      */
     public function getRoles()
     {
+        if ($this->username === self::ROLE_ADMIN_USERNAME) {
+            return ['ROLE_ADMIN'];
+        }
+
         return ['ROLE_PLAYER'];
     }
 
@@ -322,7 +321,6 @@ class Player implements UserInterface
         $player->username = $createPlayerDTO->getUsername();
         $player->password = $createPlayerDTO->getPassword();
         $player->mail = $createPlayerDTO->getMail();
-        $player->roles = ['ROLE_PLAYER'];
         $player->avatar = $createPlayerDTO->getAvatar();
         $player->kingdom = $kingdom;
 

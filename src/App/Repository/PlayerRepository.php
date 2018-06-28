@@ -10,13 +10,14 @@ class PlayerRepository extends EntityRepository
     /**
      * @param $page
      * @param $nbMaxPerPage
+     *
      * @return Paginator
      */
     public function allPlayersWithPagination($page, $nbMaxPerPage): Paginator
     {
-        $qb = $this->createQueryBuilder('p');
-
-        $query = $qb->getQuery();
+        $query = $this
+            ->createQueryBuilder('p')
+            ->getQuery();
 
         $premierResultat = ($page - 1) * $nbMaxPerPage;
         $query->setFirstResult($premierResultat)->setMaxResults($nbMaxPerPage);

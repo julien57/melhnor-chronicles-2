@@ -3,6 +3,7 @@
 namespace App\Controller\Donjon;
 
 use App\Entity\KingdomResource;
+use App\Entity\Message;
 use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,23 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlayerCardController extends Controller
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-
-    /**
      * @param Request $request
-     * @param int $id
+     * @param int     $id
+     *
      * @return RedirectResponse|Response
      *
      * @Route("fiche-joueur/{id}", requirements={"\d+"}, name="playerCard")
      */
-    public function playerCardAction(Request $request, int $id)
+    public function playerCardAction(Request $request, EntityManagerInterface $em, int $id)
     {
         $player = $this->getDoctrine()->getRepository(Player::class)->find($id);
 
@@ -40,19 +32,24 @@ class PlayerCardController extends Controller
         }
 
         if ($request->isMethod('POST')) {
-
-            $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($player->getKingdom());
+            $kingdomResources = $em->getRepository(KingdomResource::class)->findByKingdom($player->getKingdom());
 
             foreach ($kingdomResources as $kingdomResource) {
-                $this->em->remove($kingdomResource);
+                $em->remove($kingdomResource);
             }
-            $this->em->remove($player);
-            $this->em->flush();
+            $em->remove($player);
+            $em->flush();
 
             $this->addflash('notice', 'Le joueur a bien été supprimé !');
+
             return $this->redirectToRoute('donjon');
         }
 
-        return $this->render('Donjon/player-card.html.twig', ['player' => $player]);
+        $messages = $em->getRepository(Message::class)->findBySender($player);
+
+        return $this->render('Donjon/player-card.html.twig', [
+            'player' => $player,
+            'messages' => $messages,
+        ]);
     }
 }

@@ -159,10 +159,15 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
 
         if (!$targetPath) {
-            $targetPath = $this->router->generate('trone');
+            if ($token->getUser()->getUsername() === Player::ROLE_ADMIN_USERNAME) {
+                $targetPath = $this->router->generate('donjon');
+            } else {
+                $targetPath = $this->router->generate('trone');
+            }
         }
         $token->getUser()->setLastConnection(new \DateTime());
         $this->em->flush();
+
         return new RedirectResponse($targetPath);
     }
 }

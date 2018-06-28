@@ -1,0 +1,30 @@
+{% extends 'donjon-layout.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card p-6">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3>Etes-vous sûr de vouloir supprimer tous les messages ?</h3>
+
+                        <div class="row">
+                            <div class="col-md-5">
+                                <a href="{{ path('messagesDonjon') }}" class="btn btn-primary">
+                                    <i class="fa fa-align-center"></i> &nbsp; Revenir aux messages
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_start(form) }}
+                                    <input type="submit" value="Supprimer" class="btn btn-danger"/>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
