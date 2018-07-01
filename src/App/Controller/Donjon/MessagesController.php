@@ -50,7 +50,7 @@ class MessagesController extends Controller
         $form = $this->get('form.factory')->create();
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $messages = $this->em->getRepository(Message::class)->findByRecipient($this->getUser());
 
             foreach ($messages as $message) {

@@ -7,12 +7,12 @@
             <div class="card p-6">
                 <div class="card-body d-flex justify-content-between align-items-center">
                     <div>
-                        <h3>Etes-vous sûr de vouloir supprimer tous les messages ?</h3>
+                        <h3>{{ 'donjon.warning-remove-messages'|trans }}</h3>
 
                         <div class="row">
                             <div class="col-md-5">
                                 <a href="{{ path('messagesDonjon') }}" class="btn btn-primary">
-                                    <i class="fa fa-align-center"></i> &nbsp; Revenir aux messages
+                                    <i class="fa fa-align-center"></i> &nbsp; {{ 'donjon.return-messages'|trans }}
                                 </a>
                             </div>
                             <div class="col-md-3">

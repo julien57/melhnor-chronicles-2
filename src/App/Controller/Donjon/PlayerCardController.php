@@ -10,7 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class PlayerCardController extends Controller
@@ -27,11 +26,10 @@ class PlayerCardController extends Controller
     {
         $player = $this->getDoctrine()->getRepository(Player::class)->find($id);
 
-        if ($player === null) {
-            throw new NotFoundHttpException('Le joueur avec l\'id '.$id.' n\'existe pas.');
-        }
+        $form = $this->get('form.factory')->create();
+        $form->handleRequest($request);
 
-        if ($request->isMethod('POST')) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $kingdomResources = $em->getRepository(KingdomResource::class)->findByKingdom($player->getKingdom());
 
             foreach ($kingdomResources as $kingdomResource) {
@@ -47,9 +45,10 @@ class PlayerCardController extends Controller
 
         $messages = $em->getRepository(Message::class)->findBySender($player);
 
-        return $this->render('Donjon/player-card.html.twig', [
+        return $this->render('Donjon/player_card.html.twig', [
             'player' => $player,
             'messages' => $messages,
+            'form' => $form->createView(),
         ]);
     }
 }

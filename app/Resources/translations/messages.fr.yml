@@ -109,3 +109,24 @@ button:
 
 messaging:
     title: Messagerie
+
+donjon:
+    nb-players: Joueurs inscrits
+    nb-resources-market: Ressources au commerce
+    players-list: Liste des joueurs
+    player-card: Fiche du joueur
+    messages: Messages reçus
+    no-message: Aucun message
+    delete-messages: Supprimer les messages
+    return-dashboard: Retour au Dashboard
+    delete-player: Suppression joueur
+    question-remove-player: Voulez-vous le supprimer ?
+    warning-remove-player: Attention, en cliquant sur Supprimer, le joueur sera définitivement supprimé
+    warning-remove-messages: Etes-vous sûr de vouloir supprimer tous les messages ?
+    return-messages: Revenir aux messages
+    player-info: infos players
+    kingdom-name: Nom du royaume
+    registration-date: Date d'inscription
+    last-connection: Dernière connexion
+    mail: Adresse mail
+    sent-message: Messages envoyés
