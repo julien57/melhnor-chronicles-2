@@ -43,7 +43,7 @@
                 <div class="card-body p-0">
                     <div class="p-4">
 
-                        <p>Pages : {% include 'Pagination/pagination.html.twig' %}</p>
+                        <p>{{ 'donjon.pages'|trans }} : {% include 'Pagination/pagination.html.twig' %}</p>
 
                         {% for player in players %}
                             <p>{{ player.username }} |

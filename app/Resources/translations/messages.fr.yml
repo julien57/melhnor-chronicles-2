@@ -113,6 +113,7 @@ messaging:
 donjon:
     nb-players: Joueurs inscrits
     nb-resources-market: Ressources au commerce
+    pages: Pages
     players-list: Liste des joueurs
     player-card: Fiche du joueur
     messages: Messages reçus
