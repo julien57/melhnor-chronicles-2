@@ -70,17 +70,21 @@ let registration = {
     }
 };
 
-form2.style.display = 'none';
-form3.style.display = 'none';
-
-document.getElementById('next1').addEventListener('click', function () {
-    registration.verify_input();
-});
-
-document.getElementById('next2').addEventListener('click', function () {
+if (form2) {
     form2.style.display = 'none';
-    form3.style.display = 'block';
-});
+    document.getElementById('next1').addEventListener('click', function () {
+        registration.verify_input();
+    });
+}
+
+if (form3) {
+    form3.style.display = 'none';
+    document.getElementById('next2').addEventListener('click', function () {
+        form2.style.display = 'none';
+        form3.style.display = 'block';
+    });
+}
+
 
 // Choice avatar
 

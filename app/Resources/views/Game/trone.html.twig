@@ -26,16 +26,20 @@
                 </div>
             </div>
             <div class="col-md-7">
-                <img src="{{ asset('front/img/map-world.jpg') }}" alt="Carte du monde de Melhnor" id="map_world" usemap="#image-map"/>
+                <img src="{{ asset('front/img/map-world.jpg') }}" alt="Carte du monde de Melhnor" id="map_world"/>
 
                 <div class="col-md-4">
-                    <select id="list_regions" class="form-control"></select>
+                    <select id="list_regions" class="form-control">
+                        <option selected>Sélectionnez une région</option>
+                    </select>
                 </div>
                 <div id="description_region"></div>
             </div>
         </div>
-
-
     </div>
 
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('front/js/map.js') }}"></script>
 {% endblock %}
