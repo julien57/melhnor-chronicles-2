@@ -14,10 +14,12 @@ listRegions.addEventListener('change', function() {
             document.getElementById('description_region').innerHTML = '';
 
             const titreH3 = document.createElement('h3');
+            titreH3.classList.add('col-md-10');
             titreH3.textContent = regions[region].name;
 
             const regionDescription = document.createElement('p');
             regionDescription.classList.add('panel-item__summary');
+            regionDescription.classList.add('col-md-10');
             regionDescription.textContent = regions[region].description;
 
             document.getElementById('description_region').appendChild(titreH3);
