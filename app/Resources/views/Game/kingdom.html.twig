@@ -7,13 +7,21 @@
         <h2>{{ app.user.kingdom.name }}</h2>
         <h3>Pièces d'or : {{ app.user.kingdom.gold }}</h3>
 
-        <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6"><h3>{{ 'title.buildings'|trans }}</h3></div>
+            <div class="col-md-6"><h3>{{ 'title.resources'|trans }}</h3></div>
+        </div>
 
-            <h3>{{ 'title.buildings'|trans }}</h3>
+        <div class="col-md-6 col-md-offset-1">
 
             <div class="row">
-                <div class="col-md-8 panel-item__summary justify-content-md-start">
-                    <a href="{{ path('build-building') }}" class="btn">{{ 'title.build-building'|trans }}</a>
+                <div class="col-md-10 panel-item__summary justify-content-md-start">
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <a href="{{ path('build-building') }}" class="btn">{{ 'title.build-building'|trans }}</a>
+                        </div>
+                    </div>
 
                     <h4>{{ 'title.kingdom-buildings'|trans }}</h4>
 
@@ -22,22 +30,30 @@
                         {% for kingdomBuilding in formBuilding.KingdomBuildings %}
 
                             <div class="row">
-                                <div class="col-sm-12 building-icon">
-                                    <div class="col-md-3">
-                                        <div class="row">
-                                            {{ 'title.building'|trans }} :
+                                <div class="col-md-12 building-icon">
+                                    <div class="col-md-3" id="name-building">
+                                        <div class="row col-md-offset-1">
+                                            <div class="col-md-offset-1">
+                                                {{ 'title.building'|trans }} :
+                                            </div>
+                                            <div class="col-md-10">
+                                                {{ form_widget(kingdomBuilding.building, {'attr': {'class': 'form-control'}}) }}
+                                            </div>
                                         </div>
-                                        {{ form_widget(kingdomBuilding.building, {'attr': {'class': 'form-control'}}) }}
                                     </div>
 
-                                    <div class="col-md-3">
-                                        <div class="row">
-                                            {{ 'title.level'|trans }} :
+                                    <div class="col-md-3" id="level-building">
+                                        <div class="row col-md-offset-1">
+                                            <div class="col-md-4">
+                                                {{ 'title.level'|trans }}
+                                            </div>
+                                            <div class="col-md-4">
+                                                {{ form_widget(kingdomBuilding.level) }}
+                                            </div>
                                         </div>
-                                        {{ form_widget(kingdomBuilding.level) }}
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <button type="submit" class="btn">{{ 'button.increase'|trans }}</button>
                                     </div>
 
@@ -51,18 +67,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <h3>{{ 'title.resources'|trans }}</h3>
+        <div class="col-md-4">
 
-            {% for kingdomResource in kingdomResources %}
-                <p>{{ kingdomResource.resource.name }} : {{ kingdomResource.quantity }}</p>
-            {% endfor %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Quantité</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for kingdomResource in kingdomResources %}
+                    <tr>
+                        <td class="resources-list">{{ kingdomResource.resource.name }}</td>
+                        <td class="panel-item__summary col-md-4">{{ kingdomResource.quantity }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <a href="{{ path('production') }}" class="btn">{{ 'button.produce'|trans }}</a>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <a href="{{ path('production') }}" class="btn">{{ 'button.produce'|trans }}</a>
+                </div>
             </div>
+
         </div>
     </div>
 
