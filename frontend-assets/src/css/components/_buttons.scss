@@ -6,14 +6,12 @@
     padding: 10px 15px 10px 15px;
     text-decoration: none !important;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
-    text-transform: uppercase;
     transition: all 0.25s;
     background-image: linear-gradient(to bottom, $buttonBorder01, $buttonBorder02);
     background-image: -webkit-linear-gradient(top, $buttonBorder01, $buttonBorder02);
     color: $buttonColor;
     font-size: 24px;
     line-height: 36px;
-    padding: 12px 69px;
     transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
     width: 100%;
     background-size: 1px 200px;
