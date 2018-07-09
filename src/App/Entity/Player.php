@@ -289,7 +289,6 @@ class Player implements UserInterface
         if ($this->username === self::ROLE_ADMIN_USERNAME) {
             return ['ROLE_ADMIN'];
         }
-
         return ['ROLE_PLAYER'];
     }
 
