@@ -13,6 +13,6 @@ class ThroneController extends Controller
      */
     public function troneAction(): Response
     {
-        return $this->render('Game/trone.html.twig');
+        return $this->render('Game/throne.html.twig');
     }
 }

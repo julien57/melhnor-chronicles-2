@@ -45,7 +45,7 @@ class CreatePlayerDTO
      */
     public function getUsername(): ?string
     {
-        return $this->mail;
+        return $this->username;
     }
 
     /**

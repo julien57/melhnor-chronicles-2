@@ -33,7 +33,7 @@ class GamesRulesController extends Controller
         $buildingsResources = $this->em->getRepository(BuildingResource::class)->getBuildingsWithResources();
         $regions = $this->em->getRepository(Region::class)->findAll();
 
-        return $this->render('Game/game-rules.html.twig', [
+        return $this->render('Game/game_rules.html.twig', [
             'buildings' => $buildings,
             'buildingsResources' => $buildingsResources,
             'regions' => $regions

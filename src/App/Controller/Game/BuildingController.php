@@ -52,7 +52,7 @@ class BuildingController extends Controller
             return $this->redirectToRoute('kingdom');
         }
 
-        return $this->render('Game/build-building.html.twig', [
+        return $this->render('Game/build_building.html.twig', [
             'buildBuildingForm' => $buildBuildingForm->createView(),
         ]);
     }

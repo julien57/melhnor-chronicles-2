@@ -38,6 +38,6 @@ class LegalNoticeController extends Controller
      */
     public function legalNoticeAction(): Response
     {
-        return $this->render('Game/legal-notice.html.twig');
+        return $this->render('Game/legal_notice.html.twig');
     }
 }

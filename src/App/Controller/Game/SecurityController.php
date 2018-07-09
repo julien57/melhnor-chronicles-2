@@ -26,8 +26,8 @@ class SecurityController extends Controller
     public function registrationAction(Request $request, InitGamePlayerManager $initGamePlayerManager)
     {
         $createPlayerDTO = new CreatePlayerDTO();
-
         $form = $this->createForm(RegistrationType::class, $createPlayerDTO)->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $initGamePlayerManager->initPlayerWithKingdom($createPlayerDTO);
         }

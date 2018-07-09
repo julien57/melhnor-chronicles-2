@@ -122,7 +122,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
     {
         $username = $credentials['_username'];
 
-        return $this->em->getRepository(Player::class)->findOneBy(['mail' => $username]);
+        return $this->em->getRepository(Player::class)->findOneBy(['username' => $username]);
     }
 
     /**

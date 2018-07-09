@@ -91,6 +91,6 @@ class MessagingController extends Controller
             return $this->redirectToRoute('messaging');
         }
 
-        return $this->render('Game/writeMessage.html.twig', ['form' => $form->createView()]);
+        return $this->render('Game/write_message.html.twig', ['form' => $form->createView()]);
     }
 }

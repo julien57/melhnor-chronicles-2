@@ -59,6 +59,6 @@ class SalesResourceController extends Controller
             return $this->redirectToRoute('market');
         }
 
-        return $this->render('Game/addResource.html.twig', ['form' => $form->createView()]);
+        return $this->render('Game/add_resource.html.twig', ['form' => $form->createView()]);
     }
 }
