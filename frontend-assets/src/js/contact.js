@@ -1,5 +1,5 @@
 class Contact {
-    
+
     addMessageEmail(e) {
         const email = e.target.value;
         let mailLength = 'Erroné';

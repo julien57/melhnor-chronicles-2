@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Entity\Resource;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class SaleResourceDTO
 {
@@ -13,6 +14,7 @@ class SaleResourceDTO
 
     /**
      * @var int|null
+     * @Assert\LessThan(2147483647, message="Quantité trop élevé.")
      */
     private $quantity;
 
