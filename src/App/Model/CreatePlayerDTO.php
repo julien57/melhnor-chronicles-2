@@ -4,11 +4,13 @@ namespace App\Model;
 
 use App\Entity\Avatar;
 use App\Entity\Region;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CreatePlayerDTO
 {
     /**
      * @var string|null
+     * @Assert\Type("string")
      */
     private $username;
 
@@ -24,6 +26,7 @@ class CreatePlayerDTO
 
     /**
      * @var string|null
+     * @Assert\Email()
      */
     private $mail;
 

@@ -3,16 +3,19 @@
 namespace App\Model;
 
 use App\Entity\Player;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class WriteMessageDTO
 {
     /**
      * @var string|null
+     * @Assert\Type("string")
      */
     private $subject;
 
     /**
      * @var string|null
+     * @Assert\Type("string")
      */
     private $message;
 

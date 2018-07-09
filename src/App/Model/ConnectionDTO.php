@@ -2,15 +2,19 @@
 
 namespace App\Model;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class ConnectionDTO
 {
     /**
      * @var string|null
+     * @Assert\NotBlank()
      */
     private $username;
 
     /**
      * @var string|null
+     * @Assert\NotBlank()
      */
     private $password;
 

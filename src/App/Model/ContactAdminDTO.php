@@ -2,25 +2,31 @@
 
 namespace App\Model;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class ContactAdminDTO
 {
     /**
      * @var string|null
+     * @Assert\Type("string")
      */
     private $name;
 
     /**
      * @var string|null
+     * @Assert\Email()
      */
     private $mail;
 
     /**
      * @var string|null
+     * @Assert\Type("string")
      */
     private $subject;
 
     /**
      * @var string|null
+     * @Assert\Type("string")
      */
     private $body;
 
