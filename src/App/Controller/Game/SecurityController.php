@@ -13,14 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class SecurityController extends Controller
 {
     /**
-     * @Route("/", name="home")
-     */
-    public function indexAction()
-    {
-        return $this->render('Game/index.html.twig');
-    }
-
-    /**
      * @Route("/inscription", name="registration")
      */
     public function registrationAction(Request $request, InitGamePlayerManager $initGamePlayerManager)

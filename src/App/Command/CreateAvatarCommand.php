@@ -8,8 +8,42 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * This command adds the avatar names for the Avatar entity
+ * The images are predefined in the game (120 avatars for the moment)
+ * if i want to add avatars, i create a new loop 'for' with a constant start at 121 :
+ *      NAME_NUMBER_START = 121;
+ * For the end, depend how many images
+ */
 class CreateAvatarCommand extends Command
 {
+    const WHORSHIPERS_NUMBER_START = 1;
+    const WHORSHIPERS_NUMBER_END = 5;
+
+    const REDEEMERS_NUMBER_START = 6;
+    const REDEEMERS_NUMBER_END = 16;
+
+    const DWARFS_NUMBER_START = 17;
+    const DWARFS_NUMBER_END = 34;
+
+    const NAOITTE_NUMBER_START = 35;
+    const NAOITTE_NUMBER_END = 47;
+
+    const SELLERS_NUMBER_START = 48;
+    const SELLERS_NUMBER_END = 56;
+
+    const HORDES_NUMBER_START = 57;
+    const HORDES_NUMBER_END = 65;
+
+    const PIRATES_NUMBER_START = 66;
+    const PIRATES_NUMBER_END = 80;
+
+    const LIGHT_NUMBER_START = 81;
+    const LIGHT_NUMBER_END = 100;
+
+    const ELFES_NUMBER_START = 101;
+    const ELFES_NUMBER_END = 120;
+
     /**
      * @var EntityManagerInterface
      */
@@ -33,141 +67,69 @@ class CreateAvatarCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $worshipers = 5;
-        for ($i = 1; $i <= $worshipers; $i++) {
-            $names = [
-                [
-                    'name' => 'adorateurs'.$i,
-                ],
-            ];
+        for ($i = self::WHORSHIPERS_NUMBER_START; $i <= self::WHORSHIPERS_NUMBER_END; $i++) {
 
-            foreach ($names as $name) {
-                $avatar = new Avatar();
-                $avatar->setIdAvatar($name['name']);
-
-                $this->em->persist($avatar);
-            }
+            $avatar = new Avatar();
+            $avatar->setIdAvatar('adorateurs'.$i);
+            $this->em->persist($avatar);
         }
 
-        $redeemers = 16;
-        for ($i = 6; $i <= $redeemers; $i++) {
-            $names = [
-                [
-                    'name' => 'redempteurs'.$i,
-                ],
-            ];
+        for ($i = self::REDEEMERS_NUMBER_START; $i <= self::REDEEMERS_NUMBER_END; $i++) {
 
-            foreach ($names as $name) {
-                $avatar = new Avatar();
-                $avatar->setIdAvatar($name['name']);
+            $avatar = new Avatar();
+            $avatar->setIdAvatar('redempteurs'.$i);
+            $this->em->persist($avatar);
 
-                $this->em->persist($avatar);
-            }
         }
 
-        $dwarfs = 34;
-        for ($i = 17; $i <= $dwarfs; $i++) {
-            $names = [
-                [
-                    'name' => 'nains'.$i,
-                ],
-            ];
 
-            foreach ($names as $name) {
-                $avatar = new Avatar();
-                $avatar->setIdAvatar($name['name']);
-                $this->em->persist($avatar);
-            }
+        for ($i = self::DWARFS_NUMBER_START; $i <= self::DWARFS_NUMBER_END; $i++) {
+
+            $avatar = new Avatar();
+            $avatar->setIdAvatar('nains'.$i);
+            $this->em->persist($avatar);
         }
 
-        $naoitte = 47;
-        for ($i = 35; $i <= $naoitte; $i++) {
-            $names = [
-                [
-                    'name' => 'nao-oitte'.$i,
-                ],
-            ];
+        for ($i = self::NAOITTE_NUMBER_START; $i <= self::NAOITTE_NUMBER_END; $i++) {
 
-            foreach ($names as $name) {
-                $avatar = new Avatar();
-                $avatar->setIdAvatar($name['name']);
-                $this->em->persist($avatar);
-            }
+            $avatar = new Avatar();
+            $avatar->setIdAvatar('nao-oitte'.$i);
+            $this->em->persist($avatar);
         }
 
-        $sellers = 56;
-        for ($i = 48; $i <= $sellers; $i++) {
-            $names = [
-                [
-                    'name' => 'marchands'.$i,
-                ],
-            ];
+        for ($i = self::SELLERS_NUMBER_START; $i <= self::SELLERS_NUMBER_END; $i++) {
 
-            foreach ($names as $name) {
-                $avatar = new Avatar();
-                $avatar->setIdAvatar($name['name']);
-                $this->em->persist($avatar);
-            }
+            $avatar = new Avatar();
+            $avatar->setIdAvatar('marchands'.$i);
+            $this->em->persist($avatar);
         }
 
-        $hordes = 65;
-        for ($i = 57; $i <= $hordes; $i++) {
-            $names = [
-                [
-                    'name' => 'horde'.$i,
-                ],
-            ];
+        for ($i = self::HORDES_NUMBER_START; $i <= self::HORDES_NUMBER_END; $i++) {
 
-            foreach ($names as $name) {
-                $avatar = new Avatar();
-                $avatar->setIdAvatar($name['name']);
-                $this->em->persist($avatar);
-            }
+            $avatar = new Avatar();
+            $avatar->setIdAvatar('horde'.$i);
+            $this->em->persist($avatar);
         }
 
-        $pirates = 80;
-        for ($i = 66; $i <= $pirates; $i++) {
-            $names = [
-                [
-                    'name' => 'pirates'.$i,
-                ],
-            ];
+        for ($i = self::PIRATES_NUMBER_START; $i <= self::PIRATES_NUMBER_END; $i++) {
 
-            foreach ($names as $name) {
-                $avatar = new Avatar();
-                $avatar->setIdAvatar($name['name']);
-                $this->em->persist($avatar);
-            }
+            $avatar = new Avatar();
+            $avatar->setIdAvatar('pirates'.$i);
+            $this->em->persist($avatar);
         }
 
-        $light = 100;
-        for ($i = 81; $i <= $light; $i++) {
-            $names = [
-                [
-                    'name' => 'lumiere'.$i,
-                ],
-            ];
+        for ($i = self::LIGHT_NUMBER_START; $i <= self::LIGHT_NUMBER_END; $i++) {
 
-            foreach ($names as $name) {
-                $avatar = new Avatar();
-                $avatar->setIdAvatar($name['name']);
-                $this->em->persist($avatar);
-            }
+            $avatar = new Avatar();
+            $avatar->setIdAvatar('lumiere'.$i);
+            $this->em->persist($avatar);
         }
 
-        $elfes = 120;
-        for ($i = 101; $i <= $elfes; $i++) {
-            $names = [
-                [
-                    'name' => 'elfe'.$i,
-                ],
-            ];
+        for ($i = self::ELFES_NUMBER_START; $i <= self::ELFES_NUMBER_END; $i++) {
 
-            foreach ($names as $name) {
-                $avatar = new Avatar();
-                $avatar->setIdAvatar($name['name']);
-                $this->em->persist($avatar);
-            }
+            $avatar = new Avatar();
+            $avatar->setIdAvatar('elfe'.$i);
+            $this->em->persist($avatar);
         }
 
         $this->em->flush();

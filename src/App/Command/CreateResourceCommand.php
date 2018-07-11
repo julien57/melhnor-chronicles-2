@@ -8,6 +8,10 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * This command create name of resource, his price for market.
+ * If 'isFood' is true, is used to feed the population in production
+ */
 class CreateResourceCommand extends Command
 {
     /**
