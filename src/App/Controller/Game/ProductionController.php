@@ -10,36 +10,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ProductionController extends Controller
 {
     /**
-     * @var ProductionResourcesManager
-     */
-    private $resourcesManager;
-
-    /**
-     * @var ProductionPopulationManager
-     */
-    private $populationManager;
-
-    public function __construct(ProductionResourcesManager $resourcesManager, ProductionPopulationManager $populationManager)
-    {
-        $this->resourcesManager = $resourcesManager;
-        $this->populationManager = $populationManager;
-    }
-
-    /**
      * @Route("/production", name="production")
      */
-    public function productionAction()
+    public function productionAction(ProductionResourcesManager $resourcesManager, ProductionPopulationManager $populationManager)
     {
-        $user = $this->getUser();
+        $player = $this->getUser();
 
-        if ($user->getActionPoints() < 10) {
+        if ($player->getActionPoints() < 10) {
             $this->addFlash('notice-danger', 'Pas assez de points d\'action !');
 
             return $this->redirectToRoute('kingdom');
         }
 
-        $productionResult = $this->resourcesManager->processProduction();
-        $resourcesConsumed = $this->populationManager->addPopulation();
+        $productionResult = $resourcesManager->processProduction();
+        $resourcesConsumed = $populationManager->addPopulation($player);
 
         return $this->render('Game/production.html.twig', [
             'resultProduce' => $productionResult,

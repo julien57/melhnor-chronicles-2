@@ -55,7 +55,6 @@ class SalesResourceController extends Controller
             $this->saleResourceManager->processingSaleResource($isResourceAvailable, $saleResourceDTO);
 
             $this->addFlash('notice', 'Ressource ajoutée au marché !');
-
             return $this->redirectToRoute('market');
         }
 

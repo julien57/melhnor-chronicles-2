@@ -19,32 +19,28 @@
 
                     {{ form_start(formBuilding, {'attr': {'class': 'contact-form'}}) }}
 
-                        {% for kingdomBuilding in formBuilding.KingdomBuildings %}
-
-                            <div class="row">
-                                <div class="col-sm-12 building-icon">
-                                    <div class="col-md-3">
-                                        <div class="row">
-                                            {{ 'title.building'|trans }} :
-                                        </div>
-                                        {{ form_widget(kingdomBuilding.building, {'attr': {'class': 'form-control'}}) }}
+                    {% for kingdomBuilding in formBuilding.KingdomBuildings %}
+                        <div class="row">
+                            <div class="col-sm-12 building-icon">
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        {{ 'title.building'|trans }} :
                                     </div>
+                                    {{ form_widget(kingdomBuilding.building, {'attr': {'class': 'form-control'}}) }}
+                                </div>
 
-                                    <div class="col-md-3">
-                                        <div class="row">
-                                            {{ 'title.level'|trans }} :
-                                        </div>
-                                        {{ form_widget(kingdomBuilding.level) }}
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        {{ 'title.level'|trans }} :
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <button type="submit" class="btn">{{ 'button.increase'|trans }}</button>
-                                    </div>
-
+                                    {{ form_widget(kingdomBuilding.level) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn">{{ 'button.increase'|trans }}</button>
                                 </div>
                             </div>
-
-                        {% endfor %}
+                        </div>
+                    {% endfor %}
 
                     {{ form_end(formBuilding) }}
 

@@ -17,6 +17,8 @@ class Resource
 
     const STONE_ID = 23;
 
+    const ID_LUXURY_RESOURCES = [7, 8, 9, 10];
+
     /**
      * @var int
      *

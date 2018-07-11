@@ -65,8 +65,7 @@ class ProductionResourcesManager
         $user = $this->tokenStorage->getToken()->getUser();
         /** @var Kingdom $kingdom */
         $kingdom = $user->getKingdom();
-
-        $kingdomBuildings = $this->em->getRepository(KingdomBuilding::class)->findByKingdom($kingdom);
+        $kingdomBuildings = $this->em->getRepository(KingdomBuilding::class)->getBuildingsFromKingdom($kingdom);
 
         /** @var KingdomBuilding $kingdomBuilding */
         foreach ($kingdomBuildings as $kingdomBuilding) {
@@ -74,33 +73,27 @@ class ProductionResourcesManager
             $buildingResources = $this
                 ->em
                 ->getRepository(BuildingResource::class)
-                ->findByBuilding($building)
+                ->getBuildingsForResources($building)
             ;
-
             /** @var BuildingResource $buildingResource */
             foreach ($buildingResources as $buildingResource) {
                 /** @var resource $resource */
                 $resource = $buildingResource->getResource();
-
                 // If building no produced resources is null (Archery for exemple)
                 if (is_null($buildingResource)) {
                     continue;
                 }
-
                 if ($buildingResource->isRequired()) {
                     $this->resourceRequiredInProduction($kingdomBuilding, $resource);
                 }
             }
-
             foreach ($buildingResources as $buildingResource) {
                 /** @var resource $resource */
                 $resource = $buildingResource->getResource();
-
                 // If building no produced resources is null (Archery for exemple)
                 if (is_null($buildingResource)) {
                     continue;
                 }
-
                 if ($buildingResource->isProduction()) {
                     $this->resourceProducedInProduction($kingdomBuilding, $resource);
                 }

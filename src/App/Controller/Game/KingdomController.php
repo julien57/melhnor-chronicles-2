@@ -2,6 +2,7 @@
 
 namespace App\Controller\Game;
 
+use App\Entity\KingdomBuilding;
 use App\Entity\KingdomResource;
 use App\Form\KingdomType;
 use App\Service\Leveling\LevelingBuildingManager;
@@ -18,17 +19,19 @@ class KingdomController extends Controller
     public function kingdomAction(Request $request, EntityManagerInterface $em, LevelingBuildingManager $levelingBuildingManager)
     {
         $kingdom = $this->getUser()->getKingdom();
-
         $formBuilding = $this->createForm(KingdomType::class, $kingdom)->handleRequest($request);
+
         if ($formBuilding->isSubmitted() && $formBuilding->isValid()) {
             $levelingBuildingManager->searchLevelModified($formBuilding->getData()->getKingdomBuildings());
         }
 
-        $kingdomResources = $em->getRepository(KingdomResource::class)->findBy(['kingdom' => $kingdom]);
+        $kingdomResources = $em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
+        $kingdomBuildings = $em->getRepository(KingdomBuilding::class)->findBy(['kingdom' => $kingdom]);
 
         return $this->render('Game/kingdom.html.twig', [
-            'formBuilding' => $formBuilding->createView(),
             'kingdomResources' => $kingdomResources,
+            'kingdomBuildings' => $kingdomBuildings,
+            'formBuilding' => $formBuilding->createView()
         ]);
     }
 }

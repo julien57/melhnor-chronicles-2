@@ -13,13 +13,13 @@
             {% for message in messages %}
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="{{ asset('front/img/avatars/' ~ message.recipient.avatar.idAvatar ~ '.jpg') }}" id="avatar_messaging">
+                        <img src="{{ asset('front/img/avatars/' ~ message.sender.avatar.idAvatar ~ '.jpg') }}" id="avatar_messaging">
                     </div>
                     <div class="col-md-8 text-message messages">
                         <h3>{{ message.subject }}</h3>
-                        <p>De {{ message.recipient.username }} le {{ message.atDate|date("m/d/Y") }} à {{ message.atDate|date("H:i") }}</p>
+                        <p>De {{ message.sender.username }} le {{ message.atDate|date("m/d/Y") }} à {{ message.atDate|date("H:i") }}</p>
                         <p class="message-body">{{ message.message }}<br>
-                            <a href="{{ path('write_message', {'idRecipient': message.recipient.id}) }}" class="btn">Répondre</a>
+                            <a href="{{ path('write_message', {'idRecipient': message.sender.id}) }}" class="btn">Répondre</a>
                     </div>
                 </div>
             {% endfor %}

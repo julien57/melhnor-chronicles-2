@@ -33,7 +33,7 @@ class MarketController extends Controller
     public function marketAction()
     {
         /** @var Market $market */
-        $resourcesForSale = $this->em->getRepository(Market::class)->findAll();
+        $resourcesForSale = $this->em->getRepository(Market::class)->getKingdomResources();
 
         return $this->render('Game/market.html.twig', ['ressourcesForSale' => $resourcesForSale]);
     }

@@ -33,13 +33,7 @@ class MessagingController extends Controller
     public function messagesAction(): Response
     {
         $player = $this->getUser();
-
-        $messages = $this->em->getRepository(Message::class)->findBy(
-            ['sender' => $player],
-            ['atDate' => 'desc'],
-            30,
-            0
-        );
+        $messages = $this->em->getRepository(Message::class)->getMessages($player);
 
         return $this->render('Game/messages.html.twig', ['messages' => $messages]);
     }
@@ -75,9 +69,9 @@ class MessagingController extends Controller
         $form = $this->createForm(MessageType::class, $writeMessageDTO, ['idRecipient' => $idRecipient]);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $recipient = $this->getUser();
+        if ($form->isSubmitted() && $form->isValid()) {
 
+            $recipient = $this->getUser();
             $message = Message::createMessage($writeMessageDTO, $recipient);
 
             $this->em->persist($message);

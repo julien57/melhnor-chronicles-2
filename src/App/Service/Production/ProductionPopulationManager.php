@@ -15,53 +15,46 @@ class ProductionPopulationManager
      */
     private $em;
 
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
 
     private $resourceConsumed = [];
 
-    public function __construct(EntityManagerInterface $em, TokenStorageInterface $tokenStorage)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->tokenStorage = $tokenStorage;
     }
 
     /**
      * @return array
      */
-    public function addPopulation(): array
+    public function addPopulation(Player $player): array
     {
-        /** @var Player $kingdom */
-        $user = $this->tokenStorage->getToken()->getUser();
-        $kingdom = $user->getKingdom();
+        $kingdom = $player->getKingdom();
         $population = $kingdom->getPopulation();
         $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
 
         $addPopulation = null;
         /** @var KingdomResource $kingdomResource */
         foreach ($kingdomResources as $kingdomResource) {
-            /** @var resource $resource */
+            /** @var Resource $resource */
             $resource = $kingdomResource->getResource();
 
             if ($resource->isFood()) {
-                if ($resource->getId() === 7 ||
-                    $resource->getId() === 8 ||
-                    $resource->getId() === 9 ||
-                    $resource->getId() === 10
-                ) {
+                if (in_array($resource->getId(), Resource::ID_LUXURY_RESOURCES)) {
                     $populationWon = $this->PopulationUseLuxury($kingdomResource);
                     $addPopulation += $populationWon;
+
                 } elseif ($kingdomResource->getQuantity() > $population) {
+
                     $populationWon = $this->populationUseFood($kingdomResource, $population);
                     $addPopulation += $populationWon;
+
                 } else {
-                    $populationWon = $this->overcrowdingwithResource($kingdomResource);
-                    $addPopulation += $populationWon;
+                    $populationLost = $this->overcrowdingwithResource($kingdomResource);
+                    $addPopulation -= $populationLost;
                 }
             }
         }
+
         if ($addPopulation > 600) {
             $addPopulation = 600;
         }
@@ -70,9 +63,9 @@ class ProductionPopulationManager
 
         $this->resourceConsumed['population'] = $addPopulation;
 
-        $actionPoints = $user->getActionPoints();
+        $actionPoints = $player->getActionPoints();
         $remainingPoints = $actionPoints - 10;
-        $user->setActionPoints($remainingPoints);
+        $player->setActionPoints($remainingPoints);
 
         $this->em->flush();
 
@@ -119,7 +112,7 @@ class ProductionPopulationManager
 
         $this->resourceConsumed['consumed'][$kingdomResource->getResource()->getName()] = $populationUseResource;
 
-        $populationWon = intval(($populationUseResource * 3) / 130);
+        $populationWon = intval(($populationUseResource * 3) / 50);
 
         return $populationWon;
     }
@@ -137,7 +130,6 @@ class ProductionPopulationManager
         );
 
         $remainingResource = $kingdomResource->getQuantity() - $populationUseResource;
-
         $kingdomResource->setQuantity($remainingResource);
 
         $this->resourceConsumed['consumed'][$kingdomResource->getResource()->getName()] = $populationUseResource;

@@ -6,6 +6,18 @@ use Doctrine\ORM\EntityRepository;
 
 class BuildingResourceRepository extends EntityRepository
 {
+    public function getBuildingsForResources($building)
+    {
+        $qb = $this->createQueryBuilder('br')
+            ->join('br.resource', 'r')
+            ->addSelect('r')
+            ->where('br.building = :building')
+            ->setParameter('building', $building)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function getBuildingsWithResources()
     {
         $qb = $this
