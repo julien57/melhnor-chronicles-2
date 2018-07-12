@@ -6,16 +6,23 @@ use App\Form\LoginType;
 use App\Form\RegistrationType;
 use App\Model\CreatePlayerDTO;
 use App\Service\Player\InitGamePlayerManager;
+use Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SecurityController extends Controller
 {
     /**
+     * @param Request               $request
+     * @param InitGamePlayerManager $initGamePlayerManager
+     *
+     * @return Response
+     *
      * @Route("/inscription", name="registration")
      */
-    public function registrationAction(Request $request, InitGamePlayerManager $initGamePlayerManager)
+    public function registrationAction(Request $request, InitGamePlayerManager $initGamePlayerManager): Response
     {
         $createPlayerDTO = new CreatePlayerDTO();
         $form = $this->createForm(RegistrationType::class, $createPlayerDTO)->handleRequest($request);
@@ -28,9 +35,11 @@ class SecurityController extends Controller
     }
 
     /**
+     * @return Response
+     *
      * @Route("/connexion", name="security_login")
      */
-    public function loginAction()
+    public function loginAction(): Response
     {
         $authenticationUtils = $this->get('security.authentication_utils');
 
@@ -48,10 +57,12 @@ class SecurityController extends Controller
     }
 
     /**
+     * @throws Exception
+     *
      * @Route("/logout", name="security_logout")
      */
-    public function logoutAction()
+    public function logoutAction(): Exception
     {
-        throw new \Exception('Impossible de se déconnecter !');
+        throw new Exception('Impossible de se déconnecter !');
     }
 }

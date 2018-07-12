@@ -69,8 +69,7 @@ class MessagingController extends Controller
         $form = $this->createForm(MessageType::class, $writeMessageDTO, ['idRecipient' => $idRecipient]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isValid()) {
             $recipient = $this->getUser();
             $message = Message::createMessage($writeMessageDTO, $recipient);
 

@@ -68,65 +68,54 @@ class CreateAvatarCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         for ($i = self::WHORSHIPERS_NUMBER_START; $i <= self::WHORSHIPERS_NUMBER_END; $i++) {
-
             $avatar = new Avatar();
             $avatar->setIdAvatar('adorateurs'.$i);
             $this->em->persist($avatar);
         }
 
         for ($i = self::REDEEMERS_NUMBER_START; $i <= self::REDEEMERS_NUMBER_END; $i++) {
-
             $avatar = new Avatar();
             $avatar->setIdAvatar('redempteurs'.$i);
             $this->em->persist($avatar);
-
         }
 
-
         for ($i = self::DWARFS_NUMBER_START; $i <= self::DWARFS_NUMBER_END; $i++) {
-
             $avatar = new Avatar();
             $avatar->setIdAvatar('nains'.$i);
             $this->em->persist($avatar);
         }
 
         for ($i = self::NAOITTE_NUMBER_START; $i <= self::NAOITTE_NUMBER_END; $i++) {
-
             $avatar = new Avatar();
             $avatar->setIdAvatar('nao-oitte'.$i);
             $this->em->persist($avatar);
         }
 
         for ($i = self::SELLERS_NUMBER_START; $i <= self::SELLERS_NUMBER_END; $i++) {
-
             $avatar = new Avatar();
             $avatar->setIdAvatar('marchands'.$i);
             $this->em->persist($avatar);
         }
 
         for ($i = self::HORDES_NUMBER_START; $i <= self::HORDES_NUMBER_END; $i++) {
-
             $avatar = new Avatar();
             $avatar->setIdAvatar('horde'.$i);
             $this->em->persist($avatar);
         }
 
         for ($i = self::PIRATES_NUMBER_START; $i <= self::PIRATES_NUMBER_END; $i++) {
-
             $avatar = new Avatar();
             $avatar->setIdAvatar('pirates'.$i);
             $this->em->persist($avatar);
         }
 
         for ($i = self::LIGHT_NUMBER_START; $i <= self::LIGHT_NUMBER_END; $i++) {
-
             $avatar = new Avatar();
             $avatar->setIdAvatar('lumiere'.$i);
             $this->em->persist($avatar);
         }
 
         for ($i = self::ELFES_NUMBER_START; $i <= self::ELFES_NUMBER_END; $i++) {
-
             $avatar = new Avatar();
             $avatar->setIdAvatar('elfe'.$i);
             $this->em->persist($avatar);

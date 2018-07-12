@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ThroneController extends Controller
 {
     /**
+     * @return Response
+     *
      * @Route("/salle-du-trone", name="trone")
      */
     public function troneAction(): Response

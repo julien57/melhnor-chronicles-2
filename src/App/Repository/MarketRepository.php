@@ -10,7 +10,10 @@ class MarketRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('m')
             ->join('m.kingdomResource', 'kr')
-            ->addSelect('kr');
+            ->addSelect('kr')
+            ->join('kr.kingdom', 'k')
+            ->addSelect('k')
+        ;
 
         return $qb->getQuery()->getResult();
     }

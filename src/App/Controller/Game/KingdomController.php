@@ -8,15 +8,22 @@ use App\Form\KingdomType;
 use App\Service\Leveling\LevelingBuildingManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class KingdomController extends Controller
 {
     /**
+     * @param Request                 $request
+     * @param EntityManagerInterface  $em
+     * @param LevelingBuildingManager $levelingBuildingManager
+     *
+     * @return Response
+     *
      * @Route("/royaume", name="kingdom")
      */
-    public function kingdomAction(Request $request, EntityManagerInterface $em, LevelingBuildingManager $levelingBuildingManager)
+    public function kingdomAction(Request $request, EntityManagerInterface $em, LevelingBuildingManager $levelingBuildingManager): Response
     {
         $kingdom = $this->getUser()->getKingdom();
         $formBuilding = $this->createForm(KingdomType::class, $kingdom)->handleRequest($request);
@@ -31,7 +38,7 @@ class KingdomController extends Controller
         return $this->render('Game/kingdom.html.twig', [
             'kingdomResources' => $kingdomResources,
             'kingdomBuildings' => $kingdomBuildings,
-            'formBuilding' => $formBuilding->createView()
+            'formBuilding' => $formBuilding->createView(),
         ]);
     }
 }

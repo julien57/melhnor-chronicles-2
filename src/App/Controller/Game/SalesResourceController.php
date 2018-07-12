@@ -40,7 +40,7 @@ class SalesResourceController extends Controller
         ]);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $isResourceAvailable = $this->saleResourceManager->isResourceAvailableToSale($saleResourceDTO, $user);
 
             if (!$isResourceAvailable) {
@@ -55,6 +55,7 @@ class SalesResourceController extends Controller
             $this->saleResourceManager->processingSaleResource($isResourceAvailable, $saleResourceDTO);
 
             $this->addFlash('notice', 'Ressource ajoutée au marché !');
+
             return $this->redirectToRoute('market');
         }
 

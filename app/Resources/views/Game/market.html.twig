@@ -21,7 +21,7 @@
                         <span>Prix : {{ resourceForSale.price }}</span>
                     </p>
                     <div class="col-md-6 col-md-offset-3">
-                        <a href="{{ path('buyResource', {'id': resourceForSale.id}) }}" class="btn">Acheter</a>
+                        <a href="{{ path('buyResource', {'resource_id': resourceForSale.id}) }}" class="btn">Acheter</a>
                     </div>
                 </div>
             {% endfor %}

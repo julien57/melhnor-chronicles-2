@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Model\BuildBuildingDTO;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 class KingdomBuilding
 {
     const LEVEL_BUILDING_NOT_BUILD = 0;
+
+    const LEVEL_BUILDING_START_BUILD = 1;
 
     /**
      * @var int
@@ -96,5 +99,16 @@ class KingdomBuilding
     public function setBuilding(Building $building): void
     {
         $this->building = $building;
+    }
+
+    public static function initKingdomBuilding(BuildBuildingDTO $buildBuildingDTO, Kingdom $kingdom)
+    {
+        $kingdomBuilding = new self();
+
+        $kingdomBuilding->kingdom = $kingdom;
+        $kingdomBuilding->level = self::LEVEL_BUILDING_START_BUILD;
+        $kingdomBuilding->building = $buildBuildingDTO->getBuilding();
+
+        return $kingdomBuilding;
     }
 }

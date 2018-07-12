@@ -14,34 +14,24 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactController extends Controller
 {
     /**
-     * @var ContactAdminManager
-     */
-    private $contactAdminManager;
-
-    public function __construct(ContactAdminManager $contactAdminManager)
-    {
-        $this->contactAdminManager = $contactAdminManager;
-    }
-
-    /**
      * @param Request $request
+     *
      * @return Response
      *
      * @Route("/contact", name="contact")
      */
-    public function contactAction(Request $request)
+    public function contactAction(Request $request, ContactAdminManager $contactAdminManager): Response
     {
         $contactAdminDTO = new ContactAdminDTO();
         $form = $this->createForm(ContactType::class, $contactAdminDTO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $this->contactAdminManager->contactAdmin($contactAdminDTO);
+            $contactAdminManager->contactAdmin($contactAdminDTO);
 
             return new JsonResponse([
                 'successMessage' => 'Formulaire envoyé ! nous vous recontacterons dans les plus brefs délais.',
-                'errorMessage' => 'Le formulaire n\'a pas pu être envoyé.'
+                'errorMessage' => 'Le formulaire n\'a pas pu être envoyé.',
             ]);
         }
 

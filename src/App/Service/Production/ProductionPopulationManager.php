@@ -6,7 +6,6 @@ use App\Entity\KingdomResource;
 use App\Entity\Player;
 use App\Entity\Resource;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ProductionPopulationManager
 {
@@ -14,7 +13,6 @@ class ProductionPopulationManager
      * @var EntityManagerInterface
      */
     private $em;
-
 
     private $resourceConsumed = [];
 
@@ -35,19 +33,16 @@ class ProductionPopulationManager
         $addPopulation = null;
         /** @var KingdomResource $kingdomResource */
         foreach ($kingdomResources as $kingdomResource) {
-            /** @var Resource $resource */
+            /** @var resource $resource */
             $resource = $kingdomResource->getResource();
 
             if ($resource->isFood()) {
                 if (in_array($resource->getId(), Resource::ID_LUXURY_RESOURCES)) {
                     $populationWon = $this->PopulationUseLuxury($kingdomResource);
                     $addPopulation += $populationWon;
-
                 } elseif ($kingdomResource->getQuantity() > $population) {
-
                     $populationWon = $this->populationUseFood($kingdomResource, $population);
                     $addPopulation += $populationWon;
-
                 } else {
                     $populationLost = $this->overcrowdingwithResource($kingdomResource);
                     $addPopulation -= $populationLost;
