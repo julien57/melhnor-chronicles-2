@@ -74,8 +74,11 @@ class LevelingBuildingManager
 
     /**
      * @param $kingdomBuildingsForm
+     *
+     * @return RedirectResponse
+     *
      */
-    public function searchLevelModified($kingdomBuildingsForm)
+    public function searchLevelModified($kingdomBuildingsForm): RedirectResponse
     {
         /** @var KingdomBuilding $kingdomBuilding */
         foreach ($kingdomBuildingsForm as $kingdomBuilding) {
@@ -156,13 +159,13 @@ class LevelingBuildingManager
         return true;
     }
 
-    private function requiredGoldAmount()
+    private function requiredGoldAmount(): void
     {
         $nbGold = ($this->level * $this->level) * $this->building['gold'];
         $this->goldRequired += $nbGold;
     }
 
-    private function requiredResourcesAmount()
+    private function requiredResourcesAmount(): void
     {
         $nbWood = ($this->level * $this->level) * $this->building['resources']['24']['quantity'];
 

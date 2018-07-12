@@ -39,6 +39,7 @@ class PurchaseResourceManager
 
     /**
      * @param Market $resourcePurchased
+     * @param Player $buyer
      */
     public function processTransaction(Market $resourcePurchased, Player $buyer): void
     {
