@@ -8,6 +8,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Command to generate 5 action points to all players in the game
+ * Works with a CRON task for each hour
+ * Max : 50 action points
+ */
 class addActionPointsCommand extends Command
 {
     /**

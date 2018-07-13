@@ -13,27 +13,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class GamesRulesController extends Controller
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-
-    /**
      * @return Response
      *
      * @Route("/regles-du-jeu", name="game-rules")
      */
-    public function gameRulesAction(): Response
+    public function gameRulesAction(EntityManagerInterface $em): Response
     {
-        $buildings = $this->em->getRepository(Building::class)->findAll();
-        $buildingsResources = $this->em->getRepository(BuildingResource::class)->getBuildingsWithResources();
-        $regions = $this->em->getRepository(Region::class)->findAll();
+        $buildings = $em->getRepository(Building::class)->findAll();
+        $buildingsResources = $em->getRepository(BuildingResource::class)->getBuildingsWithResources();
+        $regions = $em->getRepository(Region::class)->findAll();
 
-        return $this->render('Game/game-rules.html.twig', [
+        return $this->render('Game/game_rules.html.twig', [
             'buildings' => $buildings,
             'buildingsResources' => $buildingsResources,
             'regions' => $regions,

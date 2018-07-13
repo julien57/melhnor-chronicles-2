@@ -5,6 +5,7 @@ namespace App\Model;
 use App\Entity\Building;
 use App\Entity\Kingdom;
 use App\Entity\KingdomBuilding;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class LevelBuildingDTO
 {
@@ -20,6 +21,7 @@ class LevelBuildingDTO
 
     /**
      * @var int|null
+     * @Assert\Type("integer", message="Le niveau du bâtiment doit être un nombre.")
      */
     private $level;
 

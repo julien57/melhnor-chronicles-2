@@ -5,8 +5,10 @@ namespace App\Controller\Game;
 use App\Entity\Market;
 use App\Service\Market\PurchaseResourceManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MarketController extends Controller
@@ -28,12 +30,14 @@ class MarketController extends Controller
     }
 
     /**
+     * @return Response
+     *
      * @Route("/commerce", name="market")
      */
-    public function marketAction()
+    public function marketAction(): Response
     {
         /** @var Market $market */
-        $resourcesForSale = $this->em->getRepository(Market::class)->findAll();
+        $resourcesForSale = $this->em->getRepository(Market::class)->getKingdomResources();
 
         return $this->render('Game/market.html.twig', ['ressourcesForSale' => $resourcesForSale]);
     }
@@ -41,12 +45,15 @@ class MarketController extends Controller
     /**
      * @param int $id
      *
-     * @Route("/achat-ressource/{id}", name="buyResource")
+     * @return RedirectResponse
+     *
+     * @Route("/achat-ressource/{resource_id}", name="buyResource")
+     * @ParamConverter("resource", options={"mapping": {"resource_id": "id"}})
      */
-    public function buyAction(int $id): RedirectResponse
+    public function buyAction(Market $resource): RedirectResponse
     {
         $buyer = $this->getUser();
-        $resourceMarket = $this->em->getRepository(Market::class)->find($id);
+        $resourceMarket = $this->em->getRepository(Market::class)->find($resource);
 
         if (!$resourceMarket) {
             $this->addFlash(

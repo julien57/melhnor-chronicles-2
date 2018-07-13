@@ -10,6 +10,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * This command create the resources produced and needed for each building
+ * If 'isRequire' is true, call 'resourcesRequired' to get id of each required resource
+ * If 'isProduction' is true, call 'resourcesProd' to get id of each produced resource
+ */
 class CreateBuildingCommand extends Command
 {
     /**

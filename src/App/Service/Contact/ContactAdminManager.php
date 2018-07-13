@@ -2,6 +2,7 @@
 
 namespace App\Service\Contact;
 
+use App\Entity\Player;
 use App\Model\ContactAdminDTO;
 
 class ContactAdminManager
@@ -24,7 +25,7 @@ class ContactAdminManager
         $message = \Swift_Message::newInstance()
             ->setSubject($contact->getSubject())
             ->setFrom($contact->getMail())
-            ->setTo('julien.montel@sfr.fr')
+            ->setTo(Player::USERNAME_ROLE_ADMIN)
             ->setBody($contact->getBody())
         ;
 

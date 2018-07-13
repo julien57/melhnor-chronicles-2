@@ -1,4 +1,4 @@
-{% extends "game-layout.html.twig" %}
+{% extends "game_layout.html.twig" %}
 
 {% block content %}
 
@@ -14,6 +14,7 @@
 
 
         <div class="col-md-12">
+
             {% for resourceForSale in ressourcesForSale %}
                 <div class="sale_resource col-md-6">
                     <h3 class="resources-list">{{ resourceForSale.kingdomResource.resource.name }}</h3>
@@ -23,11 +24,11 @@
                         <span>Prix : {{ resourceForSale.price }}</span>
                     </p>
                     <div class="col-md-6 col-md-offset-3">
-                        <a href="{{ path('buyResource', {'id': resourceForSale.id}) }}" class="btn">Acheter</a>
+                        <a href="{{ path('buyResource', {'resource_id': resourceForSale.id}) }}" class="btn">Acheter</a>
                     </div>
-
                 </div>
             {% endfor %}
+
         </div>
     </div>
 

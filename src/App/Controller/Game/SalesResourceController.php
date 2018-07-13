@@ -40,7 +40,7 @@ class SalesResourceController extends Controller
         ]);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $isResourceAvailable = $this->saleResourceManager->isResourceAvailableToSale($saleResourceDTO, $user);
 
             if (!$isResourceAvailable) {
@@ -59,6 +59,6 @@ class SalesResourceController extends Controller
             return $this->redirectToRoute('market');
         }
 
-        return $this->render('Game/addResource.html.twig', ['form' => $form->createView()]);
+        return $this->render('Game/add_resource.html.twig', ['form' => $form->createView()]);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Controller\Game;
 
-use App\Entity\Building;
 use App\Entity\KingdomBuilding;
 use App\Form\BuildBuildingType;
 use App\Model\BuildBuildingDTO;
@@ -15,44 +14,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class BuildingController extends Controller
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-
-    /**
      * @Route("/construction-batiment", name="build-building")
      */
-    public function buildBuilding(Request $request): Response
+    public function buildBuilding(Request $request, EntityManagerInterface $em): Response
     {
-        $buildBuilding = new BuildBuildingDTO();
-        $buildBuildingForm = $this->createForm(BuildBuildingType::class, $buildBuilding);
+        $buildBuildingDTO = new BuildBuildingDTO();
+        $buildBuildingForm = $this->createForm(BuildBuildingType::class, $buildBuildingDTO);
         $buildBuildingForm->handleRequest($request);
 
-        if ($buildBuildingForm->isValid()) {
-            $building = $this->em
-                ->getRepository(Building::class)
-                ->find($buildBuildingForm->getData()->getBuilding())
-            ;
+        if ($buildBuildingForm->isSubmitted() && $buildBuildingForm->isValid()) {
+            $kingdom = $this->getUser()->getKingdom();
+            $kingdomBuilding = KingdomBuilding::initKingdomBuilding($buildBuildingDTO, $kingdom);
 
-            $kingdomBuilding = new KingdomBuilding();
-            $kingdomBuilding->setKingdom($this->getUser()->getKingdom());
-            $kingdomBuilding->setLevel(1);
-            $kingdomBuilding->setBuilding($building);
-
-            $this->em->persist($kingdomBuilding);
-            $this->em->flush();
+            $em->persist($kingdomBuilding);
+            $em->flush();
 
             $this->addFlash('notice', 'Bâtiment construit !');
 
             return $this->redirectToRoute('kingdom');
         }
 
-        return $this->render('Game/build-building.html.twig', [
+        return $this->render('Game/build_building.html.twig', [
             'buildBuildingForm' => $buildBuildingForm->createView(),
         ]);
     }

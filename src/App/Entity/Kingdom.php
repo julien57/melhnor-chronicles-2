@@ -246,7 +246,7 @@ class Kingdom
     public static function initKingdom(CreatePlayerDTO $createPlayerDTO): self
     {
         $kingdom = new self();
-        $kingdom->name = $createPlayerDTO->getUsername();
+        $kingdom->name = 'Royaume de '.$createPlayerDTO->getUsername();
         $kingdom->description = 'Aucune Description';
         $kingdom->region = $createPlayerDTO->getRegion();
 
