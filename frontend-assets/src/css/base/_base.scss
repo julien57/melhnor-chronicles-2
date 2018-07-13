@@ -75,7 +75,7 @@ input:focus, textarea:focus, button:focus {
 #img_avatars {
     width: 100%;
     height: 500px;
-    background: url('/web/front/img/window.png') no-repeat;
+    background: url('../img/window.png') no-repeat;
     background-size: contain;
     display: flex;
     justify-content: center;
@@ -89,7 +89,7 @@ input:focus, textarea:focus, button:focus {
 
 #dark-window {
     height: 800px;
-    background: url('/web/front/img/dark-window.png') no-repeat;
+    background: url('../img/dark-window.png') no-repeat;
     background-size: contain;
     justify-content: center;
     padding: 45px;
@@ -100,10 +100,28 @@ input:focus, textarea:focus, button:focus {
 }
 
 .building-icon {
-    height: 100px;
-    background: url('/web/front/img/building-case.png') no-repeat;
-    background-size: contain;
-    padding: 15px 5px;
+    margin-bottom: 30px;
+}
+
+#name-building {
+    background: url('../img/name-building.png') no-repeat;
+    background-size: 100% 100%;
+    padding: 10px 0;
+}
+
+#level-building {
+    background: url('../img/level-building.png') no-repeat;
+    background-size: 100% 100%;
+    margin-left: 5px;
+    padding: 20px 0;
+}
+
+.resources-list {
+    color: white;
+}
+
+#write-message {
+    margin-bottom: 25px;
 }
 
 #avatar_messaging {
@@ -113,6 +131,14 @@ input:focus, textarea:focus, button:focus {
     box-shadow: 3px 3px 3px black;
 }
 
+.one_message {
+    padding-bottom: 50px;
+}
+
+.btn-response {
+    margin-top: -30px;
+}
+
 .text-message {
     color: white;
     font-size: 0.7em;
@@ -120,20 +146,20 @@ input:focus, textarea:focus, button:focus {
 
 .messages {
     height: 330px;
-    background: url('/web/front/img/window_messaging.png') no-repeat;
+    background: url('../img/window_messaging.png') no-repeat;
     background-size: contain;
-    padding: 0 30px;
+    padding: 0 40px;
 
     .message-body {
         overflow-y: scroll;
-        height: 40%;
+        height: 30%;
     }
 }
 
 .sale_resource {
     width: 600px;
     height: 250px;
-    background: url('/web/front/img/window_market.png') no-repeat;
+    background: url('../img/window_market.png') no-repeat;
     background-size: contain;
     margin-bottom: 50px;
 

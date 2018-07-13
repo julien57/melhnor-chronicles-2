@@ -7,23 +7,29 @@
         <h2>{{ 'menu.throne'|trans }}</h2>
 
         <div class="row">
-            <div id="dark-window" class="col-md-5">
+            <div id="dark-window" class="col-md-4">
                 <div class="row">
                     <h3 class="col-md-8">{{ app.user.kingdom.name }}</h3>
                 </div>
-                <div class="row col-md-offset-1">
-                    <p><img src="/web/front/img/avatars/{{ app.user.avatar.idavatar }}.jpg" alt="Avatar de {{ app.user.username }}" class="image_avatar"/></p>
 
-                    <p class="features-p">
-                        {{ 'title.action-points'|trans }} : {{ app.user.actionpoints }}
-                        &nbsp;<br>
-                        {{ 'title.population'|trans }} : {{ app.user.kingdom.population }}
-                        &nbsp;<br>
-                        {{ 'title.power'|trans }} : {{ app.user.kingdom.power }}
-                        &nbsp;<br>
-                        {{ 'title.gold'|trans }} : {{ app.user.kingdom.gold }}
-                    </p>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{{ asset('front/img/avatars/') }}{{ app.user.avatar.idavatar }}.jpg" alt="Avatar de {{ app.user.username }}" class="image_avatar"/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="features-p">
+                            {{ 'title.action-points'|trans }} : {{ app.user.actionpoints }}
+                            &nbsp;<br>
+                            {{ 'title.population'|trans }} : {{ app.user.kingdom.population }}
+                            &nbsp;<br>
+                            {{ 'title.power'|trans }} : {{ app.user.kingdom.power }}
+                            &nbsp;<br>
+                            {{ 'title.gold'|trans }} : {{ app.user.kingdom.gold }}
+                        </div>
+                    </div>
                 </div>
+                <p class="panel-item__summary">Le {{ app.user.kingdom.name }} se trouve dans la région {{ app.user.kingdom.region.name }}</p>
             </div>
             <div class="col-md-7">
                 <img src="{{ asset('front/img/map-world.jpg') }}" alt="Carte du monde de Melhnor" id="map_world"/>

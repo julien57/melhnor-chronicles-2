@@ -5,21 +5,25 @@
     <div class="container">
         <h2>{{ 'messaging.title'|trans }}</h2>
 
-        <div class="row">
+        <div class="row col-md-4 col-md-offset-4" id="write-message">
             <a href="{{ path('write_message') }}" class="btn">Ecrire un message</a>
         </div>
-        <div class="col-md-10">
 
+        <div class="col-md-10 col-md-offset-1">
             {% for message in messages %}
-                <div class="row">
-                    <div class="col-md-2">
-                        <img src="{{ asset('front/img/avatars/' ~ message.recipient.avatar.idAvatar ~ '.jpg') }}" id="avatar_messaging">
-                    </div>
-                    <div class="col-md-8 text-message messages">
-                        <h3>{{ message.subject }}</h3>
-                        <p>De {{ message.recipient.username }} le {{ message.atDate|date("m/d/Y") }} à {{ message.atDate|date("H:i") }}</p>
-                        <p class="message-body">{{ message.message }}<br>
-                            <a href="{{ path('write_message', {'idRecipient': message.recipient.id}) }}" class="btn">Répondre</a>
+                <div class="one_message">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <img src="{{ asset('front/img/avatars/' ~ message.recipient.avatar.idAvatar ~ '.jpg') }}" id="avatar_messaging">
+                        </div>
+                        <div class="col-md-8 text-message messages">
+                            <h3>{{ message.subject }}</h3>
+                            <p>De {{ message.recipient.username }} le {{ message.atDate|date("m/d/Y") }} à {{ message.atDate|date("H:i") }}</p>
+                            <p class="message-body">{{ message.message }}</p>
+                        </div>
+                        <div class="row col-md-4 col-md-offset-4">
+                            <a href="{{ path('write_message', {'idRecipient': message.recipient.id}) }}" class="btn btn-response">Répondre</a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}

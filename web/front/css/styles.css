@@ -3051,7 +3051,7 @@ input:focus, textarea:focus, button:focus {
 #img_avatars {
   width: 100%;
   height: 500px;
-  background: url("/web/front/img/window.png") no-repeat;
+  background: url("../img/window.png") no-repeat;
   background-size: contain;
   display: flex;
   justify-content: center;
@@ -3063,7 +3063,7 @@ input:focus, textarea:focus, button:focus {
 
 #dark-window {
   height: 800px;
-  background: url("/web/front/img/dark-window.png") no-repeat;
+  background: url("../img/dark-window.png") no-repeat;
   background-size: contain;
   justify-content: center;
   padding: 45px; }
@@ -3071,10 +3071,24 @@ input:focus, textarea:focus, button:focus {
     margin-top: 10px; }
 
 .building-icon {
-  height: 100px;
-  background: url("/web/front/img/building-case.png") no-repeat;
-  background-size: contain;
-  padding: 15px 5px; }
+  margin-bottom: 30px; }
+
+#name-building {
+  background: url("../img/name-building.png") no-repeat;
+  background-size: 100% 100%;
+  padding: 10px 0; }
+
+#level-building {
+  background: url("../img/level-building.png") no-repeat;
+  background-size: 100% 100%;
+  margin-left: 5px;
+  padding: 20px 0; }
+
+.resources-list {
+  color: white; }
+
+#write-message {
+  margin-bottom: 25px; }
 
 #avatar_messaging {
   width: 140px;
@@ -3082,23 +3096,29 @@ input:focus, textarea:focus, button:focus {
   border-radius: 5px;
   box-shadow: 3px 3px 3px black; }
 
+.one_message {
+  padding-bottom: 50px; }
+
+.btn-response {
+  margin-top: -30px; }
+
 .text-message {
   color: white;
   font-size: 0.7em; }
 
 .messages {
   height: 330px;
-  background: url("/web/front/img/window_messaging.png") no-repeat;
+  background: url("../img/window_messaging.png") no-repeat;
   background-size: contain;
-  padding: 0 30px; }
+  padding: 0 40px; }
   .messages .message-body {
     overflow-y: scroll;
-    height: 40%; }
+    height: 30%; }
 
 .sale_resource {
   width: 600px;
   height: 250px;
-  background: url("/web/front/img/window_market.png") no-repeat;
+  background: url("../img/window_market.png") no-repeat;
   background-size: contain;
   margin-bottom: 50px; }
   .sale_resource .section-description {
@@ -3316,14 +3336,12 @@ a.navbar-logo {
   padding: 10px 15px 10px 15px;
   text-decoration: none !important;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
-  text-transform: uppercase;
   transition: all 0.25s;
   background-image: linear-gradient(to bottom, #b93a27, #9e1e0b);
   background-image: -webkit-linear-gradient(top, #b93a27, #9e1e0b);
   color: #f3aa55;
   font-size: 24px;
   line-height: 36px;
-  padding: 12px 69px;
   transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
   width: 100%;
   background-size: 1px 200px;
