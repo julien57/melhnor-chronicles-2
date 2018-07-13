@@ -52,6 +52,8 @@
 
                         {{ form_errors(form.region) }}
 
+                        <a href="{{ path('game-rules') }}">Découvrir les régions</a>
+
                         <div class="col-sm-6">
                             {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}
                         </div>
@@ -87,4 +89,8 @@
             {{ form_end(form) }}
         </div>
     </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('front/js/registration.js') }}"></script>
 {% endblock %}

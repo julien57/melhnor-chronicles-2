@@ -1,6 +1,6 @@
-const form1 = document.getElementById('form1');
-const form2 = document.getElementById('form2');
-const form3 = document.getElementById('form3');
+const identifiersForm = document.getElementById('form1');
+const mapForm = document.getElementById('form2');
+const avatarForm = document.getElementById('form3');
 
 let registration = {
     verify_input: () => {
@@ -13,8 +13,8 @@ let registration = {
 
         if (pseudo.length >= 3 && password.length >= 5 && mail !== '') {
 
-            form1.style.display = 'none';
-            form2.style.display = 'block';
+            identifiersForm.style.display = 'none';
+            mapForm.style.display = 'block';
         } else {
 
             const pElt = document.createElement('p');
@@ -70,16 +70,16 @@ let registration = {
     }
 };
 
-form2.style.display = 'none';
-form3.style.display = 'none';
+mapForm.style.display = 'none';
+avatarForm.style.display = 'none';
 
 document.getElementById('next1').addEventListener('click', function () {
     registration.verify_input();
 });
 
 document.getElementById('next2').addEventListener('click', function () {
-    form2.style.display = 'none';
-    form3.style.display = 'block';
+    mapForm.style.display = 'none';
+    avatarForm.style.display = 'block';
 });
 
 // Choice avatar
