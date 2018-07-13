@@ -36,7 +36,7 @@ class GamesRulesController extends Controller
         return $this->render('Game/game-rules.html.twig', [
             'buildings' => $buildings,
             'buildingsResources' => $buildingsResources,
-            'regions' => $regions
+            'regions' => $regions,
         ]);
     }
 }

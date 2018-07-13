@@ -3128,6 +3128,14 @@ input:focus, textarea:focus, button:focus {
     .sale_resource .section-description span {
       font-size: xx-large; }
 
+#map_world {
+  width: 80%;
+  border: 5px solid darksalmon;
+  margin-bottom: 20px; }
+
+#description_region {
+  text-align: justify; }
+
 .pattern {
   background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)), url(../img/dark_wall.png); }
 

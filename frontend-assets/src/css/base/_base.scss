@@ -57,20 +57,20 @@ input:focus, textarea:focus, button:focus {
 }
 
 //Description
-    .section-description {
-        margin: 1rem auto 0 auto;
-        width: 69%;
-        font-family: $secondaryFont;
-        color: $imageText;
-        font-size: 1em;
-        font-weight: 400;
-        text-align: center;
-        line-height: 1.6rem;
+.section-description {
+    margin: 1rem auto 0 auto;
+    width: 69%;
+    font-family: $secondaryFont;
+    color: $imageText;
+    font-size: 1em;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.6rem;
 
-            @include mq-max-tablet {
-                width: 85%;
-            }
+    @include mq-max-tablet {
+        width: 85%;
     }
+}
 
 #img_avatars {
     width: 100%;
@@ -172,4 +172,14 @@ input:focus, textarea:focus, button:focus {
             font-size: xx-large;
         }
     }
+}
+
+#map_world {
+    width: 80%;
+    border: 5px solid darksalmon;
+    margin-bottom: 20px;
+}
+
+#description_region {
+    text-align: justify;
 }

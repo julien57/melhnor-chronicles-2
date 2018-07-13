@@ -42,7 +42,7 @@ class KingdomResource
     /**
      * @var resource
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Resource", inversedBy="kingdomResources")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Resource")
      * @ORM\JoinColumn(nullable=false)
      */
     private $resource;
