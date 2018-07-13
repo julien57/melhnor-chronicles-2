@@ -8,26 +8,27 @@
             <div class="alert alert-danger">{{ error.messageKey }}</div>
         {% endif %}
 
-        <div class="col-md-6">
+        <div class="col-md-6 col-md-offset-4">
             <form action="{{ path('security_login') }}" class="contact-form" method="POST">
 
                 <div class="row">
-                    <div id="error_input"></div>
                     <div class="row">
-                        {{ form_label(form._username, "Pseudo", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                        {{ form_label(form._username, "Pseudo :", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
 
-                        <div class="col-sm-8">
+                        <div class="col-sm-5">
                             {{ form_widget(form._username) }}
                         </div>
                     </div>
                     <div class="row">
-                        {{ form_label(form._username, "Mot de passe", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
+                        {{ form_label(form._username, "Mot de passe :", {'label_attr': {'class': 'col-sm-4 control-label'}}) }}
 
-                        <div class="col-sm-8">
+                        <div class="col-sm-5">
                             {{ form_widget(form._password) }}
                         </div>
                     </div>
                 </div>
+                <div id="error_input"></div>
+
                 <div class="row">
                     <div class="button-submit"></div>
                     <div class="col-md-8">

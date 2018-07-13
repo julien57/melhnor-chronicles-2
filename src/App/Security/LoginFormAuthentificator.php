@@ -5,6 +5,7 @@ namespace App\Security;
 use App\Entity\Player;
 use App\Form\LoginType;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,16 +41,23 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
      */
     private $passwordEncoder;
 
+    /**
+     * @var Security
+     */
+    private $security;
+
     public function __construct(
         FormFactoryInterface $formFactory,
         EntityManagerInterface $em,
         RouterInterface $router,
-        UserPasswordEncoderInterface $passwordEncoder)
+        UserPasswordEncoderInterface $passwordEncoder,
+        Security $security)
     {
         $this->formFactory = $formFactory;
         $this->em = $em;
         $this->router = $router;
         $this->passwordEncoder = $passwordEncoder;
+        $this->security = $security;
     }
 
     /**
@@ -122,7 +130,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
     {
         $username = $credentials['_username'];
 
-        return $this->em->getRepository(Player::class)->findOneBy(['username' => $username]);
+        return $this->em->getRepository(Player::class)->findOneBy(['mail' => $username]);
     }
 
     /**
@@ -159,12 +167,14 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
 
         if (!$targetPath) {
-            if ($token->getUser()->getMail() === Player::USERNAME_ROLE_ADMIN) {
+            if ($this->security->isGranted('ROLE_ADMIN')) {
                 $targetPath = $this->router->generate('donjon');
             } else {
                 $targetPath = $this->router->generate('trone');
             }
         }
+        $token->getUser()->setLastConnection(new \DateTime());
+        $this->em->flush();
 
         return new RedirectResponse($targetPath);
     }

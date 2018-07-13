@@ -17,4 +17,13 @@ class MarketRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function countSales()
+    {
+        $qb = $this
+            ->createQueryBuilder('m')
+            ->select('COUNT(m)');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }
