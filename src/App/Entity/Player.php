@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Player implements UserInterface
 {
-    const USERNAME_ROLE_ADMIN = 'julien@gmail.com';
+    const ROLE_ADMIN_USERNAME = 'julien@gmail.com';
 
     const ACTION_POINTS_STARTER = 50;
 
@@ -286,7 +286,7 @@ class Player implements UserInterface
      */
     public function getRoles()
     {
-        if ($this->getUsername() === Player::USERNAME_ROLE_ADMIN) {
+        if ($this->username === self::ROLE_ADMIN_USERNAME) {
             return ['ROLE_ADMIN'];
         }
         return ['ROLE_PLAYER'];

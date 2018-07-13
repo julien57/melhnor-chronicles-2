@@ -2,9 +2,6 @@
 
 namespace App\Controller\Game;
 
-use App\Entity\Building;
-use App\Entity\BuildingResource;
-use App\Entity\Region;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
