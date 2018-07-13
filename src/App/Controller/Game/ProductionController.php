@@ -18,7 +18,7 @@ class ProductionController extends Controller
      *
      * @return RedirectResponse|Response
      *
-     * @Route("/production", name="production")
+     * @Route("/production", name="game_production")
      */
     public function productionAction(ProductionResourcesManager $resourcesManager, ProductionPopulationManager $populationManager)
     {
@@ -27,7 +27,7 @@ class ProductionController extends Controller
         if ($player->getActionPoints() < Player::ACTION_POINTS_FOR_PRODUCTION) {
             $this->addFlash('notice-danger', 'Pas assez de points d\'action !');
 
-            return $this->redirectToRoute('kingdom');
+            return $this->redirectToRoute('game_kingdom');
         }
 
         $productionResult = $resourcesManager->processProduction();

@@ -15,9 +15,9 @@ class GamesRulesController extends Controller
     /**
      * @return Response
      *
-     * @Route("/regles-du-jeu", name="game-rules")
+     * @Route("/regles-du-jeu", name="game_rules")
      */
-    public function gameRulesAction(EntityManagerInterface $em): Response
+    public function rulesAction(EntityManagerInterface $em): Response
     {
         $buildings = $em->getRepository(Building::class)->findAll();
         $buildingsResources = $em->getRepository(BuildingResource::class)->getBuildingsWithResources();

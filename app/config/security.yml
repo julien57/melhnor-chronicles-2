@@ -27,7 +27,7 @@ security:
             provider: main
             logout:
                 path: /logout
-                target: home
+                target: game_index
             remember_me:
                 secret: %secret%
             guard:

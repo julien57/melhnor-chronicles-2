@@ -94,11 +94,11 @@ class LevelingBuildingManager
                 if (!$resourcesRequired) {
                     $this->session->getFlashBag()->add('notice-danger', 'Ressources manquantes !');
 
-                    return new RedirectResponse($this->router->generate('kingdom'));
+                    return new RedirectResponse($this->router->generate('game_kingdom'));
                 }
                 $this->session->getFlashBag()->add('notice', 'Niveau du bâtiment augmenté !');
 
-                return new RedirectResponse($this->router->generate('kingdom'));
+                return new RedirectResponse($this->router->generate('game_kingdom'));
             }
         }
     }

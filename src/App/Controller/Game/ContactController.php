@@ -18,7 +18,7 @@ class ContactController extends Controller
      *
      * @return Response
      *
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="game_contact")
      */
     public function contactAction(Request $request, ContactAdminManager $contactAdminManager): Response
     {

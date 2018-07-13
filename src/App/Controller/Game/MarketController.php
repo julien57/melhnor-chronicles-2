@@ -32,7 +32,7 @@ class MarketController extends Controller
     /**
      * @return Response
      *
-     * @Route("/commerce", name="market")
+     * @Route("/commerce", name="game_market")
      */
     public function marketAction(): Response
     {
@@ -47,24 +47,22 @@ class MarketController extends Controller
      *
      * @return RedirectResponse
      *
-     * @Route("/achat-ressource/{resource_id}", name="buyResource")
-     * @ParamConverter("resource", options={"mapping": {"resource_id": "id"}})
+     * @Route("/achat-ressource/{id}", name="game_market_buy")
      */
-    public function buyAction(Market $resource): RedirectResponse
+    public function buyAction(Market $market): RedirectResponse
     {
         $buyer = $this->getUser();
-        $resourceMarket = $this->em->getRepository(Market::class)->find($resource);
 
-        if (!$resourceMarket) {
+        if (!$market) {
             $this->addFlash(
                 'notice-danger',
                 'La ressource sélectionnée n\'est plus disponible au marché.'
             );
 
-            return $this->redirectToRoute('market');
+            return $this->redirectToRoute('game_market');
         }
 
-        $isPossibleToBuy = $this->purchaseResourceManager->canPlayerBuyResource($resourceMarket, $buyer);
+        $isPossibleToBuy = $this->purchaseResourceManager->canPlayerBuyResource($market, $buyer);
 
         if (!$isPossibleToBuy) {
             $this->addFlash(
@@ -72,23 +70,23 @@ class MarketController extends Controller
                 'Vous n\'avez pas assez d\'or pour acheter cette quantité de resource.'
             );
 
-            return $this->redirectToRoute('market');
+            return $this->redirectToRoute('game_market');
         }
 
         // Process at transaction
-        $this->purchaseResourceManager->processTransaction($resourceMarket, $buyer);
+        $this->purchaseResourceManager->processTransaction($market, $buyer);
 
         // When the the transaction is perform, remove the advert
-        $this->em->remove($resourceMarket);
+        $this->em->remove($market);
         $this->em->flush();
 
-        $resourceName = $resourceMarket->getKingdomResource()->getResource()->getName();
+        $resourceName = $market->getKingdomResource()->getResource()->getName();
 
         $this->addFlash(
             'notice',
-            'Vous venez d\'acheter une quantité de '.$resourceMarket->getQuantity().' de '.$resourceName
+            'Vous venez d\'acheter une quantité de '.$market->getQuantity().' de '.$resourceName
         );
 
-        return $this->redirectToRoute('market');
+        return $this->redirectToRoute('game_market');
     }
 }

@@ -67,7 +67,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
      */
     protected function getLoginUrl()
     {
-        return $this->router->generate('security_login');
+        return $this->router->generate('game_security_login');
     }
 
     /**
@@ -170,7 +170,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
             if ($this->security->isGranted('ROLE_ADMIN')) {
                 $targetPath = $this->router->generate('donjon');
             } else {
-                $targetPath = $this->router->generate('trone');
+                $targetPath = $this->router->generate('game_throne');
             }
         }
         $token->getUser()->setLastConnection(new \DateTime());

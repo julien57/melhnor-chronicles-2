@@ -68,6 +68,12 @@ class Player implements UserInterface
     private $actionPoints = self::ACTION_POINTS_STARTER;
 
     /**
+     *
+     * @ORM\Column(type="json_array")
+     */
+    private $roles = [];
+
+    /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_registration", type="datetime")
@@ -288,11 +294,18 @@ class Player implements UserInterface
      */
     public function getRoles()
     {
-        if ($this->getMail() === self::USERNAME_ROLE_ADMIN) {
-            return ['ROLE_ADMIN'];
+        $roles =  $this->roles;
+
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
         }
 
-        return ['ROLE_PLAYER'];
+        return $roles;
+    }
+
+    public function setRoles(Array $roles)
+    {
+        $this->roles = $roles;
     }
 
     /**
@@ -324,6 +337,7 @@ class Player implements UserInterface
         $player->password = $createPlayerDTO->getPassword();
         $player->mail = $createPlayerDTO->getMail();
         $player->avatar = $createPlayerDTO->getAvatar();
+        $player->roles = ['ROLE_PLAYER'];
         $player->kingdom = $kingdom;
 
         return $player;

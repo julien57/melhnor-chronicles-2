@@ -24,7 +24,7 @@ class MessagesController extends Controller
     /**
      * @return Response
      *
-     * @Route("/messages", name="messagesDonjon")
+     * @Route("/messages", name="donjon_messages")
      */
     public function messagesAction(): Response
     {
@@ -43,7 +43,7 @@ class MessagesController extends Controller
     /**
      * @return Response
      *
-     * @Route("/supprimer-messages", name="delete_messages")
+     * @Route("/supprimer-messages", name="donjon_delete_messages")
      */
     public function deleteAction(Request $request)
     {
@@ -60,7 +60,7 @@ class MessagesController extends Controller
 
             $this->addFlash('notice', 'Les messages ont bien été supprimés');
 
-            return $this->redirectToRoute('messagesDonjon');
+            return $this->redirectToRoute('donjon_messages');
         }
 
         return $this->render('Donjon/delete_messages.html.twig', ['form' => $form->createView()]);

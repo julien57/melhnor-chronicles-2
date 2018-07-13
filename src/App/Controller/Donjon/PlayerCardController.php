@@ -29,12 +29,10 @@ class PlayerCardController extends Controller
      *
      * @return Response
      *
-     * @Route("fiche-joueur/{id}", requirements={"\d+"}, name="playerCard")
+     * @Route("fiche-joueur/{id}", requirements={"\d+"}, name="donjon_player_card")
      */
-    public function playerCardAction(int $id): Response
+    public function playerCardAction(Player $player): Response
     {
-        $player = $this->getDoctrine()->getRepository(Player::class)->find($id);
-
         $messages = $this->em->getRepository(Message::class)->findBySender($player);
 
         return $this->render('Donjon/player_card.html.twig', [
@@ -46,11 +44,10 @@ class PlayerCardController extends Controller
     /**
      * @return RedirectResponse
      *
-     * @Route("suppression-joueur/{id}", requirements={"\d+"}, name="remove-player")
+     * @Route("fiche-joueur/{id}/suppression", requirements={"\d+"}, name="donjon_remove")
      */
-    public function removePlayer(int $id): RedirectResponse
+    public function removeAction(Player $player): RedirectResponse
     {
-        $player = $this->getDoctrine()->getRepository(Player::class)->find($id);
         $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($player->getKingdom());
 
         foreach ($kingdomResources as $kingdomResource) {

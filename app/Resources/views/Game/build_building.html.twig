@@ -7,7 +7,7 @@
         <h3>{{ 'title.build-building'|trans }}</h3>
 
         <div class="col-md-3 col-md-offset-4">
-            <form action="{{ path('build-building') }}" method="post" class="contact-form">
+            <form action="{{ path('game_build_building') }}" method="post" class="contact-form">
                 <div class="row">
                     <div class="col-md-12">
                         {{ form_widget(buildBuildingForm.building, {'attr': {'class': 'form-control'}}) }}<br>

@@ -14,9 +14,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class BuildingController extends Controller
 {
     /**
-     * @Route("/construction-batiment", name="build-building")
+     * @Route("/construction-batiment", name="game_build_building")
      */
-    public function buildBuilding(Request $request, EntityManagerInterface $em): Response
+    public function buildBuildingAction(Request $request, EntityManagerInterface $em): Response
     {
         $buildBuildingDTO = new BuildBuildingDTO();
         $buildBuildingForm = $this->createForm(BuildBuildingType::class, $buildBuildingDTO);
@@ -31,7 +31,7 @@ class BuildingController extends Controller
 
             $this->addFlash('notice', 'Bâtiment construit !');
 
-            return $this->redirectToRoute('kingdom');
+            return $this->redirectToRoute('game_kingdom');
         }
 
         return $this->render('Game/build_building.html.twig', [

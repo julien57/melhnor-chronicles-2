@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class GameController extends Controller
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="game_index")
      */
     public function indexAction(): Response
     {

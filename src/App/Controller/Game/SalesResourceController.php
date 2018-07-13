@@ -14,23 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class SalesResourceController extends Controller
 {
     /**
-     * @var SaleResourceManager
-     */
-    private $saleResourceManager;
-
-    public function __construct(SaleResourceManager $saleResourceManager)
-    {
-        $this->saleResourceManager = $saleResourceManager;
-    }
-
-    /**
      * @param Request $request
+     * @param SaleResourceManager $saleResourceManager
      *
      * @return RedirectResponse|Response
      *
-     * @Route("/vendre-ressource", name="saleResource")
+     * @Route("/vendre-ressource", name="game_sale_resource")
      */
-    public function addResourceAction(Request $request)
+    public function saleResourceAction(Request $request, SaleResourceManager $saleResourceManager)
     {
         $user = $this->getUser();
         $saleResourceDTO = new SaleResourceDTO();
@@ -41,7 +32,7 @@ class SalesResourceController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $isResourceAvailable = $this->saleResourceManager->isResourceAvailableToSale($saleResourceDTO, $user);
+            $isResourceAvailable = $saleResourceManager->isResourceAvailableToSale($saleResourceDTO, $user);
 
             if (!$isResourceAvailable) {
                 $this->addFlash(
@@ -49,14 +40,14 @@ class SalesResourceController extends Controller
                     'La ressource sélectionnée n\'existe pas ou la quantité est trop élevée.'
                 );
 
-                return $this->redirectToRoute('saleResource');
+                return $this->redirectToRoute('game_sale_resource');
             }
 
-            $this->saleResourceManager->processingSaleResource($isResourceAvailable, $saleResourceDTO);
+            $saleResourceManager->processingSaleResource($isResourceAvailable, $saleResourceDTO);
 
             $this->addFlash('notice', 'Ressource ajoutée au marché !');
 
-            return $this->redirectToRoute('market');
+            return $this->redirectToRoute('game_market');
         }
 
         return $this->render('Game/add_resource.html.twig', ['form' => $form->createView()]);

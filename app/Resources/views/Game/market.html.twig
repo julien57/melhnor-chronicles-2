@@ -8,7 +8,7 @@
 
         <div class="col-md-4 col-md-offset-4 row">
             <div class="section-description">
-                <a href="{{ path('saleResource') }}" class="btn">Vendre une ressource</a>
+                <a href="{{ path('game_sale_resource') }}" class="btn">Vendre une ressource</a>
             </div>
         </div>
 
@@ -24,7 +24,7 @@
                         <span>Prix : {{ resourceForSale.price }}</span>
                     </p>
                     <div class="col-md-6 col-md-offset-3">
-                        <a href="{{ path('buyResource', {'resource_id': resourceForSale.id}) }}" class="btn">Acheter</a>
+                        <a href="{{ path('game_market_buy', {'id': resourceForSale.id}) }}" class="btn">Acheter</a>
                     </div>
                 </div>
             {% endfor %}

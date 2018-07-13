@@ -28,7 +28,7 @@ class MessagingController extends Controller
     /**
      * @return Response
      *
-     * @Route("/messages", name="messaging")
+     * @Route("/messages", name="game_messaging")
      */
     public function messagesAction(): Response
     {
@@ -48,7 +48,7 @@ class MessagingController extends Controller
      *     "/envoyer-message/{idRecipient}",
      *     requirements={"idRecipient" = "\d+"},
      *     defaults={"idRecipient" = null},
-     *     name="write_message"
+     *     name="game_messaging_write_message"
      * )
      */
     public function writeMessageAction(Request $request, ?int $idRecipient)
@@ -61,7 +61,7 @@ class MessagingController extends Controller
                     'Ce joueur n\'existe pas ! Merci de sélectionner un joueur dans la liste.'
                 );
 
-                return $this->redirectToRoute('write_message');
+                return $this->redirectToRoute('game_messaging_write_message');
             }
         }
 
@@ -81,7 +81,7 @@ class MessagingController extends Controller
                 'Message bien envoyé !'
             );
 
-            return $this->redirectToRoute('messaging');
+            return $this->redirectToRoute('donjon_messages');
         }
 
         return $this->render('Game/write_message.html.twig', ['form' => $form->createView()]);

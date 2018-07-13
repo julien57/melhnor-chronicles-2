@@ -1,4 +1,4 @@
-{% extends "donjon-layout.html.twig" %}
+{% extends "donjon_layout.html.twig" %}
 
 {% block content %}
     <div class="row">
@@ -47,7 +47,7 @@
 
                         {% for player in players %}
                             <p>{{ player.username }} |
-                                <a href="{{ path('playerCard', {'id': player.id}) }}">{{ 'donjon.player-card'|trans }}</a>
+                                <a href="{{ path('donjon_player_card', {'id': player.id}) }}">{{ 'donjon.player-card'|trans }}</a>
                             </p>
                         {% endfor %}
 
