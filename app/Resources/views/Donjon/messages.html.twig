@@ -1,0 +1,27 @@
+{% extends 'donjon-layout.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card p-6">
+                <div class="card-body d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3>{{ 'donjon.messages'|trans }}</h3>
+
+                        {% if messages is empty %}
+                            <p>{{ 'donjon.no-message'|trans }}</p>
+                        {% else %}
+                            <p><a href="{{ path('delete_messages') }}">{{ 'donjon.delete-messages'|trans }}</a></p>
+                            {% for message in messages %}
+                                <p>{{ message.subject }} : {{ message.message }}<br>
+                                    Par {{ message.sender.username }} le {{ message.atDate|date('d/m/Y à H:i:s') }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

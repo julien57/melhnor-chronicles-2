@@ -13,6 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Player implements UserInterface
 {
+    const ROLE_ADMIN_USERNAME = 'julien@gmail.com';
+
     const ACTION_POINTS_STARTER = 50;
 
     /**
@@ -220,14 +222,6 @@ class Player implements UserInterface
     }
 
     /**
-     * @param null|string $password
-     */
-    public function setPassword(?string $password): void
-    {
-        $this->password = $password;
-    }
-
-    /**
      * @return string
      */
     public function getPlainPassword()
@@ -243,6 +237,14 @@ class Player implements UserInterface
         $this->plainPassword = $plainPassword;
 
         $this->password = null;
+    }
+
+    /**
+     * @param null|string $password
+     */
+    public function setPassword(?string $password): void
+    {
+        $this->password = $password;
     }
 
     /**
@@ -284,6 +286,9 @@ class Player implements UserInterface
      */
     public function getRoles()
     {
+        if ($this->username === self::ROLE_ADMIN_USERNAME) {
+            return ['ROLE_ADMIN'];
+        }
         return ['ROLE_PLAYER'];
     }
 
@@ -312,7 +317,6 @@ class Player implements UserInterface
     public static function initPlayer(CreatePlayerDTO $createPlayerDTO, Kingdom $kingdom): self
     {
         $player = new self();
-
         $player->username = $createPlayerDTO->getUsername();
         $player->password = $createPlayerDTO->getPassword();
         $player->mail = $createPlayerDTO->getMail();

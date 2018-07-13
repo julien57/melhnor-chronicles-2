@@ -42,7 +42,7 @@ class KingdomResource
     /**
      * @var resource
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Resource", inversedBy="kingdomResources")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Resource")
      * @ORM\JoinColumn(nullable=false)
      */
     private $resource;
@@ -108,12 +108,5 @@ class KingdomResource
     public function setResource(Resource $resource): void
     {
         $this->resource = $resource;
-    }
-
-    public function initKingdomResource()
-    {
-        $this->setKingdom($this->kingdom);
-        $this->setResource($this->resource);
-        $this->setQuantity($this->quantity);
     }
 }

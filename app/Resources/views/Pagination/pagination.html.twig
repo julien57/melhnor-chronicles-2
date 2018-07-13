@@ -1,0 +1,8 @@
+{% for p in range(max(pagination.page-4, 1), min(pagination.page+4, pagination.pages_count)) %}
+
+    <a{% if p == pagination.page %} class="current-page"{% endif %}
+            href="{{ path(pagination.route, pagination.route_params|merge({ 'page': p})) }}">{{ p }}
+    </a>
+    {% if not loop.last %} | {% endif %}
+
+{% endfor %}
