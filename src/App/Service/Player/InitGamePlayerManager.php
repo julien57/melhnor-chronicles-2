@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class InitGamePlayerManager
 {
@@ -29,11 +30,17 @@ class InitGamePlayerManager
      */
     private $router;
 
-    public function __construct(EntityManagerInterface $em, SessionInterface $session, RouterInterface $router)
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(EntityManagerInterface $em, SessionInterface $session, RouterInterface $router, TranslatorInterface $translator)
     {
         $this->em = $em;
         $this->session = $session;
         $this->router = $router;
+        $this->translator = $translator;
     }
 
     /**
@@ -50,9 +57,9 @@ class InitGamePlayerManager
         $this->em->persist($player);
         $this->em->flush();
 
-        $this->session->getFlashBag()->add('notice', 'Bienvenue sur Melhnor, vous pouvez maintenant vous connecter !');
+        $this->session->getFlashBag()->add('notice', $this->translator->trans('messages.service-init-player-welcome'));
 
-        return new RedirectResponse($this->router->generate('security_login'));
+        return new RedirectResponse($this->router->generate('game_security_login'));
     }
 
     /**

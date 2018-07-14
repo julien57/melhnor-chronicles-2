@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class MessagesController extends Controller
 {
@@ -16,9 +17,15 @@ class MessagesController extends Controller
      */
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $this->em = $em;
+        $this->translator = $translator;
     }
 
     /**
@@ -58,7 +65,7 @@ class MessagesController extends Controller
             }
             $this->em->flush();
 
-            $this->addFlash('notice', 'Les messages ont bien été supprimés');
+            $this->addFlash('notice', $this->translator->trans('messages.deleted-messages'));
 
             return $this->redirectToRoute('donjon_messages');
         }

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class MarketController extends Controller
 {
@@ -23,10 +24,16 @@ class MarketController extends Controller
      */
     private $purchaseResourceManager;
 
-    public function __construct(EntityManagerInterface $em, PurchaseResourceManager $purchaseResourceManager)
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(EntityManagerInterface $em, PurchaseResourceManager $purchaseResourceManager, TranslatorInterface $translator)
     {
         $this->em = $em;
         $this->purchaseResourceManager = $purchaseResourceManager;
+        $this->translator = $translator;
     }
 
     /**
@@ -56,7 +63,7 @@ class MarketController extends Controller
         if (!$market) {
             $this->addFlash(
                 'notice-danger',
-                'La ressource sélectionnée n\'est plus disponible au marché.'
+                $this->translator->trans('messages.unavailable-resource')
             );
 
             return $this->redirectToRoute('game_market');
@@ -67,7 +74,7 @@ class MarketController extends Controller
         if (!$isPossibleToBuy) {
             $this->addFlash(
                 'notice-danger',
-                'Vous n\'avez pas assez d\'or pour acheter cette quantité de resource.'
+                $this->translator->trans('messages.unavailable-gold')
             );
 
             return $this->redirectToRoute('game_market');
@@ -84,7 +91,10 @@ class MarketController extends Controller
 
         $this->addFlash(
             'notice',
-            'Vous venez d\'acheter une quantité de '.$market->getQuantity().' de '.$resourceName
+            $this->translator->trans('messages.buy-resource', [
+                '%quantity%' => $market->getQuantity(),
+                '%name%' => $resourceName
+            ])
         );
 
         return $this->redirectToRoute('game_market');

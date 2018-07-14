@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class MessagingController extends Controller
 {
@@ -51,14 +52,14 @@ class MessagingController extends Controller
      *     name="game_messaging_write_message"
      * )
      */
-    public function writeMessageAction(Request $request, ?int $idRecipient)
+    public function writeMessageAction(Request $request, ?int $idRecipient, TranslatorInterface $translator)
     {
         if ($idRecipient) {
             $recipient = $this->em->getRepository(Player::class)->find($idRecipient);
             if (!$recipient) {
                 $this->addFlash(
                     'notice-danger',
-                    'Ce joueur n\'existe pas ! Merci de sélectionner un joueur dans la liste.'
+                    $translator->trans('messages.unavailable-player')
                 );
 
                 return $this->redirectToRoute('game_messaging_write_message');
@@ -78,7 +79,7 @@ class MessagingController extends Controller
 
             $this->addFlash(
                 'notice',
-                'Message bien envoyé !'
+                $translator->trans('messages.message-sent')
             );
 
             return $this->redirectToRoute('donjon_messages');

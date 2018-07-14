@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class PlayerCardController extends Controller
 {
@@ -19,9 +20,15 @@ class PlayerCardController extends Controller
      */
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $this->em = $em;
+        $this->translator = $translator;
     }
 
     /**
@@ -56,7 +63,7 @@ class PlayerCardController extends Controller
         $this->em->remove($player);
         $this->em->flush();
 
-        $this->addflash('notice', 'Le joueur a bien été supprimé !');
+        $this->addflash('notice', $this->translator->trans('messages.deleted-player'));
         return $this->redirectToRoute('donjon');
     }
 }

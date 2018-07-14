@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class SalesResourceController extends Controller
 {
@@ -21,7 +22,7 @@ class SalesResourceController extends Controller
      *
      * @Route("/vendre-ressource", name="game_sale_resource")
      */
-    public function saleResourceAction(Request $request, SaleResourceManager $saleResourceManager)
+    public function saleResourceAction(Request $request, SaleResourceManager $saleResourceManager, TranslatorInterface $translator)
     {
         $user = $this->getUser();
         $saleResourceDTO = new SaleResourceDTO();
@@ -37,7 +38,7 @@ class SalesResourceController extends Controller
             if (!$isResourceAvailable) {
                 $this->addFlash(
                     'notice-danger',
-                    'La ressource sélectionnée n\'existe pas ou la quantité est trop élevée.'
+                    $translator->trans('messages.unavailable-resource-kingdom')
                 );
 
                 return $this->redirectToRoute('game_sale_resource');
@@ -45,7 +46,7 @@ class SalesResourceController extends Controller
 
             $saleResourceManager->processingSaleResource($isResourceAvailable, $saleResourceDTO);
 
-            $this->addFlash('notice', 'Ressource ajoutée au marché !');
+            $this->addFlash('notice', $translator->trans('messages.add-resource-market'));
 
             return $this->redirectToRoute('game_market');
         }
