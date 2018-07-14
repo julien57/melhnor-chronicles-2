@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="container">
-        <h2>Contactez-Nous</h2>
+        <h2>{{ 'title.contact-us'|trans }}</h2>
 
         <div id="form-messages"></div>
         <form method="post" action="{{ path('game_contact') }}" id="ajax-contact" class="contact-form">
@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="button-submit"></div>
                     <div class="col-md-8 col-md-offset-4">
-                        <button type="submit" class="btn">Envoyer</button>
+                        <button type="submit" class="btn">{{ 'button.submit'|trans }}</button>
                     </div>
                 </div>
             </div>

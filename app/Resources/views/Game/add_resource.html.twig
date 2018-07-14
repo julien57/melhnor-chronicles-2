@@ -4,7 +4,7 @@
 
     <div class="fluid-container">
 
-        <h2>Vendre une ressource</h2>
+        <h2>{{ 'title.sell-resource'|trans }}</h2>
 
         <div class="col-md-3 col-md-offset-4">
             <form action="{{ path('game_sale_resource') }}" method="post" class="contact-form">
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="row">
-                    <button type="submit" class="btn">Vendre au marché</button>
+                    <button type="submit" class="btn">{{ 'title.sell-at-market'|trans }}</button>
                 </div>
 
                 {{ form_rest(form) }}

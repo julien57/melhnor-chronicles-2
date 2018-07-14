@@ -14,7 +14,7 @@
                         <h3>{{ 'donjon.delete-player'|trans }}</h3>
                         <p>{{ 'donjon.question-remove-player'|trans }}</p>
 
-                            <a href="{{ path('donjon_remove', {'id': player.id}) }}" class="btn btn-danger">Supprimer</a>
+                            <a href="{{ path('donjon_remove', {'id': player.id}) }}" class="btn btn-danger">{{ 'donjon.delete-player'|trans }}</a>
 
                         <p>{{ 'donjon.warning-remove-player'|trans }}</p>
                     </div>
@@ -48,7 +48,7 @@
                     <div>
                         <h3>{{ message.subject }}</h3>
                         <p>{{ message.message }}</p>
-                        <p>Le {{ message.atDate|date('d/m/Y à H:i:s') }}. Destinataire : {{ message.recipient.username }}</p>
+                        <p>Le {{ message.atDate|date('d/m/Y à H:i:s') }}. {{ 'donjon.recipient'|trans }} : {{ message.recipient.username }}</p>
                     </div>
                 </div>
             </div>

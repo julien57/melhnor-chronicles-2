@@ -29,18 +29,18 @@
                         </div>
                     </div>
                 </div>
-                <p class="panel-item__summary">Le {{ app.user.kingdom.name }} se trouve dans la région {{ app.user.kingdom.region.name }}</p>
+                <p class="panel-item__summary">{{ 'title.region'|trans }} : {{ app.user.kingdom.region.name }}</p>
             </div>
             <div class="col-md-7">
                 <img src="{{ asset('front/img/map-world.jpg') }}" alt="Carte du monde de Melhnor" id="map_world"/>
 
                 <div class="row">
                     <div class="col-md-3">
-                        <span class="panel-item__summary">Sélectionnez une région :</span>
+                        <span class="panel-item__summary">{{ 'title.select-region'|trans }} :</span>
                     </div>
                     <div class="col-md-4">
                         <select id="list_regions" class="form-control">
-                            <option selected>Sélectionnez une région</option>
+                            <option selected>{{ 'title.select-region'|trans }}</option>
                         </select>
                     </div>
                 </div>
