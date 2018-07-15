@@ -8,7 +8,6 @@ use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -51,7 +50,7 @@ class PlayerCardController extends Controller
     /**
      * @return RedirectResponse
      *
-     * @Route("fiche-joueur/{id}/suppression", requirements={"\d+"}, name="donjon_remove")
+     * @Route("fiche-joueur/{id}/suppression", requirements={"\d+"}, name="donjon_player_card_remove")
      */
     public function removeAction(Player $player): RedirectResponse
     {
@@ -63,7 +62,7 @@ class PlayerCardController extends Controller
         $this->em->remove($player);
         $this->em->flush();
 
-        $this->addflash('notice', $this->translator->trans('messages.deleted-player'));
-        return $this->redirectToRoute('donjon');
+        $this->addflash('notice', $this->translator->trans('messages.deleted-player', [], 'donjon'));
+        return $this->redirectToRoute('donjon_index');
     }
 }

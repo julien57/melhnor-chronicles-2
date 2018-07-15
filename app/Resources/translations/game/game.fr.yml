@@ -1,0 +1,16 @@
+messages:
+    built-building: Bâtiment construit !
+    unavailable-resource: La ressource sélectionnée n'est plus disponible au marché.
+    unavailable-gold: Vous n'avez pas assez d'or pour acheter cette quantité de resource.
+    buy-resource: Vous venez d'acheter une quantité de %quantity% de %name%
+    unavailable-player: Ce joueur n'existe pas ! Merci de sélectionner un joueur dans la liste.
+    message-sent: Message bien envoyé !
+    unavailable-action-points: Pas assez de points d'action !
+    unavailable-resource-kingdom: La ressource sélectionnée n'existe pas ou la quantité est trop élevée.
+    add-resource-market: Ressource ajoutée au marché !
+    service-leveling-unavailable-resource: Ressources manquantes !
+    service-leveling-increased-level: Niveau du bâtiment augmenté !
+    service-init-player-welcome: Bienvenue sur Melhnor, vous pouvez maintenant vous connecter !
+    contact-success: Formulaire envoyé ! nous vous recontacterons dans les plus brefs délais.
+    contact-error: Le formulaire n'a pas pu être envoyé.
+    login-error: Impossible de se déconnecter !

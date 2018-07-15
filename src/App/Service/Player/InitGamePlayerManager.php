@@ -57,7 +57,7 @@ class InitGamePlayerManager
         $this->em->persist($player);
         $this->em->flush();
 
-        $this->session->getFlashBag()->add('notice', $this->translator->trans('messages.service-init-player-welcome'));
+        $this->session->getFlashBag()->add('notice', $this->translator->trans('messages.service-init-player-welcome', [], 'game'));
 
         return new RedirectResponse($this->router->generate('game_security_login'));
     }

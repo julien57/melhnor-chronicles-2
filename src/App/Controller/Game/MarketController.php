@@ -3,11 +3,15 @@
 namespace App\Controller\Game;
 
 use App\Entity\Market;
+use App\Form\SaleResourceType;
+use App\Model\SaleResourceDTO;
 use App\Service\Market\PurchaseResourceManager;
+use App\Service\Market\SaleResourceManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -63,7 +67,7 @@ class MarketController extends Controller
         if (!$market) {
             $this->addFlash(
                 'notice-danger',
-                $this->translator->trans('messages.unavailable-resource')
+                $this->translator->trans('messages.unavailable-resource', [], 'game')
             );
 
             return $this->redirectToRoute('game_market');
@@ -74,7 +78,7 @@ class MarketController extends Controller
         if (!$isPossibleToBuy) {
             $this->addFlash(
                 'notice-danger',
-                $this->translator->trans('messages.unavailable-gold')
+                $this->translator->trans('messages.unavailable-gold', [], 'game')
             );
 
             return $this->redirectToRoute('game_market');
@@ -94,9 +98,49 @@ class MarketController extends Controller
             $this->translator->trans('messages.buy-resource', [
                 '%quantity%' => $market->getQuantity(),
                 '%name%' => $resourceName
-            ])
+            ], 'game')
         );
 
         return $this->redirectToRoute('game_market');
+    }
+
+    /**
+     * @param Request $request
+     * @param SaleResourceManager $saleResourceManager
+     *
+     * @return RedirectResponse|Response
+     *
+     * @Route("/vendre-ressource", name="game_market_sale")
+     */
+    public function saleAction(Request $request, SaleResourceManager $saleResourceManager, TranslatorInterface $translator)
+    {
+        $user = $this->getUser();
+        $saleResourceDTO = new SaleResourceDTO();
+
+        $form = $this->createForm(SaleResourceType::class, $saleResourceDTO, [
+            'kingdom' => $user->getKingdom(),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $isResourceAvailable = $saleResourceManager->isResourceAvailableToSale($saleResourceDTO, $user);
+
+            if (!$isResourceAvailable) {
+                $this->addFlash(
+                    'notice-danger',
+                    $translator->trans('messages.unavailable-resource-kingdom', [], 'game')
+                );
+
+                return $this->redirectToRoute('game_market_sale');
+            }
+
+            $saleResourceManager->processingSaleResource($isResourceAvailable, $saleResourceDTO);
+
+            $this->addFlash('notice', $translator->trans('messages.add-resource-market', [], 'game'));
+
+            return $this->redirectToRoute('game_market');
+        }
+
+        return $this->render('Game/add_resource.html.twig', ['form' => $form->createView()]);
     }
 }

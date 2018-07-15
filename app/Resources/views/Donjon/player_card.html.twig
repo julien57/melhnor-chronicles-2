@@ -4,7 +4,7 @@
 
     <h2>{{ 'donjon.player-card'|trans }} {{ player.username }}</h2>
 
-    <a href="{{ path('donjon') }}">{{ 'donjon.return-dashboard'|trans }}</a>
+    <a href="{{ path('donjon_index') }}">{{ 'donjon.return-dashboard'|trans }}</a>
 
     <div class="row">
         <div class="col-md-6">
@@ -14,7 +14,9 @@
                         <h3>{{ 'donjon.delete-player'|trans }}</h3>
                         <p>{{ 'donjon.question-remove-player'|trans }}</p>
 
-                            <a href="{{ path('donjon_remove', {'id': player.id}) }}" class="btn btn-danger">{{ 'donjon.delete-player'|trans }}</a>
+                            <a href="{{ path('donjon_player_card_remove', {'id': player.id}) }}" class="btn btn-danger">
+                                {{ 'donjon.delete-player'|trans }}
+                            </a>
 
                         <p>{{ 'donjon.warning-remove-player'|trans }}</p>
                     </div>

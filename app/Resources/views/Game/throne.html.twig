@@ -2,19 +2,19 @@
 
 {% block content %}
 
-    <div class="fluid-container">
+    <div class="container-fluid">
 
         <h2>{{ 'menu.throne'|trans }}</h2>
 
         <div class="row">
-            <div id="dark-window" class="col-md-4">
+            <div id="dark-window" class="col-md-5">
                 <div class="row">
                     <h3 class="col-md-8">{{ app.user.kingdom.name }}</h3>
                 </div>
 
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <img src="{{ asset('front/img/avatars/') }}{{ app.user.avatar.idavatar }}.jpg" alt="Avatar de {{ app.user.username }}" class="image_avatar"/>
                     </div>
                     <div class="col-md-6">
@@ -36,7 +36,7 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <span class="panel-item__summary">{{ 'title.select-region'|trans }} :</span>
+                        <span class="panel-item__summary">{{ 'title.select-region'|trans }}</span>
                     </div>
                     <div class="col-md-4">
                         <select id="list_regions" class="form-control">

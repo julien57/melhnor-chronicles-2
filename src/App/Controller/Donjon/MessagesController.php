@@ -50,7 +50,7 @@ class MessagesController extends Controller
     /**
      * @return Response
      *
-     * @Route("/supprimer-messages", name="donjon_delete_messages")
+     * @Route("/supprimer-messages", name="donjon_messages_delete")
      */
     public function deleteAction(Request $request)
     {
@@ -65,7 +65,7 @@ class MessagesController extends Controller
             }
             $this->em->flush();
 
-            $this->addFlash('notice', $this->translator->trans('messages.deleted-messages'));
+            $this->addFlash('notice', $this->translator->trans('messages.deleted-messages', [], 'donjon'));
 
             return $this->redirectToRoute('donjon_messages');
         }

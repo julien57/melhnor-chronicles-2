@@ -19,7 +19,7 @@
 
                     <div class="row">
                         <div class="col-md-5">
-                            <a href="{{ path('game_build_building') }}" class="btn">{{ 'title.build-building'|trans }}</a>
+                            <a href="{{ path('game_building_build') }}" class="btn">{{ 'title.build-building'|trans }}</a>
                         </div>
                     </div>
 
@@ -30,20 +30,28 @@
                     {% for kingdomBuilding in formBuilding.KingdomBuildings %}
                         <div class="row">
                             <div class="col-sm-12 building-icon">
-                                <div class="col-md-3">
-                                    <div class="row">
-                                        {{ 'title.building'|trans }} :
+                                <div class="col-md-3" id="name-building">
+                                    <div class="row col-md-offset-1">
+                                        <div class="col-md-offset-1">
+                                            {{ 'title.building'|trans }} :
+                                        </div>
+                                        <div class="col-md-10">
+                                            {{ form_widget(kingdomBuilding.building, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
                                     </div>
-                                    {{ form_widget(kingdomBuilding.building, {'attr': {'class': 'form-control'}}) }}
                                 </div>
 
-                                <div class="col-md-3">
-                                    <div class="row">
-                                        {{ 'title.level'|trans }} :
+                                <div class="col-md-3" id="level-building">
+                                    <div class="row col-md-offset-1">
+                                        <div class="col-md-4">
+                                            {{ 'title.level'|trans }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_widget(kingdomBuilding.level) }}
+                                        </div>
                                     </div>
-                                    {{ form_widget(kingdomBuilding.level) }}
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <button type="submit" class="btn">{{ 'button.increase'|trans }}</button>
                                 </div>
                             </div>

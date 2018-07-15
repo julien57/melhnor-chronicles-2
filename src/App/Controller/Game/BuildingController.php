@@ -15,9 +15,9 @@ use Symfony\Component\Translation\TranslatorInterface;
 class BuildingController extends Controller
 {
     /**
-     * @Route("/construction-batiment", name="game_build_building")
+     * @Route("/construction-batiment", name="game_building_build")
      */
-    public function buildBuildingAction(Request $request, EntityManagerInterface $em, TranslatorInterface $translator): Response
+    public function buildAction(Request $request, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
         $buildBuildingDTO = new BuildBuildingDTO();
         $buildBuildingForm = $this->createForm(BuildBuildingType::class, $buildBuildingDTO);
@@ -30,7 +30,7 @@ class BuildingController extends Controller
             $em->persist($kingdomBuilding);
             $em->flush();
 
-            $this->addFlash('notice', $translator->trans('messages.built-building'));
+            $this->addFlash('notice', $translator->trans('messages.built-building', [], 'game'));
 
             return $this->redirectToRoute('game_kingdom');
         }

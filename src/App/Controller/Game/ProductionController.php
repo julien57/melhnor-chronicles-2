@@ -30,7 +30,7 @@ class ProductionController extends Controller
         $player = $this->getUser();
 
         if ($player->getActionPoints() < Player::ACTION_POINTS_FOR_PRODUCTION) {
-            $this->addFlash('notice-danger', $translator->trans('messages.unavailable-action-points'));
+            $this->addFlash('notice-danger', $translator->trans('messages.unavailable-action-points', [], 'game'));
 
             return $this->redirectToRoute('game_kingdom');
         }

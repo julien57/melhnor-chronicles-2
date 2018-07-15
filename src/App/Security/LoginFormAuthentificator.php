@@ -168,7 +168,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
 
         if (!$targetPath) {
             if ($this->security->isGranted('ROLE_ADMIN')) {
-                $targetPath = $this->router->generate('donjon');
+                $targetPath = $this->router->generate('donjon_index');
             } else {
                 $targetPath = $this->router->generate('game_throne');
             }

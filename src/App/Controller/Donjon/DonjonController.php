@@ -16,7 +16,7 @@ class DonjonController extends Controller
      *
      * @return Response
      *
-     * @Route("/dashboard/{page}", defaults={"page": 1}, requirements={"\d+"}, name="donjon")
+     * @Route("/dashboard/{page}", defaults={"page": 1}, requirements={"\d+"}, name="donjon_index")
      */
     public function indexAction(int $page, EntityManagerInterface $em): Response
     {
@@ -26,7 +26,7 @@ class DonjonController extends Controller
         $pagination = [
             'page' => $page,
             'pages_count' => ceil(count($players) / $nbPlayersPerPage),
-            'route' => 'donjon',
+            'route' => 'donjon_index',
             'route_params' => [],
         ];
 

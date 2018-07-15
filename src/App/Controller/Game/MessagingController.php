@@ -49,20 +49,20 @@ class MessagingController extends Controller
      *     "/envoyer-message/{idRecipient}",
      *     requirements={"idRecipient" = "\d+"},
      *     defaults={"idRecipient" = null},
-     *     name="game_messaging_write_message"
+     *     name="game_messaging_write"
      * )
      */
-    public function writeMessageAction(Request $request, ?int $idRecipient, TranslatorInterface $translator)
+    public function writeAction(Request $request, ?int $idRecipient, TranslatorInterface $translator)
     {
         if ($idRecipient) {
             $recipient = $this->em->getRepository(Player::class)->find($idRecipient);
             if (!$recipient) {
                 $this->addFlash(
                     'notice-danger',
-                    $translator->trans('messages.unavailable-player')
+                    $translator->trans('messages.unavailable-player', [], 'game')
                 );
 
-                return $this->redirectToRoute('game_messaging_write_message');
+                return $this->redirectToRoute('game_messaging_write');
             }
         }
 
@@ -70,19 +70,20 @@ class MessagingController extends Controller
         $form = $this->createForm(MessageType::class, $writeMessageDTO, ['idRecipient' => $idRecipient]);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $recipient = $this->getUser();
-            $message = Message::createMessage($writeMessageDTO, $recipient);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sender = $this->getUser();
+
+            $message = Message::createMessage($writeMessageDTO, $sender);
 
             $this->em->persist($message);
             $this->em->flush();
 
             $this->addFlash(
                 'notice',
-                $translator->trans('messages.message-sent')
+                $translator->trans('messages.message-sent', [], 'game')
             );
 
-            return $this->redirectToRoute('donjon_messages');
+            return $this->redirectToRoute('game_messaging');
         }
 
         return $this->render('Game/write_message.html.twig', ['form' => $form->createView()]);

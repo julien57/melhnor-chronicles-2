@@ -15,6 +15,8 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
-.php_cs.cache
+.php_cs.cachecd ..
 .idea
 .DS_Store
+/frontend-assets/node_modules
+/backend-assets/node_modules

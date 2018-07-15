@@ -102,14 +102,14 @@ class LevelingBuildingManager
                 if (!$resourcesRequired) {
                     $this->session->getFlashBag()->add(
                         'notice-danger',
-                        $this->translator->trans('messages.service-leveling-unavailable-resource')
+                        $this->translator->trans('messages.service-leveling-unavailable-resource', [], 'game')
                     );
 
                     return new RedirectResponse($this->router->generate('game_kingdom'));
                 }
                 $this->session->getFlashBag()->add(
                     'notice',
-                    $this->translator->trans('messages.service-leveling-increased-level')
+                    $this->translator->trans('messages.service-leveling-increased-level', [], 'game')
                 );
 
                 return new RedirectResponse($this->router->generate('game_kingdom'));

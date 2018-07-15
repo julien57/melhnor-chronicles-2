@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class SecurityController extends Controller
 {
@@ -61,8 +62,8 @@ class SecurityController extends Controller
      *
      * @Route("/logout", name="game_security_logout")
      */
-    public function logoutAction(): Exception
+    public function logoutAction(TranslatorInterface $translator): Exception
     {
-        throw new Exception('Impossible de se déconnecter !');
+        throw new Exception($translator->trans('messages.login-error', [], 'game'));
     }
 }
