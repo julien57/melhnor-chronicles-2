@@ -6,6 +6,7 @@ use App\Entity\Market;
 use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,17 +19,17 @@ class DonjonController extends Controller
      *
      * @Route("/dashboard/{page}", defaults={"page": 1}, requirements={"\d+"}, name="donjon_index")
      */
-    public function indexAction(int $page, EntityManagerInterface $em): Response
+    public function indexAction(int $page, EntityManagerInterface $em, Request $request): Response
     {
         $nbPlayersPerPage = $this->getParameter('nb_pagination_admin');
-        $players = $em->getRepository(Player::class)->allPlayersWithPagination($page, $nbPlayersPerPage);
+        $players = $em->getRepository(Player::class)->allPlayersWithPagination();
 
-        $pagination = [
-            'page' => $page,
-            'pages_count' => ceil(count($players) / $nbPlayersPerPage),
-            'route' => 'donjon_index',
-            'route_params' => [],
-        ];
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $players,
+            $request->query->getInt('page', $page),
+            $nbPlayersPerPage
+        );
 
         $nbSales = $em->getRepository(Market::class)->countSales();
 

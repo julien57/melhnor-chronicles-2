@@ -21,7 +21,7 @@ class LevelBuildingDTO
 
     /**
      * @var int|null
-     * @Assert\Type("integer", message="Le niveau du bâtiment doit être un nombre.")
+     * @Assert\Type("integer", message="buil_building.level.not_int")
      */
     private $level;
 

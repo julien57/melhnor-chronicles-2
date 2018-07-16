@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Model\CreatePlayerDTO;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="player")
@@ -32,8 +31,6 @@ class Player implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
-     * @Assert\Length(min="3", minMessage="Le pseudo doit faire au moins {{ limit }} caractères.")
-     * @Assert\NotBlank()
      */
     private $username;
 
@@ -41,8 +38,6 @@ class Player implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\Length(min="5", minMessage="Le pseudo doit faire {{ limit }} caractères minimum.")
-     * @Assert\NotBlank()
      */
     private $password;
 
@@ -55,8 +50,6 @@ class Player implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="mail", type="string", length=255, unique=true)
-     * @Assert\Email()
-     * @Assert\NotBlank()
      */
     private $mail;
 
@@ -69,7 +62,7 @@ class Player implements UserInterface
 
     /**
      *
-     * @ORM\Column(type="json_array")
+     * @ORM\Column(type="json")
      */
     private $roles = [];
 

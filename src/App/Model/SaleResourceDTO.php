@@ -14,7 +14,7 @@ class SaleResourceDTO
 
     /**
      * @var int|null
-     * @Assert\LessThan(2147483647, message="Quantité trop élevé.")
+     * @Assert\LessThan(2147483647, message="resource.quantity.unavailable")
      */
     private $quantity;
 

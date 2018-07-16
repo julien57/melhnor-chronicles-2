@@ -43,10 +43,12 @@
                 <div class="card-body p-0">
                     <div class="p-4">
 
-                        <p>{{ 'donjon.pages'|trans }} : {% include 'Pagination/pagination.html.twig' %}</p>
+                        <div class="pagination">
+                            {{ knp_pagination_render(pagination) }}
+                        </div>
 
-                        {% for player in players %}
-                            <p>{{ player.username }} |
+                        {% for player in pagination %}
+                            <p {% if loop.index is odd %}class="color"{% endif %}>{{ player.username }} |
                                 <a href="{{ path('donjon_player_card', {'id': player.id}) }}">{{ 'donjon.player-card'|trans }}</a>
                             </p>
                         {% endfor %}

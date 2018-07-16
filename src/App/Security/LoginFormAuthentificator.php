@@ -5,7 +5,6 @@ namespace App\Security;
 use App\Entity\Player;
 use App\Form\LoginType;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -152,8 +151,8 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $password = $credentials['_password'];
-
-        if ($this->passwordEncoder->isPasswordValid($user, $password)) {
+        $encoder = $this->passwordEncoder->encodePassword($user, $password);
+        if ($encoder) {
             return true;
         }
 

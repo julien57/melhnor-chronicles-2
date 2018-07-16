@@ -8,13 +8,13 @@ class ConnectionDTO
 {
     /**
      * @var string|null
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="connection.username.is_blank")
      */
     private $username;
 
     /**
      * @var string|null
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="connection.password.is_blank")
      */
     private $password;
 

@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Entity\Building;
 use App\Entity\Kingdom;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class BuildBuildingDTO
 {
@@ -19,6 +20,7 @@ class BuildBuildingDTO
 
     /**
      * @var int|null
+     * @Assert\Type("integer", message="buil_building.level.not_int")
      */
     private $level;
 

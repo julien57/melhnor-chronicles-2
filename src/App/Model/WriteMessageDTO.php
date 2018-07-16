@@ -9,13 +9,13 @@ class WriteMessageDTO
 {
     /**
      * @var string|null
-     * @Assert\Type("string")
+     * @Assert\Type("string", message="contact.subject.not_string")
      */
     private $subject;
 
     /**
      * @var string|null
-     * @Assert\Type("string")
+     * @Assert\Type("string", message="contact.body.not_string")
      */
     private $message;
 
