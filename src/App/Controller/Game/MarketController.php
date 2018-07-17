@@ -8,7 +8,6 @@ use App\Model\SaleResourceDTO;
 use App\Service\Market\PurchaseResourceManager;
 use App\Service\Market\SaleResourceManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -97,7 +96,7 @@ class MarketController extends Controller
             'notice',
             $this->translator->trans('messages.buy-resource', [
                 '%quantity%' => $market->getQuantity(),
-                '%name%' => $resourceName
+                '%name%' => $resourceName,
             ], 'game')
         );
 
@@ -105,7 +104,7 @@ class MarketController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param Request             $request
      * @param SaleResourceManager $saleResourceManager
      *
      * @return RedirectResponse|Response

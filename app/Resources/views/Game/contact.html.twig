@@ -6,7 +6,7 @@
         <h2>{{ 'title.contact-us'|trans }}</h2>
 
         <div id="form-messages"></div>
-        <form method="post" action="{{ path('game_contact') }}" id="ajax-contact" class="contact-form">
+        {{ form_start(form, {'attr': {'class': 'contact-form','id': 'ajax-contact'}}) }}
 
             {{ form_errors(form) }}
 
@@ -54,7 +54,7 @@
 
             {{ form_rest(form) }}
 
-        </form>
+        {{ form_end(form) }}
     </div>
 
 {% endblock %}

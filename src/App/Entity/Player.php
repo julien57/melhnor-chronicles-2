@@ -61,7 +61,6 @@ class Player implements UserInterface
     private $actionPoints = self::ACTION_POINTS_STARTER;
 
     /**
-     *
      * @ORM\Column(type="json")
      */
     private $roles = [];
@@ -287,7 +286,7 @@ class Player implements UserInterface
      */
     public function getRoles()
     {
-        $roles =  $this->roles;
+        $roles = $this->roles;
 
         if (!in_array('ROLE_USER', $roles)) {
             $roles[] = 'ROLE_USER';
@@ -296,7 +295,7 @@ class Player implements UserInterface
         return $roles;
     }
 
-    public function setRoles(Array $roles)
+    public function setRoles(array $roles)
     {
         $this->roles = $roles;
     }

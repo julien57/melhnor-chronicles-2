@@ -25,8 +25,7 @@ class ProductionController extends Controller
         ProductionResourcesManager $resourcesManager,
         ProductionPopulationManager $populationManager,
         TranslatorInterface $translator
-    )
-    {
+    ) {
         $player = $this->getUser();
 
         if ($player->getActionPoints() < Player::ACTION_POINTS_FOR_PRODUCTION) {

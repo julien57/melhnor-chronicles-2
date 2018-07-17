@@ -45,7 +45,7 @@ class PlayerCardController extends Controller
 
         return $this->render('Donjon/player_card.html.twig', [
             'player' => $player,
-            'messages' => $messages
+            'messages' => $messages,
         ]);
     }
 
@@ -66,6 +66,7 @@ class PlayerCardController extends Controller
         $this->em->flush();
 
         $this->addflash('notice', $this->translator->trans('messages.deleted-player', [], 'donjon'));
+
         return $this->redirectToRoute('donjon_index');
     }
 }

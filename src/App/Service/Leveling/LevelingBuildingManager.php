@@ -84,7 +84,6 @@ class LevelingBuildingManager
      * @param $kingdomBuildingsForm
      *
      * @return RedirectResponse
-     *
      */
     public function searchLevelModified($kingdomBuildingsForm): RedirectResponse
     {
