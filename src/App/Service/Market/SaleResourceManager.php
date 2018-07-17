@@ -38,7 +38,13 @@ class SaleResourceManager
     {
         $kingdom = $player->getKingdom();
 
-        return $kingdom->getKingdomResource($saleResourceDTO->getResource());
+        $quantityInKingdom = $kingdom->getKingdomResource($saleResourceDTO->getResource());
+
+        if ($quantityInKingdom->getQuantity() < $saleResourceDTO->getQuantity()) {
+            return null;
+        }
+
+        return $quantityInKingdom;
     }
 
     /**

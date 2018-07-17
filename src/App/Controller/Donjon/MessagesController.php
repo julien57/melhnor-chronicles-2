@@ -4,6 +4,7 @@ namespace App\Controller\Donjon;
 
 use App\Entity\Message;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,6 +33,7 @@ class MessagesController extends Controller
      * @return Response
      *
      * @Route("/messages", name="donjon_messages")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function messagesAction(): Response
     {
@@ -51,6 +53,7 @@ class MessagesController extends Controller
      * @return Response
      *
      * @Route("/supprimer-messages", name="donjon_messages_delete")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request)
     {

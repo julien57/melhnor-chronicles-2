@@ -5,6 +5,7 @@ namespace App\Controller\Donjon;
 use App\Entity\Market;
 use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,7 @@ class DonjonController extends Controller
      * @return Response
      *
      * @Route("/dashboard/{page}", defaults={"page": 1}, requirements={"\d+"}, name="donjon_index")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function indexAction(int $page, EntityManagerInterface $em, Request $request): Response
     {

@@ -5,6 +5,7 @@ The game use Symfony 3.4.
 
 ## Stack technique
 
+* Symfony 3.4
 * PHP 7.1
 * Web-server (Nginx, Apache2 ou PHP built-in server)
 * Database (MySQL)
@@ -67,3 +68,23 @@ The game use Symfony 3.4.
    bin/console game:create-avatars
    bin/console game:create-regions
    ```
+   
+   **The game can finally start !**
+   
+   ## Code styles
+   
+   * For PHP, the synthax is managed by `php-cs-fixer`:
+   ```bash
+   make cs-fix
+   ```
+   
+   ## GULP for frontend
+   The site use GULP for backend assets (JS, images, css) in folders `frontend-assets` and `backend-assets`. Each command 
+   to use GULP send files in the /web folder. For example `gulp js`, `gulp images` or `gulp css`
+   
+   
+   ## GIT Flow
+   
+   2 branchs are active, `develop` and `master`:
+   * `develop`: It's a default branch for work. When the work is done, merge in `master`
+   * `master`: this branch contain a last version of the site. The version of production.
