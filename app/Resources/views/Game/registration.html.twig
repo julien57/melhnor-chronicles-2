@@ -52,7 +52,7 @@
 
                         {{ form_errors(form.region) }}
 
-                        <a href="{{ path('game-rules') }}">Découvrir les régions</a>
+                        <a href="{{ path('game_rules') }}">{{ 'title.see-regions'|trans }}</a>
 
                         <div class="col-sm-6">
                             {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}

@@ -1,4 +1,4 @@
-{% extends 'donjon-layout.html.twig' %}
+{% extends 'donjon_layout.html.twig' %}
 
 {% block content %}
 
@@ -12,7 +12,7 @@
                         {% if messages is empty %}
                             <p>{{ 'donjon.no-message'|trans }}</p>
                         {% else %}
-                            <p><a href="{{ path('delete_messages') }}">{{ 'donjon.delete-messages'|trans }}</a></p>
+                            <p><a href="{{ path('donjon_messages_delete') }}">{{ 'donjon.delete-messages'|trans }}</a></p>
                             {% for message in messages %}
                                 <p>{{ message.subject }} : {{ message.message }}<br>
                                     Par {{ message.sender.username }} le {{ message.atDate|date('d/m/Y à H:i:s') }}</p>

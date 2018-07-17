@@ -5,7 +5,9 @@ namespace App\Controller\Donjon;
 use App\Entity\Market;
 use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -16,19 +18,20 @@ class DonjonController extends Controller
      *
      * @return Response
      *
-     * @Route("/dashboard/{page}", defaults={"page": 1}, requirements={"\d+"}, name="donjon")
+     * @Route("/dashboard/{page}", defaults={"page": 1}, requirements={"\d+"}, name="donjon_index")
+     * @Security("has_role('ROLE_ADMIN')")
      */
-    public function indexAction(int $page, EntityManagerInterface $em): Response
+    public function indexAction(int $page, EntityManagerInterface $em, Request $request): Response
     {
         $nbPlayersPerPage = $this->getParameter('nb_pagination_admin');
-        $players = $em->getRepository(Player::class)->allPlayersWithPagination($page, $nbPlayersPerPage);
+        $players = $em->getRepository(Player::class)->allPlayers();
 
-        $pagination = [
-            'page' => $page,
-            'pages_count' => ceil(count($players) / $nbPlayersPerPage),
-            'route' => 'donjon',
-            'route_params' => [],
-        ];
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $players,
+            $request->query->getInt('page', $page),
+            $nbPlayersPerPage
+        );
 
         $nbSales = $em->getRepository(Market::class)->countSales();
 

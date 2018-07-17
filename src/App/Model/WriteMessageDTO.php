@@ -9,20 +9,20 @@ class WriteMessageDTO
 {
     /**
      * @var string|null
-     * @Assert\Type("string")
+     * @Assert\Type("string", message="contact.subject.not_string")
      */
     private $subject;
 
     /**
      * @var string|null
-     * @Assert\Type("string")
+     * @Assert\Type("string", message="contact.body.not_string")
      */
     private $message;
 
     /**
      * @var Player|null;
      */
-    private $sender;
+    private $recipient;
 
     /**
      * @return null|string
@@ -59,16 +59,16 @@ class WriteMessageDTO
     /**
      * @return Player|null
      */
-    public function getSender(): ?Player
+    public function getRecipient(): ?Player
     {
-        return $this->sender;
+        return $this->recipient;
     }
 
     /**
-     * @param Player|null $sender
+     * @param Player|null $recipient
      */
-    public function setSender(?Player $sender): void
+    public function setRecipient(?Player $recipient): void
     {
-        $this->sender = $sender;
+        $this->recipient = $recipient;
     }
 }

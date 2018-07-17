@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Model\CreatePlayerDTO;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="player")
@@ -32,8 +31,6 @@ class Player implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="username", type="string", length=255, unique=true)
-     * @Assert\Length(min="3", minMessage="Le pseudo doit faire au moins {{ limit }} caractères.")
-     * @Assert\NotBlank()
      */
     private $username;
 
@@ -41,8 +38,6 @@ class Player implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="password", type="string", length=255)
-     * @Assert\Length(min="5", minMessage="Le pseudo doit faire {{ limit }} caractères minimum.")
-     * @Assert\NotBlank()
      */
     private $password;
 
@@ -55,8 +50,6 @@ class Player implements UserInterface
      * @var string|null
      *
      * @ORM\Column(name="mail", type="string", length=255, unique=true)
-     * @Assert\Email()
-     * @Assert\NotBlank()
      */
     private $mail;
 
@@ -66,6 +59,11 @@ class Player implements UserInterface
      * @ORM\Column(name="action_points", type="integer")
      */
     private $actionPoints = self::ACTION_POINTS_STARTER;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
 
     /**
      * @var \DateTime|null
@@ -288,11 +286,18 @@ class Player implements UserInterface
      */
     public function getRoles()
     {
-        if ($this->getMail() === self::USERNAME_ROLE_ADMIN) {
-            return ['ROLE_ADMIN'];
+        $roles = $this->roles;
+
+        if (!in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
         }
 
-        return ['ROLE_PLAYER'];
+        return $roles;
+    }
+
+    public function setRoles(array $roles)
+    {
+        $this->roles = $roles;
     }
 
     /**
@@ -324,6 +329,7 @@ class Player implements UserInterface
         $player->password = $createPlayerDTO->getPassword();
         $player->mail = $createPlayerDTO->getMail();
         $player->avatar = $createPlayerDTO->getAvatar();
+        $player->roles = ['ROLE_PLAYER'];
         $player->kingdom = $kingdom;
 
         return $player;

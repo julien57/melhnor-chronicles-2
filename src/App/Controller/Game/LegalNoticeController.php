@@ -11,7 +11,7 @@ class LegalNoticeController extends Controller
     /**
      * @return Response
      *
-     * @Route("/cgu", name="tos")
+     * @Route("/cgu", name="game_tos")
      */
     public function tosAction(): Response
     {
@@ -20,7 +20,7 @@ class LegalNoticeController extends Controller
 
     /**
      * @return Response
-     * @Route("/mentions-legales", name="legal-notice")
+     * @Route("/mentions-legales", name="game_legal_notice")
      */
     public function legalNoticeAction(): Response
     {

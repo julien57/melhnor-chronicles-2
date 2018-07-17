@@ -16,17 +16,17 @@
             <div class="collapse navbar-collapse" id="main-nav">
                 {% if is_granted('ROLE_PLAYER') %}
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="plain-link"><a href="{{ path('trone') }}">{{ 'menu.throne'|trans }}</a></li>
-                        <li class="plain-link"><a href="{{ path('kingdom') }}">{{ 'menu.kingdom'|trans }}</a></li>
-                        <li class="plain-link"><a href="{{ path('market') }}">{{ 'menu.market'|trans }}</a></li>
-                        <li class="plain-link"><a href="{{ path('messaging') }}">{{ 'menu.messaging'|trans }}</a></li>
-                        <li class="plain-link"><a href="{{ path('security_logout') }}">{{ 'menu.disconnection'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_throne') }}">{{ 'menu.throne'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_kingdom') }}">{{ 'menu.kingdom'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_market') }}">{{ 'menu.market'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_messaging') }}">{{ 'menu.messaging'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_security_logout') }}">{{ 'menu.disconnection'|trans }}</a></li>
                     </ul>
                 {% else %}
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="plain-link"><a href="{{ path('home') }}">{{ 'menu.home'|trans }}</a></li>
-                        <li class="plain-link"><a href="{{ path('registration') }}">{{ 'menu.registration'|trans }}</a></li>
-                        <li class="plain-link"><a href="{{ path('security_login') }}">{{ 'menu.connection'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_index') }}">{{ 'menu.home'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_security_registration') }}">{{ 'menu.registration'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_security_login') }}">{{ 'menu.connection'|trans }}</a></li>
                     </ul>
                 {% endif %}
             </div>

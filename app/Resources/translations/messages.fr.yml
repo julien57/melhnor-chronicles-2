@@ -39,6 +39,15 @@ cgu:
         est strictement interdite sous peine d'entrer en infraction avec le Code de la Propriété intellectuelle qui
         sanctionne les délits de contrefaçon.
 
+home:
+    scenario:
+        A smokescreen covered their continuous blinks towards the outskirts of the great kingdom, until the cathedral
+        was the only thing clearly visible. Along the way, they could sense the great shadow of a Dragon, watching their
+        every step. Then, the voices of survivors seeking revenge towards the witch echoed through the destroyed
+        cathedral halls. Others were tending to their wounded, others were trying to collect the Enlightened's burning
+        husk from the great funeral pyre, whilst the archbishop was chanting blessings, leading the flock of peasants as
+        if they were warriors, preparing to battle the mighty dragon...
+
 legal-notice:
     title: Mentions Légales
     administrator: Réalisation et administration du site
@@ -60,7 +69,7 @@ social:
 
 game-rules:
     buildings-description: Voici la liste des bâtiments ainsi que leur fonction.
-    resources-description: Descriptif des ressources du jeu avec les besoins lors de production.
+    resources-description: Liste des bâtiments associés aux ressources produites.
     regions-description: Le monde de Melhnor Chronicles se divise en 20 régions. Toutes les régions sont différentes.
 
 menu:
@@ -79,6 +88,7 @@ menu:
     messaging: Messagerie
 
 title:
+    mc2: Melhnor Chronicles 2
     build-building: Construire
     history: L'histoire
     buildings: Bâtiments
@@ -91,11 +101,22 @@ title:
     used-resources: Ressources utilisées
     consumed-resources: Ressources consommées
     region: Region
+    regions: Régions
     avatar: Avatar
     action-points: Points d'action
     population: Population
     power: Puissance
     gold: Pièces d'or
+    sell-resource: Vendre une ressource
+    sell-at-market: Vendre au marché
+    contact-us: Contactez-nous
+    game-rules: Règles du jeu
+    name: Nom
+    quantity: Quantité
+    price: prix
+    see-regions: Découvrir les régions
+    select-region: Sélectionnez une région
+    send-message: Envoyer un message
 
 message:
     population-gain: La population a augmenté de %number% habitants.
@@ -106,11 +127,22 @@ button:
     connection: Connexion
     increase: Augmenter
     produce: Produire
+    submit: Envoyer
+    buy: Acheter
+    write-message: Ecrite un message
+    send: Répondre
 
 messaging:
     title: Messagerie
 
 donjon:
+    administration: Administration
+    account: Compte
+    messages: Messages
+    options: Options
+    logout: Déconnection
+    navigation: Navigation
+    dashboard: Tableau de bord
     nb-players: Joueurs inscrits
     nb-resources-market: Ressources au commerce
     pages: Pages
@@ -120,7 +152,7 @@ donjon:
     no-message: Aucun message
     delete-messages: Supprimer les messages
     return-dashboard: Retour au Dashboard
-    delete-player: Suppression joueur
+    delete-player: Supprimer joueur
     question-remove-player: Voulez-vous le supprimer ?
     warning-remove-player: Attention, en cliquant sur Supprimer, le joueur sera définitivement supprimé
     warning-remove-messages: Etes-vous sûr de vouloir supprimer tous les messages ?
@@ -131,3 +163,4 @@ donjon:
     last-connection: Dernière connexion
     mail: Adresse mail
     sent-message: Messages envoyés
+    recipient: Destinataire

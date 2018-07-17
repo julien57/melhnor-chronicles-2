@@ -1,0 +1,14 @@
+
+string-error: Ce doit correspondre à une chaîne de caractère.
+build-building-level: Le niveau du bâtiment doit être un nombre.
+
+resource.quantity.unavailable: Quantité trop élevé.
+buil_building.level.not_int: Le niveau du bâtiment doit être un chiffre !
+connection.username.is_blank: Veuillez indiquer votre pseudo.
+connection.password.is_blank: Veuillez indiquer un mot de passe.
+contact.name.not_string: Votre nom doit être une chaîne de caractère.
+contact.email.not_email: L'adresse mail n'est pas valide.
+contact.subject.not_string: Le sujet du message n'est pas une chaîne de caractère valide.
+contact.body.not_string: Le corps du message n'est pas une chaîne de caractère valide.
+create_player.username.min_length: Le pseudo doit être unique et supérieur à 3 caractères.
+create_player.password.min_length: Le mot de passe dot être supérieur à 5 caractères.

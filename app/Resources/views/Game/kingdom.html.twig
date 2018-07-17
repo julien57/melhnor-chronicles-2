@@ -5,7 +5,7 @@
     <div class="fluid-container">
 
         <h2>{{ app.user.kingdom.name }}</h2>
-        <h3>Pièces d'or : {{ app.user.kingdom.gold }}</h3>
+        <h3>{{ 'title.gold'|trans }} : {{ app.user.kingdom.gold }}</h3>
 
         <div class="row">
             <div class="col-md-6"><h3>{{ 'title.buildings'|trans }}</h3></div>
@@ -19,7 +19,7 @@
 
                     <div class="row">
                         <div class="col-md-5">
-                            <a href="{{ path('build-building') }}" class="btn">{{ 'title.build-building'|trans }}</a>
+                            <a href="{{ path('game_building_build') }}" class="btn">{{ 'title.build-building'|trans }}</a>
                         </div>
                     </div>
 
@@ -30,20 +30,28 @@
                     {% for kingdomBuilding in formBuilding.KingdomBuildings %}
                         <div class="row">
                             <div class="col-sm-12 building-icon">
-                                <div class="col-md-3">
-                                    <div class="row">
-                                        {{ 'title.building'|trans }} :
+                                <div class="col-md-3" id="name-building">
+                                    <div class="row col-md-offset-1">
+                                        <div class="col-md-offset-1">
+                                            {{ 'title.building'|trans }} :
+                                        </div>
+                                        <div class="col-md-10">
+                                            {{ form_widget(kingdomBuilding.building, {'attr': {'class': 'form-control'}}) }}
+                                        </div>
                                     </div>
-                                    {{ form_widget(kingdomBuilding.building, {'attr': {'class': 'form-control'}}) }}
                                 </div>
 
-                                <div class="col-md-3">
-                                    <div class="row">
-                                        {{ 'title.level'|trans }} :
+                                <div class="col-md-3" id="level-building">
+                                    <div class="row col-md-offset-1">
+                                        <div class="col-md-4">
+                                            {{ 'title.level'|trans }}
+                                        </div>
+                                        <div class="col-md-4">
+                                            {{ form_widget(kingdomBuilding.level) }}
+                                        </div>
                                     </div>
-                                    {{ form_widget(kingdomBuilding.level) }}
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <button type="submit" class="btn">{{ 'button.increase'|trans }}</button>
                                 </div>
                             </div>
@@ -60,8 +68,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Nom</th>
-                        <th>Quantité</th>
+                        <th>{{ 'title.name'|trans }}</th>
+                        <th>{{ 'title.quantity'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -76,7 +84,7 @@
 
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <a href="{{ path('production') }}" class="btn">{{ 'button.produce'|trans }}</a>
+                    <a href="{{ path('game_production') }}" class="btn">{{ 'button.produce'|trans }}</a>
                 </div>
             </div>
 

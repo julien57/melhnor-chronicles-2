@@ -6,11 +6,12 @@ use App\Entity\KingdomResource;
 use App\Entity\Message;
 use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class PlayerCardController extends Controller
 {
@@ -19,9 +20,15 @@ class PlayerCardController extends Controller
      */
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $this->em = $em;
+        $this->translator = $translator;
     }
 
     /**
@@ -29,28 +36,27 @@ class PlayerCardController extends Controller
      *
      * @return Response
      *
-     * @Route("fiche-joueur/{id}", requirements={"\d+"}, name="playerCard")
+     * @Route("fiche-joueur/{id}", requirements={"\d+"}, name="donjon_player_card")
+     * @Security("has_role('ROLE_ADMIN')")
      */
-    public function playerCardAction(int $id): Response
+    public function playerCardAction(Player $player): Response
     {
-        $player = $this->getDoctrine()->getRepository(Player::class)->find($id);
-
         $messages = $this->em->getRepository(Message::class)->findBySender($player);
 
         return $this->render('Donjon/player_card.html.twig', [
             'player' => $player,
-            'messages' => $messages
+            'messages' => $messages,
         ]);
     }
 
     /**
      * @return RedirectResponse
      *
-     * @Route("suppression-joueur/{id}", requirements={"\d+"}, name="remove-player")
+     * @Route("fiche-joueur/{id}/suppression", requirements={"\d+"}, name="donjon_player_card_remove")
+     * @Security("has_role('ROLE_ADMIN')")
      */
-    public function removePlayer(int $id): RedirectResponse
+    public function removeAction(Player $player): RedirectResponse
     {
-        $player = $this->getDoctrine()->getRepository(Player::class)->find($id);
         $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($player->getKingdom());
 
         foreach ($kingdomResources as $kingdomResource) {
@@ -59,7 +65,8 @@ class PlayerCardController extends Controller
         $this->em->remove($player);
         $this->em->flush();
 
-        $this->addflash('notice', 'Le joueur a bien été supprimé !');
-        return $this->redirectToRoute('donjon');
+        $this->addflash('notice', $this->translator->trans('messages.deleted-player', [], 'donjon'));
+
+        return $this->redirectToRoute('donjon_index');
     }
 }

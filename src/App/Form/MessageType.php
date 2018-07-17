@@ -28,7 +28,7 @@ class MessageType extends AbstractType
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
             if ($options['idRecipient'] !== null) {
-                $event->getForm()->add('sender', EntityType::class, [
+                $event->getForm()->add('recipient', EntityType::class, [
                     'class' => Player::class,
                     'query_builder' => function (EntityRepository $er) use ($options) {
                         return $er->createQueryBuilder('p')
@@ -38,7 +38,7 @@ class MessageType extends AbstractType
                     'choice_label' => 'username',
                 ]);
             } else {
-                $event->getForm()->add('sender', EntityType::class, [
+                $event->getForm()->add('recipient', EntityType::class, [
                     'class' => Player::class,
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('p')

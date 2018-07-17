@@ -8,25 +8,25 @@ class ContactAdminDTO
 {
     /**
      * @var string|null
-     * @Assert\Type("string")
+     * @Assert\Type("string", message="contact.name.not_string")
      */
     private $name;
 
     /**
      * @var string|null
-     * @Assert\Email()
+     * @Assert\Email(message="contact.email.not_email")
      */
     private $mail;
 
     /**
      * @var string|null
-     * @Assert\Type("string")
+     * @Assert\Type("string", message="contact.subject.not_string")
      */
     private $subject;
 
     /**
      * @var string|null
-     * @Assert\Type("string")
+     * @Assert\Type("string", message="contact.body.not_string")
      */
     private $body;
 

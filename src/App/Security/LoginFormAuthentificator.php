@@ -5,7 +5,6 @@ namespace App\Security;
 use App\Entity\Player;
 use App\Form\LoginType;
 use Doctrine\ORM\EntityManagerInterface;
-use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +66,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
      */
     protected function getLoginUrl()
     {
-        return $this->router->generate('security_login');
+        return $this->router->generate('game_security_login');
     }
 
     /**
@@ -152,8 +151,8 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $password = $credentials['_password'];
-
-        if ($this->passwordEncoder->isPasswordValid($user, $password)) {
+        $encoder = $this->passwordEncoder->encodePassword($user, $password);
+        if ($encoder) {
             return true;
         }
 
@@ -168,9 +167,9 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
 
         if (!$targetPath) {
             if ($this->security->isGranted('ROLE_ADMIN')) {
-                $targetPath = $this->router->generate('donjon');
+                $targetPath = $this->router->generate('donjon_index');
             } else {
-                $targetPath = $this->router->generate('trone');
+                $targetPath = $this->router->generate('game_throne');
             }
         }
         $token->getUser()->setLastConnection(new \DateTime());

@@ -10,13 +10,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class BuildingController extends Controller
 {
     /**
-     * @Route("/construction-batiment", name="build-building")
+     * @Route("/construction-batiment", name="game_building_build")
      */
-    public function buildBuilding(Request $request, EntityManagerInterface $em): Response
+    public function buildAction(Request $request, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
         $buildBuildingDTO = new BuildBuildingDTO();
         $buildBuildingForm = $this->createForm(BuildBuildingType::class, $buildBuildingDTO);
@@ -29,9 +30,9 @@ class BuildingController extends Controller
             $em->persist($kingdomBuilding);
             $em->flush();
 
-            $this->addFlash('notice', 'Bâtiment construit !');
+            $this->addFlash('notice', $translator->trans('messages.built-building', [], 'game'));
 
-            return $this->redirectToRoute('kingdom');
+            return $this->redirectToRoute('game_kingdom');
         }
 
         return $this->render('Game/build_building.html.twig', [

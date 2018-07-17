@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class SecurityController extends Controller
 {
@@ -20,7 +21,7 @@ class SecurityController extends Controller
      *
      * @return Response
      *
-     * @Route("/inscription", name="registration")
+     * @Route("/inscription", name="game_security_registration")
      */
     public function registrationAction(Request $request, InitGamePlayerManager $initGamePlayerManager): Response
     {
@@ -37,7 +38,7 @@ class SecurityController extends Controller
     /**
      * @return Response
      *
-     * @Route("/connexion", name="security_login")
+     * @Route("/connexion", name="game_security_login")
      */
     public function loginAction(): Response
     {
@@ -59,10 +60,10 @@ class SecurityController extends Controller
     /**
      * @throws Exception
      *
-     * @Route("/logout", name="security_logout")
+     * @Route("/logout", name="game_security_logout")
      */
-    public function logoutAction(): Exception
+    public function logoutAction(TranslatorInterface $translator): Exception
     {
-        throw new Exception('Impossible de se déconnecter !');
+        throw new Exception($translator->trans('messages.login-error', [], 'game'));
     }
 }

@@ -4,7 +4,7 @@
 
     <div class="container">
 
-        <h2>Envoyer un message</h2>
+        <h2>{{ 'title.send-message'|trans }}</h2>
 
         <div class="col-md-6 col-md-offset-3">
 
@@ -19,15 +19,15 @@
                     {{ form_widget(form.message, {'attr': {'class': 'col-sm-12 control-label', 'placeholder': 'Votre message...'}}) }}
                 </div>
                 <div class="row">
-                    {{ form_label(form.sender, "Pseudo :", {'label_attr': {'class': 'label-container'}}) }}
+                    {{ form_label(form.recipient, "Pseudo :", {'label_attr': {'class': 'label-container'}}) }}
 
-                    {{ form_widget(form.sender, {'attr': {'class': 'col-sm-4 form-control'}}) }}
+                    {{ form_widget(form.recipient, {'attr': {'class': 'col-sm-4 form-control'}}) }}
                 </div>
 
                 <div class="row">
                     <div class="button-submit"></div>
                     <div class="col-md-10 col-md-offset-1">
-                        <button type="submit" class="btn">Envoyer le message</button>
+                        <button type="submit" class="btn">{{ 'button.submit'|trans }}</button>
                     </div>
                 </div>
             {{ form_end(form) }}

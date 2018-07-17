@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Administration Melhnor Chronicles 2</title>
+    <title>{{ 'donjon.administration'|trans }}</title>
     <link rel="stylesheet" href="{{ asset('admin/vendor/simple-line-icons/css/simple-line-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/vendor/font-awesome/css/fontawesome-all.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/css/styles.css') }}">
@@ -29,20 +29,20 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="{{ asset('admin/imgs/avatar-1.png') }}" class="avatar avatar-sm" alt="logo">
-                    <span class="small ml-1 d-md-down-none">Administration</span>
+                    <span class="small ml-1 d-md-down-none">{{ 'donjon.administration'|trans }}</span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-header">Compte</div>
+                    <div class="dropdown-header">{{ 'donjon.account'|trans }}</div>
 
-                    <a href="{{ path('messagesDonjon') }}" class="dropdown-item">
-                        <i class="fa fa-envelope"></i> Messages
+                    <a href="{{ path('donjon_messages') }}" class="dropdown-item">
+                        <i class="fa fa-envelope"></i> {{ 'donjon.messages'|trans }}
                     </a>
 
-                    <div class="dropdown-header">Options</div>
+                    <div class="dropdown-header">{{ 'donjon.options'|trans }}</div>
 
-                    <a href="{{ path('security_logout') }}" class="dropdown-item">
-                        <i class="fa fa-lock"></i> Déconnection
+                    <a href="{{ path('game_security_logout') }}" class="dropdown-item">
+                        <i class="fa fa-lock"></i> {{ 'donjon.logout'|trans }}
                     </a>
                 </div>
             </li>
@@ -53,16 +53,16 @@
         <div class="sidebar">
             <nav class="sidebar-nav">
                 <ul class="nav">
-                    <li class="nav-title">Navigation</li>
+                    <li class="nav-title">{{ 'donjon.administration'|trans }}</li>
 
                     <li class="nav-item">
-                        <a href="{{ path('donjon') }}" class="nav-link active">
-                            <i class="icon icon-speedometer"></i> Tableau de Bord
+                        <a href="{{ path('donjon_index') }}" class="nav-link active">
+                            <i class="icon icon-speedometer"></i> {{ 'donjon.dashboard'|trans }}
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ path('messagesDonjon') }}" class="nav-link ">
-                            <i class="fa fa-envelope"></i> Messages
+                        <a href="{{ path('donjon_messages') }}" class="nav-link ">
+                            <i class="fa fa-envelope"></i> {{ 'donjon.messages'|trans }}
                         </a>
                     </li>
 

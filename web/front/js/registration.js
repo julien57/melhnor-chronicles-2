@@ -26,7 +26,7 @@ let registration = {
     init_avatar: () => {
 
         const img = document.createElement('img');
-        img.src = '/web/front/img/avatars/adorateurs1.jpg';
+        img.src = 'front/img/avatars/adorateurs1.jpg';
         img.id = 'image_avatar';
         img.style.borderRadius = '5px';
         img.style.boxShadow = '3px 3px 5px black';
@@ -38,31 +38,31 @@ let registration = {
         const nameValue = e.target.value;
 
         if (nameValue >= 1 && nameValue <= 5) {
-            imgAvatar.src = '/web/front/img/avatars/adorateurs' + nameValue + '.jpg';
+            imgAvatar.src = 'front/img/avatars/adorateurs' + nameValue + '.jpg';
 
         } else if (nameValue > 5 && nameValue <= 16) {
-            imgAvatar.src = '/web/front/img/avatars/redempteurs' + nameValue + '.jpg';
+            imgAvatar.src = 'front/img/avatars/redempteurs' + nameValue + '.jpg';
 
         } else if (nameValue > 16 && nameValue <= 34) {
-            imgAvatar.src = '/web/front/img/avatars/nains' + nameValue + '.jpg';
+            imgAvatar.src = 'front/img/avatars/nains' + nameValue + '.jpg';
 
         } else if (nameValue > 34 && nameValue <= 47) {
-            imgAvatar.src = '/web/front/img/avatars/nao-oitte' + e.target.value + '.jpg';
+            imgAvatar.src = 'front/img/avatars/nao-oitte' + e.target.value + '.jpg';
 
         } else if (nameValue > 47 && nameValue <= 56) {
-            imgAvatar.src = '/web/front/img/avatars/marchands' + nameValue + '.jpg';
+            imgAvatar.src = 'front/img/avatars/marchands' + nameValue + '.jpg';
 
         } else if (nameValue > 56 && nameValue <= 65) {
-            imgAvatar.src = '/web/front/img/avatars/horde' + nameValue + '.jpg';
+            imgAvatar.src = 'front/img/avatars/horde' + nameValue + '.jpg';
 
         } else if (nameValue > 65 && nameValue <= 80) {
-            imgAvatar.src = '/web/front/img/avatars/pirates' + nameValue + '.jpg';
+            imgAvatar.src = 'front/img/avatars/pirates' + nameValue + '.jpg';
 
         } else if (nameValue > 80 && nameValue <= 100) {
-            imgAvatar.src = '/web/front/img/avatars/lumiere' + nameValue + '.jpg';
+            imgAvatar.src = 'front/img/avatars/lumiere' + nameValue + '.jpg';
 
         } else if (nameValue > 100 && nameValue <= 120) {
-            imgAvatar.src = '/web/front/img/avatars/elfe' + nameValue + '.jpg';
+            imgAvatar.src = 'front/img/avatars/elfe' + nameValue + '.jpg';
 
         }
 

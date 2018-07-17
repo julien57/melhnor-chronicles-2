@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ContactController extends Controller
 {
@@ -18,9 +19,9 @@ class ContactController extends Controller
      *
      * @return Response
      *
-     * @Route("/contact", name="contact")
+     * @Route("/contact", name="game_contact")
      */
-    public function contactAction(Request $request, ContactAdminManager $contactAdminManager): Response
+    public function contactAction(Request $request, ContactAdminManager $contactAdminManager, TranslatorInterface $translator): Response
     {
         $contactAdminDTO = new ContactAdminDTO();
         $form = $this->createForm(ContactType::class, $contactAdminDTO);
@@ -30,8 +31,8 @@ class ContactController extends Controller
             $contactAdminManager->contactAdmin($contactAdminDTO);
 
             return new JsonResponse([
-                'successMessage' => 'Formulaire envoyé ! nous vous recontacterons dans les plus brefs délais.',
-                'errorMessage' => 'Le formulaire n\'a pas pu être envoyé.',
+                'successMessage' => $translator->trans('messages.contact-success', [], 'game'),
+                'errorMessage' => $translator->trans('messages.contact-error', [], 'game'),
             ]);
         }
 

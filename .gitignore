@@ -18,3 +18,5 @@
 .php_cs.cache
 .idea
 .DS_Store
+/frontend-assets/node_modules
+/backend-assets/node_modules

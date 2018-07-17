@@ -1,5 +1,5 @@
 class Contact {
-    
+
     addMessageEmail(e) {
         const email = e.target.value;
         let mailLength = 'Erroné';
@@ -14,12 +14,18 @@ class Contact {
     }
 
     VerifyInputs(e) {
-        if (document.getElementById('contact_name') === '' || document.getElementById('contact_mail') === '' ||
-            document.getElementById('contact_subject') === '' || document.getElementById('contact_body') === '') {
+        console.log(e);
+        if (document.getElementById('contact_name').value.length < 3) {
+            console.log('Coucou1');
+            document.getElementById('input_name').textContent = 'Votre nom est probablement supérieur à 2 caractères...';
+            document.getElementById('input_name').style.color = 'red';
 
+        } else if (document.getElementById('contact_subject').value === '' || document.getElementById('contact_body').value === '') {
+            console.log('Coucou2');
             document.getElementById('error_input').textContent = 'Veuillez remplir tous les champs.';
             document.getElementById('error_input').style.color = 'red';
         } else {
+            console.log('Coucou3');
             Contact.submitAjaxForm(e);
         }
     }
@@ -35,6 +41,7 @@ class Contact {
                 $form[0].reset();
                 $('#form-messages').text(data.successMessage);
                 $('#form-messages').addClass('alert-success');
+                document.getElementById('input_name').textContent = '';
             },
             error: function(data) {
                 $('#form-messages').text(data.errorMessage);

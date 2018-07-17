@@ -10,7 +10,7 @@ class CreatePlayerDTO
 {
     /**
      * @var string|null
-     * @Assert\Type("string")
+     * @Assert\Length(min="3", minMessage="create_player.username.min_length")
      */
     private $username;
 
@@ -21,12 +21,13 @@ class CreatePlayerDTO
 
     /**
      * @var string|null
+     * @Assert\Length(min="5", minMessage="create_player.password.min_length")
      */
     private $plainPassword;
 
     /**
      * @var string|null
-     * @Assert\Email()
+     * @Assert\Email(message="contact.email.not_email")
      */
     private $mail;
 

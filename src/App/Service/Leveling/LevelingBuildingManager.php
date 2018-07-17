@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class LevelingBuildingManager
 {
@@ -60,23 +61,29 @@ class LevelingBuildingManager
      */
     private $router;
 
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
     public function __construct(
         $buildingsRules,
         EntityManagerInterface $em,
         SessionInterface $session,
-        RouterInterface $router
+        RouterInterface $router,
+        TranslatorInterface $translator
     ) {
         $this->buildingsRules = $buildingsRules;
         $this->em = $em;
         $this->session = $session;
         $this->router = $router;
+        $this->translator = $translator;
     }
 
     /**
      * @param $kingdomBuildingsForm
      *
      * @return RedirectResponse
-     *
      */
     public function searchLevelModified($kingdomBuildingsForm): RedirectResponse
     {
@@ -92,13 +99,19 @@ class LevelingBuildingManager
                 $resourcesRequired = $this->processingResourcesKingdom($modifiedBuilding);
 
                 if (!$resourcesRequired) {
-                    $this->session->getFlashBag()->add('notice-danger', 'Ressources manquantes !');
+                    $this->session->getFlashBag()->add(
+                        'notice-danger',
+                        $this->translator->trans('messages.service-leveling-unavailable-resource', [], 'game')
+                    );
 
-                    return new RedirectResponse($this->router->generate('kingdom'));
+                    return new RedirectResponse($this->router->generate('game_kingdom'));
                 }
-                $this->session->getFlashBag()->add('notice', 'Niveau du bâtiment augmenté !');
+                $this->session->getFlashBag()->add(
+                    'notice',
+                    $this->translator->trans('messages.service-leveling-increased-level', [], 'game')
+                );
 
-                return new RedirectResponse($this->router->generate('kingdom'));
+                return new RedirectResponse($this->router->generate('game_kingdom'));
             }
         }
     }

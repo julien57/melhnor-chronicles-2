@@ -147,12 +147,12 @@ class Message
         $this->atDate = $atDate;
     }
 
-    public static function createMessage(WriteMessageDTO $messageDTO, Player $recipient)
+    public static function createMessage(WriteMessageDTO $messageDTO, Player $sender)
     {
         $messaging = new self();
 
-        $messaging->recipient = $recipient;
-        $messaging->sender = $messageDTO->getSender();
+        $messaging->recipient = $messageDTO->getRecipient();
+        $messaging->sender = $sender;
         $messaging->subject = $messageDTO->getSubject();
         $messaging->message = $messageDTO->getMessage();
 

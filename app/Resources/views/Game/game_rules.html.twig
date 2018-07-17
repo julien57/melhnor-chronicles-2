@@ -4,16 +4,16 @@
 
     <div class="container">
 
-        <h2>Règles du jeu</h2>
+        <h2>{{ 'title.game-rules'|trans }}</h2>
 
         <ul>
-            <li><a href="#regions">Les régions</a> </li>
-            <li><a href="#buildings">Les bâtiments</a> </li>
-            <li><a href="#resources">Les ressources</a> </li>
+            <li><a href="#regions">{{ 'title.regions'|trans }}</a> </li>
+            <li><a href="#buildings">{{ 'title.buildings'|trans }}</a> </li>
+            <li><a href="#resources">{{ 'title.resources'|trans }}</a> </li>
         </ul>
 
         <div class="row" id="regions">
-            <h3>Regions</h3>
+            <h3>{{ 'title.regions'|trans }}</h3>
 
             <p class="section-description">
                 {{ 'game-rules.regions-description'|trans }}
@@ -26,7 +26,7 @@
         </div>
 
         <div class="row" id="buildings">
-            <h3>Bâtiments</h3>
+            <h3>{{ 'title.buildings'|trans }}</h3>
 
             <p class="section-description">
                 {{ 'game-rules.buildings-description'|trans }}
@@ -39,7 +39,7 @@
         </div>
 
         <div class="row" id="resources">
-            <h3>Resources</h3>
+            <h3>{{ 'title.resources'|trans }}</h3>
 
             <p class="section-description">
                 {{ 'game-rules.resources-description'|trans }}
@@ -49,8 +49,8 @@
         <table class="table-condensed">
             <thead>
             <tr>
-                <th>Bâtiment</th>
-                <th>Ressource produite</th>
+                <th>{{ 'title.buildings'|trans }}</th>
+                <th>{{ 'title.produced-resources'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -58,7 +58,7 @@
 
                     {% if buildingResource.production %}
                         <tr>
-                            <td><span class="panel-item__summary">{{ buildingResource.building.name }}</span> =></td>
+                            <td><span class="panel-item__summary">{{ buildingResource.building.name }}</span> => </td>
                             <td><span class="panel-item__summary">{{ buildingResource.resource.name }}</span></td>
                         </tr>
                     {% endif %}

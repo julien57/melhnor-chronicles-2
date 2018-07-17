@@ -4,11 +4,11 @@
 
     <div class="fluid-container">
 
-        <h2>Commerce</h2>
+        <h2>{{ 'menu.market'|trans }}</h2>
 
         <div class="col-md-4 col-md-offset-4 row">
             <div class="section-description">
-                <a href="{{ path('saleResource') }}" class="btn">Vendre une ressource</a>
+                <a href="{{ path('game_market_sale') }}" class="btn">{{ 'title.sell-resource'|trans }}</a>
             </div>
         </div>
 
@@ -21,10 +21,10 @@
                     <p class="section-description">Quantité : {{ resourceForSale.quantity }}<br>
                         {{ resourceForSale.kingdomResource.kingdom.name }}<br>
 
-                        <span>Prix : {{ resourceForSale.price }}</span>
+                        <span>{{ 'title.price'|trans }} : {{ resourceForSale.price }}</span>
                     </p>
                     <div class="col-md-6 col-md-offset-3">
-                        <a href="{{ path('buyResource', {'resource_id': resourceForSale.id}) }}" class="btn">Acheter</a>
+                        <a href="{{ path('game_market_buy', {'id': resourceForSale.id}) }}" class="btn">{{ 'button.buy'|trans }}</a>
                     </div>
                 </div>
             {% endfor %}

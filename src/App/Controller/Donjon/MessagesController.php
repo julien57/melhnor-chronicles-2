@@ -4,10 +4,12 @@ namespace App\Controller\Donjon;
 
 use App\Entity\Message;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class MessagesController extends Controller
 {
@@ -16,15 +18,22 @@ class MessagesController extends Controller
      */
     private $em;
 
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    public function __construct(EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $this->em = $em;
+        $this->translator = $translator;
     }
 
     /**
      * @return Response
      *
-     * @Route("/messages", name="messagesDonjon")
+     * @Route("/messages", name="donjon_messages")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function messagesAction(): Response
     {
@@ -43,7 +52,8 @@ class MessagesController extends Controller
     /**
      * @return Response
      *
-     * @Route("/supprimer-messages", name="delete_messages")
+     * @Route("/supprimer-messages", name="donjon_messages_delete")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function deleteAction(Request $request)
     {
@@ -58,9 +68,9 @@ class MessagesController extends Controller
             }
             $this->em->flush();
 
-            $this->addFlash('notice', 'Les messages ont bien été supprimés');
+            $this->addFlash('notice', $this->translator->trans('messages.deleted-messages', [], 'donjon'));
 
-            return $this->redirectToRoute('messagesDonjon');
+            return $this->redirectToRoute('donjon_messages');
         }
 
         return $this->render('Donjon/delete_messages.html.twig', ['form' => $form->createView()]);

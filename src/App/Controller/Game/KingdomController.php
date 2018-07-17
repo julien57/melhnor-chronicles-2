@@ -21,7 +21,7 @@ class KingdomController extends Controller
      *
      * @return Response
      *
-     * @Route("/royaume", name="kingdom")
+     * @Route("/royaume", name="game_kingdom")
      */
     public function kingdomAction(Request $request, EntityManagerInterface $em, LevelingBuildingManager $levelingBuildingManager): Response
     {

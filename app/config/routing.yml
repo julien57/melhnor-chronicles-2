@@ -18,7 +18,7 @@ login_check:
 target_connection:
     path: /salle-du-trone
     defaults:
-        _controller: AppBundle:Game\Kingdom:trone
+        _controller: AppBundle:Game\Kingdom:throne
 
 logout:
     path: /logout
