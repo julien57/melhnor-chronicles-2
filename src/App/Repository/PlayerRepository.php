@@ -13,7 +13,7 @@ class PlayerRepository extends EntityRepository
      *
      * @return Paginator
      */
-    public function allPlayersWithPagination()
+    public function allPlayers()
     {
         $query = $this
             ->createQueryBuilder('p')

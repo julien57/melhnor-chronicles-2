@@ -24,7 +24,7 @@ class DonjonController extends Controller
     public function indexAction(int $page, EntityManagerInterface $em, Request $request): Response
     {
         $nbPlayersPerPage = $this->getParameter('nb_pagination_admin');
-        $players = $em->getRepository(Player::class)->allPlayersWithPagination();
+        $players = $em->getRepository(Player::class)->allPlayers();
 
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
