@@ -31,10 +31,12 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
      * @var EntityManagerInterface
      */
     private $em;
+
     /**
      * @var RouterInterface
      */
     private $router;
+
     /**
      * @var UserPasswordEncoderInterface
      */
@@ -118,7 +120,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
-     * @param mixed                 $credentials
+     * @param mixed $credentials
      * @param UserProviderInterface $userProvider
      *
      * @throws AuthenticationException
@@ -141,7 +143,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
      *
      * The *credentials* are the return value from getCredentials()
      *
-     * @param mixed         $credentials
+     * @param mixed $credentials
      * @param UserInterface $user
      *
      * @return bool
@@ -151,8 +153,8 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         $password = $credentials['_password'];
-        $encoder = $this->passwordEncoder->encodePassword($user, $password);
-        if ($encoder) {
+
+        if ($this->passwordEncoder->isPasswordValid($user, $password)) {
             return true;
         }
 
@@ -164,7 +166,6 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
         // if the user hits a secure page and start() was called, this was
         // the URL they were on, and probably where you want to redirect to
         $targetPath = $this->getTargetPath($request->getSession(), $providerKey);
-
         if (!$targetPath) {
             if ($this->security->isGranted('ROLE_ADMIN')) {
                 $targetPath = $this->router->generate('donjon_index');
@@ -174,7 +175,6 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
         }
         $token->getUser()->setLastConnection(new \DateTime());
         $this->em->flush();
-
         return new RedirectResponse($targetPath);
     }
 }

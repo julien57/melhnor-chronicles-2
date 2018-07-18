@@ -13,7 +13,7 @@ security:
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         main:
-            entity: { class: App\Entity\Player, property: username }
+            entity: { class: App\Entity\Player, property: mail }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

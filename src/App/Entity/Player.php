@@ -210,7 +210,7 @@ class Player implements UserInterface
      */
     public function getUsername(): ?string
     {
-        return $this->username;
+        return $this->mail;
     }
 
     /**
@@ -326,7 +326,7 @@ class Player implements UserInterface
     {
         $player = new self();
         $player->username = $createPlayerDTO->getUsername();
-        $player->password = $createPlayerDTO->getPassword();
+        $player->plainPassword = $createPlayerDTO->getPassword();
         $player->mail = $createPlayerDTO->getMail();
         $player->avatar = $createPlayerDTO->getAvatar();
         $player->roles = ['ROLE_PLAYER'];
