@@ -4,9 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="description" content="Enrich your precious game by complimenting it with the website it truly deserves. Promote your game's iconic characters, deep & sophisticated gameplay, complex strategies, engulfing quests with rich NPCs and malicious foes, with the most visual way possible through Dragonic's unique design. Thriving with small details, this premium template experience will leave your players in a jaw-dropping awe.">
-    <meta name="keywords" content="game, premium template, gaming, online gaming, pc game, android, ios, google play store, apple appstore, one page template, dragonic, dragons, themeforest">
-    <title>{{ 'title.mc2'|trans }}</title>
+    <meta name="description" content="{% block description %} {% endblock %}">
+    <title>{{ 'title.mc2'|trans }} - {% block title %} {% endblock %}</title>
     <!-- Bootstrap -->
     <link href="https://fonts.googleapis.com/css?family=Cinzel|Cinzel+Decorative" rel="stylesheet">
     <link href="{{ asset('front/fonts/ionicons/2.0.1/css/ionicons.min.css') }}" type="text/css" media="screen" rel="stylesheet">

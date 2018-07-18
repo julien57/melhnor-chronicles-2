@@ -1,5 +1,13 @@
 {% extends "game_layout.html.twig" %}
 
+{% block title %}
+    {{ 'menu.kingdom'|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ 'description.kingdom'|trans }}
+{% endblock %}
+
 {% block content %}
 
     <div class="fluid-container">
@@ -19,7 +27,7 @@
 
                     <div class="row">
                         <div class="col-md-5">
-                            <a href="{{ path('game_building_build') }}" class="btn">{{ 'title.build-building'|trans }}</a>
+                            <a href="{{ path('game_building_build') }}" class="btn">{{ 'button.build'|trans }}</a>
                         </div>
                     </div>
 

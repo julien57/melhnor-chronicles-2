@@ -41,12 +41,11 @@ cgu:
 
 home:
     scenario:
-        A smokescreen covered their continuous blinks towards the outskirts of the great kingdom, until the cathedral
-        was the only thing clearly visible. Along the way, they could sense the great shadow of a Dragon, watching their
-        every step. Then, the voices of survivors seeking revenge towards the witch echoed through the destroyed
-        cathedral halls. Others were tending to their wounded, others were trying to collect the Enlightened's burning
-        husk from the great funeral pyre, whilst the archbishop was chanting blessings, leading the flock of peasants as
-        if they were warriors, preparing to battle the mighty dragon...
+        A force de conquête de nouveaux territoires, certains royaumes se sont aventurés bien au-delà du monde connu que
+        représentait Melhnor. Partir vers l'inconnu représente d'énormes sacrifices, et les pertes durant ces voyages
+        étaient énormes. Jusqu'au jour où finalement certains rescapés ont découvert un nouveau continent, un nouveau
+        monde à explorer. Ce nouveau monde est beaucoup plus grand et plus impressionnant que celui de Melhnor, car déjà
+        habité par certaines civilisations et créatures toutes plus étranges les unes que les autres...
 
 legal-notice:
     title: Mentions Légales
@@ -89,14 +88,15 @@ menu:
 
 title:
     mc2: Melhnor Chronicles 2
-    build-building: Construire
-    history: L'histoire
+    game_description: Jeu de stratégie en ligne
+    build-building: Construire un Bâtiment
+    title-game: Le nouveau monde
     buildings: Bâtiments
     building: Bâtiment
     level: Niveau
     kingdom-buildings: Bâtiments du royaume
     resources: Resources
-    production: production
+    production: Production
     produced-resources: Ressources produites
     used-resources: Ressources utilisées
     consumed-resources: Ressources consommées
@@ -129,7 +129,7 @@ button:
     produce: Produire
     submit: Envoyer
     buy: Acheter
-    write-message: Ecrite un message
+    write-message: Ecrire un message
     send: Répondre
 
 messaging:
@@ -164,3 +164,20 @@ donjon:
     mail: Adresse mail
     sent-message: Messages envoyés
     recipient: Destinataire
+
+description:
+    add_resource: Vous pouvez mettre en vente l'une de vos ressources au marché
+    build_building: Construisez un bâtiment dans votre royaume pour produire les ressources nécessaires
+    login: Connectez-vous à votre compte pour pouvoir jouer
+    contact: Contactez l'admin du jeu pour toute question
+    game-rules: Vous avez du mal à prendre le jeu en main ? suivez les règles
+    game: Jeu de stratégie multijoueur dans un univers heroic fantasy
+    kingdom: Gérer votre royaume, ses bâtiments et ses ressources
+    legal-notice: Les mentions légales du jeu
+    market: Trouvez les ressources dont vous avez besoin au marché
+    messaging: Tous vos messages reçus se trouvent ici
+    production: Toutes les ressources consommées par votre population, les ressources utilisées et les ressources produites
+    registration: Inscrivez-vous gratuitement pour jouer dès maintenant à Melhnor Chronicles
+    throne: La salle du trône vous donne quelques infos sur l'état de votre royaume
+    tos: Vous devez lire les conditions générales d'utilisation avant de vosu inscrire
+    write_message: Ecrire un message à un autre joueur

@@ -1,7 +1,15 @@
 {% extends "game_layout.html.twig" %}
 
+{% block title %}
+    {{ 'title.game_description'|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ 'description.game'|trans }}
+{% endblock %}
+
 {% block content %}
-    <h2>{{ 'title.history'|trans }}</h2>
+    <h2>{{ 'title.title-game'|trans }}</h2>
 
     <p class="section-description">
         {{ 'home.scenario'|trans }}
