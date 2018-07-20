@@ -67,12 +67,6 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-doctrine_migrations:
-    dir_name: "%kernel.root_dir%/DoctrineMigrations"
-    namespace: App\DoctrineMigrations
-    table_name: migration_versions
-    name: App Migrations
-
 knp_paginator:
     page_range: 5
     default_options:
@@ -84,3 +78,9 @@ knp_paginator:
         pagination: '@KnpPaginator/Pagination/sliding.html.twig'
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig'
         filtration: '@KnpPaginator/Pagination/filtration.html.twig'
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: App\DoctrineMigrations
+    table_name: migration_versions
+    name: App Migrations
