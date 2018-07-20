@@ -2,18 +2,20 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    database_host: melhnorcpdadmin.mysql.db
-    database_port: ~
-    database_name: melhnorcpdadmin
-    database_user: melhnorcpdadmin
-    database_password: Barcelona57250
+    database_host: localhost
+    database_port: null
+    database_name: melhnor_chronicles
+    database_user: root
+    database_password: root
     # You should uncomment this if you want to use pdo_sqlite
     #database_path: '%kernel.project_dir%/var/data/data.sqlite'
 
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: ~
-    mailer_password: ~
+    mailer_transport:  mail
+    mailer_auth_mode:  login
+    mailer_host:       SSL0.OVH.NET
+    mailer_port:       587
+    mailer_user:       admin@melhnor-chronicles2.fr
+    mailer_password:   Barcelona57250
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt

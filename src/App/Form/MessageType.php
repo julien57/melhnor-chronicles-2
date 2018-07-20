@@ -20,9 +20,7 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('subject', TextType::class)
-            ->add('message', TextareaType::class, [
-                'attr' => ['cols' => '80'],
-            ])
+            ->add('message', TextareaType::class)
 
         ;
 

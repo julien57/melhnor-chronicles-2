@@ -23,7 +23,7 @@
         "php": ">=5.5.9",
         "doctrine/common": "2.7.1 as 2.6.99",
         "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/doctrine-migrations-bundle": "dev-master",
+        "doctrine/doctrine-migrations-bundle": "1.2.1",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
         "knplabs/knp-paginator-bundle": "^2.8",

@@ -3136,6 +3136,23 @@ input:focus, textarea:focus, button:focus {
 #description_region {
   text-align: justify; }
 
+@media screen and (max-width: 450px) {
+  #dark-window {
+    background-size: cover;
+    height: 100%; }
+  #map_world {
+    width: 100%; }
+  .sale_resource {
+    width: 100%; }
+    .sale_resource .resources-list {
+      margin-bottom: 0; }
+  .messages {
+    height: 200px; } }
+
+@media screen and (max-width: 768px) {
+  #avatar_messaging {
+    display: none; } }
+
 .pattern {
   background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)), url(../img/dark_wall.png); }
 
