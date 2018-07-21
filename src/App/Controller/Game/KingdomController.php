@@ -7,6 +7,7 @@ use App\Entity\KingdomResource;
 use App\Form\KingdomType;
 use App\Service\Leveling\LevelingBuildingManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,6 +23,7 @@ class KingdomController extends Controller
      * @return Response
      *
      * @Route("/royaume", name="game_kingdom")
+     * @Security("has_role('ROLE_PLAYER')")
      */
     public function kingdomAction(Request $request, EntityManagerInterface $em, LevelingBuildingManager $levelingBuildingManager): Response
     {

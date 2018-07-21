@@ -8,6 +8,7 @@ use App\Model\SaleResourceDTO;
 use App\Service\Market\PurchaseResourceManager;
 use App\Service\Market\SaleResourceManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,6 +44,7 @@ class MarketController extends Controller
      * @return Response
      *
      * @Route("/commerce", name="game_market")
+     * @Security("has_role('ROLE_PLAYER')")
      */
     public function marketAction(): Response
     {
@@ -58,6 +60,7 @@ class MarketController extends Controller
      * @return RedirectResponse
      *
      * @Route("/achat-ressource/{id}", name="game_market_buy")
+     * @Security("has_role('ROLE_PLAYER')")
      */
     public function buyAction(Market $market): RedirectResponse
     {
@@ -110,6 +113,7 @@ class MarketController extends Controller
      * @return RedirectResponse|Response
      *
      * @Route("/vendre-ressource", name="game_market_sale")
+     * @Security("has_role('ROLE_PLAYER')")
      */
     public function saleAction(Request $request, SaleResourceManager $saleResourceManager, TranslatorInterface $translator)
     {

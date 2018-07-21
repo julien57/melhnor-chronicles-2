@@ -5,6 +5,7 @@ namespace App\Controller\Game;
 use App\Entity\Player;
 use App\Service\Production\ProductionPopulationManager;
 use App\Service\Production\ProductionResourcesManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +21,7 @@ class ProductionController extends Controller
      * @return RedirectResponse|Response
      *
      * @Route("/production", name="game_production")
+     * @Security("has_role('ROLE_PLAYER')")
      */
     public function productionAction(
         ProductionResourcesManager $resourcesManager,
