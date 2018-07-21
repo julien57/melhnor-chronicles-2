@@ -3136,6 +3136,10 @@ input:focus, textarea:focus, button:focus {
 #description_region {
   text-align: justify; }
 
+#monster-404 {
+  border-radius: 7px;
+  width: 15%; }
+
 @media screen and (max-width: 1024px) {
   #form3 #image_avatar {
     height: 320px;
