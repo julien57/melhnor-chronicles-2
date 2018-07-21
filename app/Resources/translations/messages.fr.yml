@@ -120,6 +120,7 @@ title:
 
 message:
     population-gain: La population a augmenté de %number% habitants.
+    no-resources: Aucune
 
 button:
     next: Suivant

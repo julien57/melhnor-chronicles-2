@@ -3136,6 +3136,45 @@ input:focus, textarea:focus, button:focus {
 #description_region {
   text-align: justify; }
 
+@media screen and (max-width: 1024px) {
+  #form3 #image_avatar {
+    height: 320px;
+    margin-bottom: 30px; }
+  .resources-list {
+    margin-bottom: 0; }
+  .sale_resource {
+    margin: auto;
+    margin-bottom: 60px; }
+  .btn-response {
+    margin-top: -120px; } }
+
+@media screen and (max-width: 768px) {
+  #avatar_messaging {
+    display: none; }
+  #img_avatars {
+    background-position: center; }
+  #form2 #map_world {
+    width: 90%;
+    margin-bottom: 5px;
+    margin-left: 10px; }
+  #name-building .building_row, #level-building .level_row, .build-building-form {
+    width: 70%;
+    margin: auto; }
+  .building-icon {
+    margin-bottom: 40px;
+    text-align: center; }
+  .sale_resource {
+    margin: auto; }
+  .sale_resource .section-description {
+    margin-top: 0; }
+  .resources-list {
+    padding-top: 30px; }
+  .btn-response {
+    margin-top: 0; }
+  .messages {
+    padding-top: 10px;
+    width: 90%; } }
+
 @media screen and (max-width: 450px) {
   #dark-window {
     background-size: cover;
@@ -3147,11 +3186,27 @@ input:focus, textarea:focus, button:focus {
     .sale_resource .resources-list {
       margin-bottom: 0; }
   .messages {
-    height: 200px; } }
+    height: 200px; }
+  #img_avatars {
+    align-items: normal; }
+    #img_avatars #image_avatar {
+      width: auto;
+      height: 50%;
+      margin-top: 130px; }
+  #form2 #map_world {
+    width: 95%; }
+  .messages {
+    height: 200px;
+    width: 100%; }
+    .messages h3 {
+      margin-top: 15px;
+      margin-bottom: 0; }
+    .messages .message-body {
+      height: 40%; } }
 
-@media screen and (max-width: 768px) {
-  #avatar_messaging {
-    display: none; } }
+@media screen and (max-width: 375px) {
+  #img_avatars {
+    background-size: auto; } }
 
 .pattern {
   background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)), url(../img/dark_wall.png); }

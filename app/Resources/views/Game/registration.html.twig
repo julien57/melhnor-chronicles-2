@@ -56,11 +56,12 @@
                         <img src="{{ asset('front/img/map-world.jpg') }}" alt="Carte du monde de Melhnor" id="map_world"/>
                     </div>
                     <div class="row">
-                        {{ form_label(form.region, "Choisir une région", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
 
                         {{ form_errors(form.region) }}
 
-                        <a href="{{ path('game_rules') }}">{{ 'title.see-regions'|trans }}</a>
+                        {{ form_label(form.region, "Choisir une région ", {'label_attr': {'class': 'col-sm-4 label-container'}}) }}
+
+                        <a href="{{ path('game_rules') }}" class="plain-link">{{ 'title.see-regions'|trans }}</a>
 
                         <div class="col-sm-6">
                             {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}

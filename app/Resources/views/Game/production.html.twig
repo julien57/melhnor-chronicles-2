@@ -20,28 +20,38 @@
         <div class="row">
             <div class="col-md-4">
                 <h3>{{ 'title.produced-resources'|trans }}</h3>
-
-                {% for resource, quantity in resultProduce.produced %}
-                    <p>{{ resource }} : {{ quantity }}</p>
-                {% endfor %}
+                <div class="section-description">
+                    {% for resource, quantity in resultProduce.produced %}
+                        <p>{{ resource }} : {{ quantity }}</p>
+                    {% else %}
+                        <p>{{ 'message.no-resources'|trans }}</p>
+                    {% endfor %}
+                </div>
             </div>
             <div class="col-md-4">
                 <h3>{{ 'title.used-resources'|trans }}</h3>
 
-                {% if resultProduce.used is defined %}
-                    {% for resource, quantity in resultProduce.used %}
-                        <p>{{ resource }} : {{ quantity }}</p>
-                    {% endfor %}
-                {% endif %}
+                <div class="section-description">
+                    {% if resultProduce.used is defined %}
+                        {% for resource, quantity in resultProduce.used %}
+                            <p>{{ resource }} : {{ quantity }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>{{ 'message.no-resources'|trans }}</p>
+                    {% endif %}
+                </div>
             </div>
             <div class="col-md-4">
                 <h3>{{ 'title.consumed-resources'|trans }}</h3>
-
-                {% if resourcesConsumed.consumed is defined %}
-                    {% for resource, quantity in resourcesConsumed.consumed %}
-                        <p>{{ resource }} : {{ quantity }}</p>
-                    {% endfor %}
-                {% endif %}
+                <div class="section-description">
+                    {% if resourcesConsumed.consumed is defined %}
+                        {% for resource, quantity in resourcesConsumed.consumed %}
+                            <p>{{ resource }} : {{ quantity }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>{{ 'message.no-resources'|trans }}</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
