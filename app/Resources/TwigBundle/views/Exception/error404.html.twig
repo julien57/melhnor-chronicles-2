@@ -9,14 +9,14 @@
     <div class="container-fluid">
 
         <h2>{{ status_code }} {{ status_text }} !</h2>
-        <h3>Vous avez emprunté un chemin bien trop dangereux !</h3>
+        <h3>{{ 'error.dangerous-way'|trans }}</h3>
 
         <div class="row text-center">
             <img src="{{ asset('front/img/monster-404.jpg') }}" alt="Attaque d'un monstre" id="monster-404"/>
         </div>
 
         <div class="row text-center">
-            <p><a href="{{ path('game_index') }}">Rebrousser chemin...</a></p>
+            <p><a href="{{ path('game_index') }}">{{ 'error.link-home'|trans }}</a></p>
         </div>
 
     </div>

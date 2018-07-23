@@ -9,7 +9,7 @@
     <div class="container-fluid">
 
         <h2>{{ status_code }} {{ status_text }} !</h2>
-        <h3>Etat du serveur : Game Over !</h3>
+        <h3>{{ 'error.game-over'|trans }}</h3>
 
         <div class="row text-center">
             <img src="{{ asset('front/img/error-500.jpg') }}" alt="Server dead" id="monster-404"/>

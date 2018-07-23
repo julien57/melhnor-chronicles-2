@@ -12,7 +12,11 @@
 
     <h2>{{ 'title.production'|trans }}</h2>
     <p class="section-description">
-        {{ 'message.population-gain'|trans({'%number%': resourcesConsumed.population}) }}
+        {% if resourcesConsumed.population > 0 %}
+            {{ 'message.population-gain'|trans({'%number%': resourcesConsumed.population}) }}
+        {% else %}
+            {{ 'message.population-lost'|trans({'%number%': resourcesConsumed.population})|replace({'-': ''}) }}
+        {% endif %}
     </p>
 
     <div class="container-fluid">

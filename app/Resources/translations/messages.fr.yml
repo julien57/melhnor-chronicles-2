@@ -120,6 +120,7 @@ title:
 
 message:
     population-gain: La population a augmenté de %number% habitants.
+    population-lost: %number% habitants sont morts de famine.
     no-resources: Aucune
 
 button:
@@ -182,3 +183,8 @@ description:
     throne: La salle du trône vous donne quelques infos sur l'état de votre royaume
     tos: Vous devez lire les conditions générales d'utilisation avant de vosu inscrire
     write_message: Ecrire un message à un autre joueur
+
+error:
+    dangerous-way: Vous avez emprunté un chemin bien trop dangereux !
+    link-home: Rebrousser chemin...
+    game-over: Etat du serveur = Game Over !
