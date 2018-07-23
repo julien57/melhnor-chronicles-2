@@ -85,6 +85,7 @@ menu:
     battle: Bataille
     market: Commerce
     messaging: Messagerie
+    ranking: Classement
 
 title:
     mc2: Melhnor Chronicles 2
@@ -117,9 +118,14 @@ title:
     see-regions: Découvrir les régions
     select-region: Sélectionnez une région
     send-message: Envoyer un message
+    players-ranking: Classement des joueurs
+    position: position
+    pseudo: pseudo
 
 message:
     population-gain: La population a augmenté de %number% habitants.
+    population-lost: %number% habitants sont morts de famine.
+    no-resources: Aucune
 
 button:
     next: Suivant
@@ -181,3 +187,9 @@ description:
     throne: La salle du trône vous donne quelques infos sur l'état de votre royaume
     tos: Vous devez lire les conditions générales d'utilisation avant de vosu inscrire
     write_message: Ecrire un message à un autre joueur
+    ranking: Le classement des joueurs en fonction de la population
+
+error:
+    dangerous-way: Vous avez emprunté un chemin bien trop dangereux !
+    link-home: Rebrousser chemin...
+    game-over: Etat du serveur = Game Over !

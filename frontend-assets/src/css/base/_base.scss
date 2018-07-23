@@ -101,6 +101,8 @@ input:focus, textarea:focus, button:focus {
 
 .building-icon {
     margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
 }
 
 #name-building {
@@ -184,7 +186,87 @@ input:focus, textarea:focus, button:focus {
     text-align: justify;
 }
 
-@media screen and (max-width: 450px){
+#monster-404 {
+    border-radius: 7px;
+    width: 15%;
+}
+
+@media screen and (max-width: 1024px) {
+
+    #form3 #image_avatar {
+        height: 320px;
+        margin-bottom: 30px;
+    }
+
+    .resources-list {
+        margin-bottom: 0;
+    }
+
+    .sale_resource {
+        margin: auto;
+        margin-bottom: 60px;
+    }
+
+    .btn-response {
+        margin-top: -120px;
+    }
+
+    .building-icon {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    #avatar_messaging {
+        display: none;
+    }
+
+    #img_avatars {
+        background-position: center;
+    }
+
+    #form2 #map_world {
+        width: 90%;
+        margin-bottom: 5px;
+        margin-left: 10px;
+    }
+
+    #name-building .building_row, #level-building .level_row, .build-building-form {
+        width: 70%;
+        margin: auto;
+    }
+
+    .building-icon {
+        margin-bottom: 40px;
+        text-align: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .sale_resource {
+        margin: auto;
+    }
+
+    .sale_resource .section-description {
+        margin-top: 0;
+    }
+
+    .resources-list {
+        padding-top: 30px;
+    }
+
+    .btn-response {
+        margin-top: 0;
+    }
+
+    .messages {
+        padding-top: 10px;
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 450px) {
 
     #dark-window {
         background-size: cover;
@@ -206,11 +288,39 @@ input:focus, textarea:focus, button:focus {
     .messages {
         height: 200px;
     }
+
+    #img_avatars {
+        align-items: normal;
+
+        #image_avatar {
+            width: auto;
+            height: 50%;
+            margin-top: 130px;
+        }
+    }
+
+    #form2 #map_world {
+        width: 95%;
+    }
+
+    .messages {
+        height: 200px;
+        width: 100%;
+
+        h3 {
+            margin-top: 15px;
+            margin-bottom: 0;
+        }
+
+        .message-body {
+            height: 40%;
+        }
+    }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 375px) {
 
-    #avatar_messaging {
-        display: none;
+    #img_avatars {
+        background-size: auto;
     }
 }

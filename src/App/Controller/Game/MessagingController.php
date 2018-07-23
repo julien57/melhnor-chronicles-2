@@ -7,6 +7,7 @@ use App\Entity\Player;
 use App\Form\MessageType;
 use App\Model\WriteMessageDTO;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +31,7 @@ class MessagingController extends Controller
      * @return Response
      *
      * @Route("/messages", name="game_messaging")
+     * @Security("has_role('ROLE_PLAYER')")
      */
     public function messagesAction(): Response
     {
@@ -51,6 +53,7 @@ class MessagingController extends Controller
      *     defaults={"idRecipient" = null},
      *     name="game_messaging_write"
      * )
+     * @Security("has_role('ROLE_PLAYER')")
      */
     public function writeAction(Request $request, ?int $idRecipient, TranslatorInterface $translator)
     {

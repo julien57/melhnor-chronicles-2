@@ -1,5 +1,4 @@
 <header id="home">
-    <!-- Main nav -->
     <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top">
         <div class="container">
             <div class="navbar navbar-header">
@@ -20,6 +19,7 @@
                         <li class="plain-link"><a href="{{ path('game_kingdom') }}">{{ 'menu.kingdom'|trans }}</a></li>
                         <li class="plain-link"><a href="{{ path('game_market') }}">{{ 'menu.market'|trans }}</a></li>
                         <li class="plain-link"><a href="{{ path('game_messaging') }}">{{ 'menu.messaging'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_ranking') }}">{{ 'menu.ranking'|trans }}</a></li>
                         <li class="plain-link"><a href="{{ path('game_security_logout') }}">{{ 'menu.disconnection'|trans }}</a></li>
                     </ul>
                 {% else %}
@@ -27,6 +27,7 @@
                         <li class="plain-link"><a href="{{ path('game_index') }}">{{ 'menu.home'|trans }}</a></li>
                         <li class="plain-link"><a href="{{ path('game_security_registration') }}">{{ 'menu.registration'|trans }}</a></li>
                         <li class="plain-link"><a href="{{ path('game_security_login') }}">{{ 'menu.connection'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_ranking') }}">{{ 'menu.ranking'|trans }}</a></li>
                     </ul>
                 {% endif %}
             </div>

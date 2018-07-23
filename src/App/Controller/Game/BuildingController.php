@@ -6,6 +6,7 @@ use App\Entity\KingdomBuilding;
 use App\Form\BuildBuildingType;
 use App\Model\BuildBuildingDTO;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +17,7 @@ class BuildingController extends Controller
 {
     /**
      * @Route("/construction-batiment", name="game_building_build")
+     * @Security("has_role('ROLE_PLAYER')")
      */
     public function buildAction(Request $request, EntityManagerInterface $em, TranslatorInterface $translator): Response
     {
