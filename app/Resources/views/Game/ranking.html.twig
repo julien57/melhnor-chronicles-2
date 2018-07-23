@@ -1,0 +1,40 @@
+{% extends "game_layout.html.twig" %}
+
+{% block title %}
+    {{ 'title.players-ranking'|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ 'description.ranking'|trans }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h2>{{ 'title.players-ranking'|trans }}</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">{{ 'title.position'|trans }}</th>
+                    <th scope="col">{{ 'title.pseudo'|trans }}</th>
+                    <th scope="col">{{ 'menu.kingdom'|trans }}</th>
+                    <th scope="col">{{ 'title.population'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for key,player in players %}
+                <tr>
+                    <th scope="row" class="features-p">{{ key+1 }}</th>
+                    <td class="features-p">{{ player.username }}</td>
+                    <td class="features-p">{{ player.kingdom.name }}</td>
+                    <td class="features-p">{{ player.kingdom.population }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+{% endblock %}

@@ -21,4 +21,16 @@ class PlayerRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    public function playersByPopulation()
+    {
+        $query = $this
+            ->createQueryBuilder('p')
+            ->join('p.kingdom', 'k')
+            ->addSelect('k')
+            ->orderBy('k.population', 'DESC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }
