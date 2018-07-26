@@ -2963,7 +2963,7 @@
 .ion-xbox:before {
   content: ""; }
 
-header {
+header, #home-game {
   background-size: cover;
   background-position: center center;
   height: 100vh; }
@@ -3572,6 +3572,18 @@ header {
       background-position: 25%; } }
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1024px) and (min-device-height: 1366px) and (max-device-height: 1366px) and (min-width: 1024px) and (max-width: 1024px) {
     header {
+      background-position: 25%; } }
+
+#home-game {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.05)), url(../img/header-ingame.jpg);
+  box-shadow: inset 0 -10px 70px rgba(0, 0, 0, 0.75);
+  height: 20vh;
+  background-position: 75%; }
+  @media (max-width: 768px) {
+    #home-game {
+      background-position: 25%; } }
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1024px) and (min-device-height: 1366px) and (max-device-height: 1366px) and (min-width: 1024px) and (max-width: 1024px) {
+    #home-game {
       background-position: 25%; } }
 
 .big-logo {

@@ -1,5 +1,8 @@
 messages:
     built-building: Bâtiment construit !
+    destroyed-building: Bâtiment détruit !
+    lack-location: Vous n'avez plus de place pour construire dans votre royaume.
+    not-destroy-building: Impossible de détruire ce bâtiment.
     unavailable-resource: La ressource sélectionnée n'est plus disponible au marché.
     unavailable-gold: Vous n'avez pas assez d'or pour acheter cette quantité de resource.
     buy-resource: Vous venez d'acheter une quantité de %quantity% de %name%

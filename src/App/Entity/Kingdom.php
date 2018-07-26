@@ -19,6 +19,8 @@ class Kingdom
 
     const GOLD_STARTER_NUMBER = 5000;
 
+    const LOCATION_STARTER_NUMBER = 8;
+
     /**
      * @var int
      *
@@ -62,6 +64,13 @@ class Kingdom
      * @ORM\Column(name="gold", type="integer")
      */
     private $gold = self::GOLD_STARTER_NUMBER;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="location_buildings", type="integer")
+     */
+    private $locationBuildings = self::LOCATION_STARTER_NUMBER;
 
     /**
      * @var Region
@@ -269,5 +278,21 @@ class Kingdom
         }
 
         return $filteredKingdomResources->first();
+    }
+
+    /**
+     * @return int
+     */
+    public function getLocationBuildings(): int
+    {
+        return $this->locationBuildings;
+    }
+
+    /**
+     * @param int $locationBuildings
+     */
+    public function setLocationBuildings(int $locationBuildings): void
+    {
+        $this->locationBuildings = $locationBuildings;
     }
 }

@@ -10,24 +10,35 @@
 
 {% block content %}
 
-    <div class="fluid-container">
+    <div class="container">
 
-        <h3>{{ 'title.build-building'|trans }}</h3>
+        <h2>{{ 'title.build-building'|trans }}</h2>
 
-        <div class="col-md-3 col-md-offset-4">
-            <form action="{{ path('game_building_build') }}" method="post" class="contact-form build-building-form">
-                <div class="row">
-                    <div class="col-md-12">
-                        {{ form_widget(buildBuildingForm.building, {'attr': {'class': 'form-control'}}) }}<br>
+        <div class="row">
+            <div class="col-md-3">
+                <form action="{{ path('game_building_build') }}" method="post" class="contact-form build-building-form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_widget(buildBuildingForm.building, {'attr': {'class': 'form-control'}}) }}<br>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <button type="submit" class="btn">{{ 'button.build'|trans }}</button>
-                </div>
-                {{ form_rest(buildBuildingForm) }}
-            </form>
+                    <div class="row">
+                        <button type="submit" class="btn">{{ 'button.build'|trans }}</button>
+                    </div>
+                    {{ form_rest(buildBuildingForm) }}
+                </form>
+            </div>
+            <div class="col-md-8 col-md-offset-1">
+                <div id="building-description"></div>
+            </div>
         </div>
 
     </div>
 
+{% endblock %}
+
+
+{% block javascript %}
+    <script src="{{ asset('front/js/buildings.js') }}"></script>
+    <script src="{{ asset('front/js/build-building.js') }}"></script>
 {% endblock %}

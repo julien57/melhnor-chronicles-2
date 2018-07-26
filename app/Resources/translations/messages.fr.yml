@@ -141,6 +141,10 @@ button:
 messaging:
     title: Messagerie
 
+action-points:
+    5PA: (5PA)
+    10PA: (10PA)
+
 donjon:
     administration: Administration
     account: Compte
