@@ -2,6 +2,7 @@
 
 namespace App\Controller\Game;
 
+use App\Entity\Player;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

@@ -96,6 +96,13 @@ class Kingdom
      */
     private $kingdomResources;
 
+    /**
+     * @var Army
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\Army", cascade={"remove"})
+     */
+    private $army;
+
     public function __construct()
     {
         $this->kingdomResources = new ArrayCollection();
@@ -212,6 +219,22 @@ class Kingdom
     public function setRegion(Region $region): void
     {
         $this->region = $region;
+    }
+
+    /**
+     * @return Army
+     */
+    public function getArmy(): Army
+    {
+        return $this->army;
+    }
+
+    /**
+     * @param Army $army
+     */
+    public function setArmy(Army $army): void
+    {
+        $this->army = $army;
     }
 
     /**

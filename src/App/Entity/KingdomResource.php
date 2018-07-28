@@ -11,11 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class KingdomResource
 {
-    const MEAT_STARTER_QUANTITY = 1500;
+    const MEAT_STARTER_QUANTITY = 10000;
 
-    const WOOD_STARTER_QUANTITY = 1500;
+    const WOOD_STARTER_QUANTITY = 3000;
 
-    const STONE_STARTER_QUANTITY = 1000;
+    const STONE_STARTER_QUANTITY = 3000;
 
     /**
      * @var int
