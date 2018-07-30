@@ -14,20 +14,126 @@
 
         <h2>Armée</h2>
 
-        <div class="row">
-            <div class="col-md-6">
-
-                <h3>Armée du royaume</h3>
-                <p>Soldats: {{ kingdom.army.soldier }} <br>
-                    Archers : {{ kingdom.army.archer }}</p>
+            <div class="row" id="recruitment">
+                {% if form.soldier is defined %}
+                    <div class="col-md-4">
+                        <div class="col-md-4">
+                            <img src="{{ asset('front/img/avatars/horde62.jpg') }}" class="avatar_recruitment">
+                        </div>
+                        <div class="col-md-6">
+                            <p class="panel-item__summary">SOLDATS</p>
+                            <p class="panel-item__summary">
+                                1 Habitant<br>
+                                1 Armure<br>
+                                1 Arme<br>
+                                100 Pièces d'or
+                            </p>
+                            <p class="panel-item__summary">
+                                {{ army.soldier }}/
+                                    {% for building in buildings %}
+                                        {% if building.building.id == constant('App\\Entity\\KingdomBuilding::BUILDING_RECRUITMENT_SOLDIER') %}
+                                            {{ building.maxUnityArmy }}
+                                        {% endif %}
+                                    {% endfor %}
+                                unités dans le royaume.
+                            </p>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="col-md-4">
+                     {% if form.archer is defined %}
+                        <div class="col-md-4">
+                            <img src="{{ asset('front/img/avatars/redempteurs15.jpg') }}" class="avatar_recruitment">
+                        </div>
+                        <div class="col-md-6">
+                            <p class="panel-item__summary">ARCHERS</p>
+                            <p class="panel-item__summary">
+                                1 Habitant<br>
+                                1 Armure<br>
+                                1 Arc<br>
+                                100 Pièces d'or
+                            </p>
+                            <p class="panel-item__summary">
+                                {{ army.archer }}/
+                                {% for building in buildings %}
+                                    {% if building.building.id == constant('App\\Entity\\KingdomBuilding::BUILDING_RECRUITMENT_ARCHERY') %}
+                                        {{ building.maxUnityArmy }}
+                                    {% endif %}
+                                {% endfor %}
+                                unités dans le royaume.
+                            </p>
+                        </div>
+                     {% endif %}
+                </div>
+                <div class="col-md-4">
+                    {% if form.boat is defined %}
+                        <div class="col-md-4">
+                            <img src="{{ asset('front/img/transport.jpg') }}" class="avatar_recruitment">
+                        </div>
+                        <div class="col-md-6">
+                            <p class="panel-item__summary">BATEAUX DE TRANSPORT</p>
+                            <p class="panel-item__summary">
+                                4 Habitant<br>
+                                1000 Bois<br>
+                                100 Fer<br>
+                                200 Pièces d'or
+                            </p>
+                            <p class="panel-item__summary">
+                                {{ army.boat }}/
+                                {% for building in buildings %}
+                                    {% if building.building.id == constant('App\\Entity\\KingdomBuilding::BUILDING_RECRUITMENT_BOAT') %}
+                                        {{ building.maxUnityArmy }}
+                                    {% endif %}
+                                {% endfor %}
+                                unités dans le royaume.
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-            <div class="col-md-6">
-
+            <div class="row">
                 <h3>Recrutement</h3>
 
+                {% if form.soldier is not defined and form.archer is not defined and form.boat is not defined%}
+
+                    <p class="section-description">{{ 'message.no-army-building'|trans }}</p>
+
+                {% else %}
+
+                    <div class="col-md-2 col-md-offset-5">
+
+                        {{ form_start(form, {'attr': {'class': 'contact-form', 'id': 'form-recruitment'}}) }}
+
+                        {% if form.soldier is defined %}
+                            {{ form_label(form.soldier, 'Nombre de soldats') }}
+
+                            {{ form_widget(form.soldier, {'attr': {'class': 'form-control'}}) }}
+                        {% endif %}
+
+                        {% if form.archer is defined %}
+                            {{ form_label(form.archer, 'Nombre d\'archers') }}
+
+                            {{ form_widget(form.archer, {'attr': {'class': 'form-control'}}) }}
+                        {% endif %}
+
+                        {% if form.boat is defined %}
+                            {{ form_label(form.boat, 'Nombre de bateaux de transport') }}
+
+                            {{ form_widget(form.boat, {'attr': {'class': 'form-control'}}) }}
+                        {% endif %}
+
+                        <div class="row">
+                            <div class="button-submit"></div>
+                            <button type="submit" class="btn">Recruter</button>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+
+                {% endif %}
             </div>
-        </div>
 
     </div>
+
 
 {% endblock %}

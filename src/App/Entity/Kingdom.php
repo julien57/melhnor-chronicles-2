@@ -21,6 +21,10 @@ class Kingdom
 
     const LOCATION_STARTER_NUMBER = 8;
 
+    const SOLDIER_PRICE_UNITY = 100;
+
+    const BOAT_PRICE_UNITY = 200;
+
     /**
      * @var int
      *
@@ -97,9 +101,9 @@ class Kingdom
     private $kingdomResources;
 
     /**
-     * @var Army
+     * @var Army|null
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\Army", cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Army", mappedBy="kingdom", cascade={"remove"})
      */
     private $army;
 
@@ -222,17 +226,17 @@ class Kingdom
     }
 
     /**
-     * @return Army
+     * @return Army|null
      */
-    public function getArmy(): Army
+    public function getArmy(): ?Army
     {
         return $this->army;
     }
 
     /**
-     * @param Army $army
+     * @param Army|null $army
      */
-    public function setArmy(Army $army): void
+    public function setArmy(?Army $army): void
     {
         $this->army = $army;
     }

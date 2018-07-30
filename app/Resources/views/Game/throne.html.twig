@@ -26,6 +26,7 @@
                         <img src="{{ asset('front/img/avatars/') }}{{ app.user.avatar.idavatar }}.jpg" alt="Avatar de {{ app.user.username }}" class="image_avatar"/>
                     </div>
                     <div class="col-md-6">
+                        {{ 'title.state'|trans }}
                         <div class="panel-item__summary">
                             {{ 'title.action-points'|trans }} : {{ app.user.actionpoints }}
                             &nbsp;<br>
@@ -34,6 +35,14 @@
                             {{ 'title.power'|trans }} : {{ app.user.kingdom.power }}
                             &nbsp;<br>
                             {{ 'title.gold'|trans }} : {{ app.user.kingdom.gold }}
+                        </div>
+                        {{ 'title.army'|trans }}
+                        <div class="panel-item__summary">
+                            {{ 'title.soldiers'|trans }} : {{ app.user.kingdom.army.soldier }}
+                            <br>
+                            {{ 'title.archers'|trans }} : {{ app.user.kingdom.army.archer }}
+                            <br>
+                            {{ 'title.boat'|trans }} : {{ app.user.kingdom.army.boat }}
                         </div>
                     </div>
                 </div>

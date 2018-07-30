@@ -14,6 +14,6 @@ class ArmyRepository extends EntityRepository
             ->setParameter('kingdom', $kingdom)
         ;
 
-        return $qb->getQuery()->getSingleResult();
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }

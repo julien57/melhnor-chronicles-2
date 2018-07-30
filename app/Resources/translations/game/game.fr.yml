@@ -17,3 +17,5 @@ messages:
     contact-success: Formulaire envoyé ! nous vous recontacterons dans les plus brefs délais.
     contact-error: Le formulaire n'a pas pu être envoyé.
     login-error: Impossible de se déconnecter !
+    recruitment-error: Aucun recrutement
+    recruitment-success: Recrutement réussi !

@@ -313,6 +313,13 @@ input:focus, textarea:focus, button:focus {
     cursor: pointer;
 }
 
+.avatar_recruitment {
+    width: 100%;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+
 @media screen and (max-width: 1024px) {
 
     #form3 #image_avatar {
@@ -403,6 +410,19 @@ input:focus, textarea:focus, button:focus {
     #throne-interface {
         justify-content: center;
     }
+
+    #recruitment {
+        display: flex;
+    }
+
+    .avatar_recruitment {
+        width: 50%;
+    }
+
+    #form-recruitment {
+        width: 30%;
+        margin: auto;
+    }
 }
 
 @media screen and (max-width: 450px) {
@@ -453,6 +473,16 @@ input:focus, textarea:focus, button:focus {
 
         .message-body {
             height: 40%;
+        }
+    }
+
+    #recruitment {
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .avatar_recruitment {
+            width: 75%;
+            margin-top: 15px;
         }
     }
 }
