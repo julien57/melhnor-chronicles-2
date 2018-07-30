@@ -19,6 +19,8 @@ class KingdomBuilding
 
     const BUILDING_RECRUITMENT_ARCHERY = 22;
 
+    const BUILDING_RECRUITMENT_STABLE = 15;
+
     const BUILDING_RECRUITMENT_BOAT = 23;
 
     const MAX_UNITY_START = 10;

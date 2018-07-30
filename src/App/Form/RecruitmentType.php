@@ -34,7 +34,12 @@ class RecruitmentType extends AbstractType
                                 'required' => false
                             ]);
                         }
+                        if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_STABLE) {
 
+                            $event->getForm()->add('horseman', TextType::class, [
+                                'required' => false
+                            ]);
+                        }
                         if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_BOAT) {
 
                             $event->getForm()->add('boat', TextType::class, [

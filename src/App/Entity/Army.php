@@ -40,6 +40,13 @@ class Army
     /**
      * @var int
      *
+     * @ORM\Column(name="horseman", type="integer")
+     */
+    private $horseman = self::START_ARMY_NUMBER;
+
+    /**
+     * @var int
+     *
      * @ORM\Column(name="boat", type="integer")
      */
     private $boat = self::START_ARMY_NUMBER;
@@ -113,6 +120,22 @@ class Army
     public function setKingdom(Kingdom $kingdom): void
     {
         $this->kingdom = $kingdom;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHorseman(): int
+    {
+        return $this->horseman;
+    }
+
+    /**
+     * @param int $horseman
+     */
+    public function setHorseman(int $horseman): void
+    {
+        $this->horseman = $horseman;
     }
 
     /**

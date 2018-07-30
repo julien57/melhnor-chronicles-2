@@ -3,6 +3,7 @@
 namespace App\Model;
 
 use App\Entity\Army;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ArmyRecruitmentDTO
@@ -25,6 +26,13 @@ class ArmyRecruitmentDTO
      * @Assert\Type("integer")
      */
     private $archer;
+
+    /**
+     * @var int|null
+     *
+     * @Assert\Type("integer")
+     */
+    private $horseman;
 
     /**
      * @var int|null
@@ -95,5 +103,21 @@ class ArmyRecruitmentDTO
     public function setBoat(?int $boat): void
     {
         $this->boat = $boat;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getHorseman(): ?int
+    {
+        return $this->horseman;
+    }
+
+    /**
+     * @param int|null $horseman
+     */
+    public function setHorseman(?int $horseman): void
+    {
+        $this->horseman = $horseman;
     }
 }

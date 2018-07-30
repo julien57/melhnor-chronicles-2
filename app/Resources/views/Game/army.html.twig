@@ -16,11 +16,11 @@
 
             <div class="row" id="recruitment">
                 {% if form.soldier is defined %}
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="col-md-4">
                             <img src="{{ asset('front/img/avatars/horde62.jpg') }}" class="avatar_recruitment">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <p class="panel-item__summary">SOLDATS</p>
                             <p class="panel-item__summary">
                                 1 Habitant<br>
@@ -40,12 +40,12 @@
                         </div>
                     </div>
                 {% endif %}
-                <div class="col-md-4">
+                <div class="col-md-3">
                      {% if form.archer is defined %}
                         <div class="col-md-4">
                             <img src="{{ asset('front/img/avatars/redempteurs15.jpg') }}" class="avatar_recruitment">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <p class="panel-item__summary">ARCHERS</p>
                             <p class="panel-item__summary">
                                 1 Habitant<br>
@@ -65,12 +65,38 @@
                         </div>
                      {% endif %}
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    {% if form.horseman is defined %}
+                        <div class="col-md-4">
+                            <img src="{{ asset('front/img/avatars/horde58.jpg') }}" class="avatar_recruitment">
+                        </div>
+                        <div class="col-md-8">
+                            <p class="panel-item__summary">CAVALIERS</p>
+                            <p class="panel-item__summary">
+                                1 Habitant<br>
+                                1 Armure<br>
+                                1 Arme<br>
+                                1 cheval<br>
+                                100 Pièces d'or
+                            </p>
+                            <p class="panel-item__summary">
+                                {{ army.horseman }}/
+                                {% for building in buildings %}
+                                    {% if building.building.id == constant('App\\Entity\\KingdomBuilding::BUILDING_RECRUITMENT_STABLE') %}
+                                        {{ building.maxUnityArmy }}
+                                    {% endif %}
+                                {% endfor %}
+                                unités dans le royaume.
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-md-3">
                     {% if form.boat is defined %}
                         <div class="col-md-4">
                             <img src="{{ asset('front/img/transport.jpg') }}" class="avatar_recruitment">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <p class="panel-item__summary">BATEAUX DE TRANSPORT</p>
                             <p class="panel-item__summary">
                                 4 Habitant<br>
@@ -116,8 +142,14 @@
                             {{ form_widget(form.archer, {'attr': {'class': 'form-control'}}) }}
                         {% endif %}
 
+                        {% if form.horseman is defined %}
+                            {{ form_label(form.horseman, 'Nombre de cavaliers') }}
+
+                            {{ form_widget(form.horseman, {'attr': {'class': 'form-control'}}) }}
+                        {% endif %}
+
                         {% if form.boat is defined %}
-                            {{ form_label(form.boat, 'Nombre de bateaux de transport') }}
+                            {{ form_label(form.boat, 'Nombre de navires de transport') }}
 
                             {{ form_widget(form.boat, {'attr': {'class': 'form-control'}}) }}
                         {% endif %}
