@@ -170,7 +170,6 @@ class LevelingBuildingManager
         if ($modifiedBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_SOLDIER ||
             $modifiedBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_ARCHERY ||
             $modifiedBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_BOAT) {
-
             $increaseUnityMax = $modifiedBuilding->getMaxUnityArmy() + 10;
             $modifiedBuilding->setMaxUnityArmy($increaseUnityMax);
         }

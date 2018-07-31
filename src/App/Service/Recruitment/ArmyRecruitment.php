@@ -2,7 +2,6 @@
 
 namespace App\Service\Recruitment;
 
-use App\Entity\Building;
 use App\Entity\Kingdom;
 use App\Entity\KingdomBuilding;
 use App\Entity\KingdomResource;
@@ -93,6 +92,7 @@ class ArmyRecruitment
     /**
      * @param $soldiers
      * @param Kingdom $kingdom
+     *
      * @return bool
      */
     private function isPossibleForSoldier(int $soldiers, Kingdom $kingdom): bool
@@ -106,7 +106,6 @@ class ArmyRecruitment
         foreach ($kingdom->getKingdomResources() as $kingdomResource) {
             if ($kingdomResource->getResource()->getId() === Resource::ARMOR_ID &&
                 $kingdomResource->getQuantity() > $soldiers) {
-
                 $armorQuantity = $kingdomResource->getQuantity() - $soldiers;
                 $kingdomResource->setQuantity($armorQuantity);
 
@@ -114,7 +113,6 @@ class ArmyRecruitment
             }
             if ($kingdomResource->getResource()->getId() === Resource::WEAPON_ID &&
                 $kingdomResource->getQuantity() > $soldiers) {
-
                 $weaponQuantity = $kingdomResource->getQuantity() - $soldiers;
                 $kingdomResource->setQuantity($weaponQuantity);
 
@@ -124,6 +122,7 @@ class ArmyRecruitment
 
         if (count($resourcesId) < 2) {
             $this->em->refresh($kingdomResource);
+
             return false;
         }
 
@@ -138,8 +137,9 @@ class ArmyRecruitment
     }
 
     /**
-     * @param int $archers
+     * @param int     $archers
      * @param Kingdom $kingdom
+     *
      * @return bool
      */
     private function isPossibleForArcher(int $archers, Kingdom $kingdom): bool
@@ -148,12 +148,11 @@ class ArmyRecruitment
             return false;
         }
 
-        $resourcesId= [];
+        $resourcesId = [];
         /** @var KingdomResource $kingdomResource */
         foreach ($kingdom->getKingdomResources() as $kingdomResource) {
             if ($kingdomResource->getResource()->getId() === Resource::ARMOR_ID &&
                 $kingdomResource->getQuantity() > $archers) {
-
                 $armorQuantity = $kingdomResource->getQuantity() - $archers;
                 $kingdomResource->setQuantity($armorQuantity);
 
@@ -161,7 +160,6 @@ class ArmyRecruitment
             }
             if ($kingdomResource->getResource()->getId() === Resource::BOW_ID &&
                 $kingdomResource->getQuantity() > $archers) {
-
                 $bowQuantity = $kingdomResource->getQuantity() - $archers;
                 $kingdomResource->setQuantity($bowQuantity);
 
@@ -171,6 +169,7 @@ class ArmyRecruitment
 
         if (count($resourcesId) < 2) {
             $this->em->refresh($kingdomResource);
+
             return false;
         }
 
@@ -185,8 +184,9 @@ class ArmyRecruitment
     }
 
     /**
-     * @param int $boats
+     * @param int     $boats
      * @param Kingdom $kingdom
+     *
      * @return bool
      */
     private function isPossibleForBoat(int $boats, Kingdom $kingdom): bool
@@ -200,7 +200,6 @@ class ArmyRecruitment
         foreach ($kingdom->getKingdomResources() as $kingdomResource) {
             if ($kingdomResource->getResource()->getId() === Resource::WOOD_ID &&
                 $kingdomResource->getQuantity() > ($boats * 1000)) {
-
                 $woodQuantity = $kingdomResource->getQuantity() - ($boats * 1000);
                 $kingdomResource->setQuantity($woodQuantity);
 
@@ -208,7 +207,6 @@ class ArmyRecruitment
             }
             if ($kingdomResource->getResource()->getId() === Resource::IRON_ID &&
                 $kingdomResource->getQuantity() > ($boats * 100)) {
-
                 $ironQuantity = $kingdomResource->getQuantity() - ($boats * 100);
                 $kingdomResource->setQuantity($ironQuantity);
 
@@ -218,6 +216,7 @@ class ArmyRecruitment
 
         if (count($resourcesId) < 2) {
             $this->em->refresh($kingdomResource);
+
             return false;
         }
 
@@ -233,18 +232,19 @@ class ArmyRecruitment
 
     /**
      * @param Kingdom $kingdom
-     * @param int $unity
+     * @param int     $unity
+     *
      * @return bool
      */
     private function verifyLimitUnity(Kingdom $kingdom, int $unity): bool
     {
         /** @var KingdomBuilding $kingdomBuilding */
         foreach ($kingdom->getKingdomBuildings() as $kingdomBuilding) {
-
             if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_SOLDIER) {
                 if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
                     return false;
                 }
+
                 return true;
             }
 
@@ -252,6 +252,7 @@ class ArmyRecruitment
                 if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
                     return false;
                 }
+
                 return true;
             }
 
@@ -259,6 +260,7 @@ class ArmyRecruitment
                 if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
                     return false;
                 }
+
                 return true;
             }
         }

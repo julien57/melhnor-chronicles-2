@@ -154,7 +154,7 @@ class Army
         $this->boat = $boat;
     }
 
-    static public function initArmy()
+    public static function initArmy()
     {
         $army = new self();
 

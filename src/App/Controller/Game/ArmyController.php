@@ -3,7 +3,6 @@
 namespace App\Controller\Game;
 
 use App\Entity\Army;
-use App\Entity\Building;
 use App\Entity\KingdomBuilding;
 use App\Form\RecruitmentType;
 use App\Model\ArmyRecruitmentDTO;
@@ -30,7 +29,7 @@ class ArmyController extends Controller
         $armyRecruitmentDTO = new ArmyRecruitmentDTO();
         $form = $this->createForm(RecruitmentType::class, $armyRecruitmentDTO, [
             'army' => $army,
-            'buildings' => $buildings
+            'buildings' => $buildings,
         ]);
         $form->handleRequest($request);
 
@@ -42,6 +41,7 @@ class ArmyController extends Controller
                     'notice-danger',
                     $translator->trans('messages.recruitment-error', [], 'game')
                 );
+
                 return $this->redirectToRoute('game_army');
             }
 
@@ -49,6 +49,7 @@ class ArmyController extends Controller
                 'notice',
                 $translator->trans('messages.recruitment-success', [], 'game')
             );
+
             return $this->redirectToRoute('game_army');
         }
 
@@ -56,7 +57,7 @@ class ArmyController extends Controller
             'army' => $army,
             'kingdom' => $kingdom,
             'buildings' => $buildings,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

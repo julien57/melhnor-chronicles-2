@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Building;
 use App\Entity\Kingdom;
 use Doctrine\ORM\EntityRepository;
 
@@ -29,6 +30,19 @@ class KingdomBuildingRepository extends EntityRepository
             ->setParameter('building', $buildingId)
             ->andWhere('b.level != :level')
             ->setParameter('level', $level)
+        ;
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function findByKingdomAndBuilding(Kingdom $kingdom, Building $building)
+    {
+        $qb = $this
+            ->createQueryBuilder('b')
+            ->where('b.kingdom = :kingdom')
+            ->setParameter('kingdom', $kingdom)
+            ->andWhere('b.building = :building')
+            ->setParameter('building', $building)
         ;
 
         return $qb->getQuery()->getOneOrNullResult();

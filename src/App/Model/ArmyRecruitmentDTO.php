@@ -3,7 +3,6 @@
 namespace App\Model;
 
 use App\Entity\Army;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class ArmyRecruitmentDTO

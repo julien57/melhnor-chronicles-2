@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Service\Production;
+
 use App\Entity\BuildingResource;
 use App\Entity\Kingdom;
 use App\Entity\KingdomBuilding;
@@ -7,193 +9,174 @@ use App\Entity\KingdomResource;
 use App\Entity\Player;
 use App\Entity\Resource;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+
 class ProductionResourcesManager
 {
     /**
      * @var EntityManagerInterface
      */
     private $em;
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-    /**
-     * contains the resources produced and used for display in /production
-     * [produced]
-     *      resourceName => quantity
-     * [used]
-     *      resourceName => quantity
-     *
-     * @var array
-     */
-    private $resourcesProduced = [];
-    /**
-     * Resources required for production
-     * IdResource => quantity
-     *
-     * @var array
-     */
-    private $resourcesRequired = [];
-    /**
-     * Contain a buildingId if resource required no exist in kingdom for cancel the production
-     *
-     * @var array
-     */
-    private $productionUnavailable = [];
-    public function __construct(EntityManagerInterface $em, TokenStorageInterface $tokenStorage)
+
+    // Resources Required for Production
+    private $buildingRequireResources = [];
+
+    // Production Result, contain resurces used and consumed
+    private $resultProduction = [];
+
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
-        $this->tokenStorage = $tokenStorage;
     }
+
     /**
+     * @param Player $player
      * @return array
      */
-    public function processProduction(): array
+    public function processProduction(Player $player): array
     {
-        /** @var Player $user */
-        $user = $this->tokenStorage->getToken()->getUser();
-        /** @var Kingdom $kingdom */
-        $kingdom = $user->getKingdom();
-        $kingdomBuildings = $this->em->getRepository(KingdomBuilding::class)->getBuildingsFromKingdom($kingdom);
+        $kingdom = $player->getKingdom();
+
         /** @var KingdomBuilding $kingdomBuilding */
-        foreach ($kingdomBuildings as $kingdomBuilding) {
-            $building = $kingdomBuilding->getBuilding();
-            $buildingResources = $this
-                ->em
-                ->getRepository(BuildingResource::class)
-                ->getBuildingsForResources($building)
-            ;
+        foreach ($kingdom->getKingdomBuildings() as $kingdomBuilding) {
+
+            $buildingsResources = $this->em->getRepository(BuildingResource::class)->getBuildingsForResources($kingdomBuilding->getBuilding());
+
             /** @var BuildingResource $buildingResource */
-            foreach ($buildingResources as $buildingResource) {
-                /** @var resource $resource */
-                $resource = $buildingResource->getResource();
-                // If building no produced resources is null (Archery for exemple)
-                if (is_null($buildingResource)) {
-                    continue;
-                }
+            foreach ($buildingsResources as $buildingResource) {
+
                 if ($buildingResource->isRequired()) {
-                    $this->resourceRequiredInProduction($kingdomBuilding, $resource);
+
+                    $this->requiredInProduction($kingdom, $buildingResource, $kingdomBuilding);
                 }
             }
-            foreach ($buildingResources as $buildingResource) {
-                /** @var resource $resource */
-                $resource = $buildingResource->getResource();
-                // If building no produced resources is null (Archery for exemple)
-                if (is_null($buildingResource)) {
-                    continue;
-                }
+
+            foreach ($buildingsResources as $buildingResource) {
+
                 if ($buildingResource->isProduction()) {
-                    $this->resourceProducedInProduction($kingdomBuilding, $resource);
+
+                    $this->producedInProduction($kingdom, $buildingResource);
                 }
             }
         }
+
         $this->em->flush();
-        return $this->resourcesProduced;
+
+        return $this->resultProduction;
     }
+
     /**
-     * @param KingdomBuilding $kingdomBuilding
-     * @param resource        $resource
+     * @param Kingdom $kingdom
+     * @param BuildingResource $buildingResource
      */
-    private function resourceRequiredInProduction(KingdomBuilding $kingdomBuilding, Resource $resource): void
+    private function producedInProduction(Kingdom $kingdom, BuildingResource $buildingResource)
     {
-        $kingdom = $kingdomBuilding->getKingdom();
-        $building = $kingdomBuilding->getBuilding();
-        $kingdomResource = $this
-            ->em
-            ->getRepository(KingdomResource::class)
-            ->getKingdomExistingResource($kingdom, $resource)
-        ;
-        if (!$kingdomResource instanceof KingdomResource) {
-            $this->productionUnavailable[$building->getId()] = $building->getName();
-            return;
-        }
-        $quantityOfResource = $kingdomResource->getQuantity();
-        // Use between 30% at 75% from resource available
-        $resourceUsed = $this->randomResultProduction(
-            ($quantityOfResource * 30) / 100,
-            ($quantityOfResource * 75) / 100
-        );
-        $this->resourcesRequired[$building->getId()][$resource->getId()] = $resourceUsed;
-    }
-    /**
-     * @param KingdomBuilding $kingdomBuilding
-     * @param resource        $resource
-     */
-    private function resourceProducedInProduction(KingdomBuilding $kingdomBuilding, Resource $resource): void
-    {
-        $building = $kingdomBuilding->getBuilding();
-        $kingdom = $kingdomBuilding->getKingdom();
+        $resource = $buildingResource->getResource();
         $population = $kingdom->getPopulation();
-        if (array_key_exists($building->getId(), $this->productionUnavailable)) {
-            return;
+
+        $kingdomBuilding = $this->em->getRepository(KingdomBuilding::class)->findByKingdomAndBuilding($kingdom, $buildingResource->getBuilding());
+        $kingdomResource = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $resource);
+
+        if (array_key_exists($buildingResource->getBuilding()->getId(), $this->buildingRequireResources)) {
+            $requireResources = $this->requiredForProduceInProduction($kingdom, $buildingResource, $kingdomBuilding);
+            return $requireResources;
         }
-        // If resource required is available in kingdom
-        if (array_key_exists($building->getId(), $this->resourcesRequired)) {
-            $availableResourceRequired = $this->resourcesRequired[$building->getId()];
-            $idResource = key($availableResourceRequired);
-            $resourceQuantityInKingdom = $this
-                ->em
-                ->getRepository(KingdomResource::class)
-                ->getKingdomExistingResource($kingdom, $idResource)
-            ;
-            if (is_null($resourceQuantityInKingdom)) {
-                $this->productionUnavailable[$building->getId()] = $building->getName();
-                return;
-            }
-            $quantityResource = $availableResourceRequired[$idResource];
-            // Use between 60 at 85% for this resource for the production
-            $quantityUsedInKingdom = $this->randomResultProduction(
-                ($quantityResource * 10) / 100,
-                ($quantityResource * 25) / 100
-            );
-            $resultQuantityWithUsed = $resourceQuantityInKingdom->getQuantity() - $quantityUsedInKingdom;
-            // If quantity > 0, register in BDD
-            if ($resultQuantityWithUsed > 0) {
-                $resourceQuantity = $this
-                    ->em
-                    ->getRepository(KingdomResource::class)
-                    ->getKingdomExistingResource($kingdom, $resource->getId())
-                ;
-                if (is_null($resourceQuantity)) {
-                    $kingdomResource = new KingdomResource($kingdom, $resource, $quantityUsedInKingdom);
-                    $this->em->persist($kingdomResource);
-                } else {
-                    $resourceProduce = intval(($quantityUsedInKingdom * $kingdomBuilding->getLevel()) / 10);
-                    $resourceRemaining = $resourceQuantityInKingdom->getQuantity() - $resourceProduce;
-                    $resourceQuantityInKingdom->setQuantity($resourceRemaining);
-                }
-                $this->em->flush();
-                // else this building no produce
-            } else {
-                return;
-            }
-            $this->resourcesProduced['used'][$resourceQuantityInKingdom->getResource()->getName()] = $resourceProduce;
-            $this->resourcesProduced['produced'][$resource->getName()] = $quantityUsedInKingdom;
-            // If building no required resource, he simply produce
+
+        $resourceProduce = $this->randomResultProduction(
+            ($population / 50) * $kingdomBuilding->getLevel(),
+            ($population / 35) * $kingdomBuilding->getLevel()
+        );
+
+        if (!$kingdomResource) {
+
+            $this->createKingdomResource($resourceProduce, $kingdom, $resource);
         } else {
-            $resourceProduce = $this->randomResultProduction(
-                ($population / 50) * $kingdomBuilding->getLevel(),
-                ($population / 35) * $kingdomBuilding->getLevel()
-            );
-            $this->resourcesProduced['produced'][$resource->getName()] = $resourceProduce;
+
+            $quantity = $kingdomResource->getQuantity();
+            $totalQuantity = $quantity + $resourceProduce;
+            $kingdomResource->setQuantity($totalQuantity);
         }
-        $resourceFromKingdom = $this
-            ->em
-            ->getRepository(KingdomResource::class)
-            ->getKingdomExistingResource($kingdom, $resource)
-        ;
-        // Update if resource exist in kingdom
-        if ($resourceFromKingdom) {
-            $quantityInKingdom = $resourceFromKingdom->getQuantity();
-            $quantityResult = $quantityInKingdom + $resourceProduce;
-            $resourceFromKingdom->setQuantity($quantityResult);
-            // Create resource if no exist
+
+        $this->resultProduction['produced'][$resource->getName()] = $resourceProduce;
+    }
+
+    /**
+     * @param Kingdom $kingdom
+     * @param BuildingResource $buildingResource
+     * @param KingdomBuilding $kingdomBuilding
+     */
+    private function requiredInProduction(Kingdom $kingdom, BuildingResource $buildingResource, KingdomBuilding $kingdomBuilding): void
+    {
+        $resource = $buildingResource->getResource();
+        $kingdomResource = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $resource);
+        $quantity = $kingdomResource->getQuantity();
+
+        $resourceRequire = $this->randomResultProduction(
+            ($quantity * $kingdomBuilding->getLevel()) / 20,
+            ($quantity * $kingdomBuilding->getLevel()) / 15
+        );
+
+        if ($resourceRequire > $quantity) {
+            $resourceRequire = $quantity;
+        }
+
+        $this->buildingRequireResources[$buildingResource->getBuilding()->getId()][$buildingResource->getResource()->getId()] = $resourceRequire;
+    }
+
+    private function requiredForProduceInProduction(Kingdom $kingdom, BuildingResource $buildingResource, KingdomBuilding $kingdomBuilding)
+    {
+        $resourceWithQuantity = $this->buildingRequireResources[$buildingResource->getBuilding()->getId()];
+        $resourceId = key($resourceWithQuantity);
+        /** @var KingdomResource $kingdomResourceRequired */
+        $kingdomResourceRequired = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $resourceId);
+        $quantityRequired = $resourceWithQuantity[$kingdomResourceRequired->getResource()->getId()];
+
+        $resourceProduced = $this->randomResultProduction(
+            ($quantityRequired * $kingdomBuilding->getLevel()) / 150,
+            ($quantityRequired * $kingdomBuilding->getLevel()) / 140
+        );
+
+        // Resource Required
+        $resourceInKingdom = $kingdomResourceRequired->getQuantity() - $quantityRequired;
+        $kingdomResourceRequired->setQuantity($resourceInKingdom);
+
+        $this->resultProduction['used'][$kingdomResourceRequired->getResource()->getName()] = $quantityRequired;
+
+        // Resource Produced
+        if ($resourceProduced === 0) {
+            $resourceProduced = 1;
+        }
+
+        /** @var KingdomResource $kingdomResourceProduced */
+        $kingdomResourceProduced = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $buildingResource->getResource());
+
+        if (!$kingdomResourceProduced) {
+
+            $this->createKingdomResource($resourceProduced, $kingdom, $buildingResource->getResource());
+
+            $newResourceProduced = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $buildingResource->getResource());
+            $this->resultProduction['produced'][$newResourceProduced->getResource()->getName()] = $resourceProduced;
         } else {
-            $kingdomResource = new KingdomResource($kingdom, $resource, $resourceProduce);
-            $this->em->persist($kingdomResource);
+
+            $resourceProducedInKingdom = $kingdomResourceProduced->getQuantity() + $resourceProduced;
+            $kingdomResourceProduced->setQuantity($resourceProducedInKingdom);
+
+            $this->resultProduction['produced'][$kingdomResourceProduced->getResource()->getName()] = $resourceProduced;
         }
     }
+
+    /**
+     * @param int $resourceProduced
+     * @param Kingdom $kingdom
+     * @param Resource $resource
+     */
+    private function createKingdomResource(int $resourceProduced, Kingdom $kingdom, Resource $resource): void
+    {
+        $kingdomResource = new KingdomResource($kingdom, $resource, $resourceProduced);
+
+        $this->em->persist($kingdomResource);
+        $this->em->flush();
+    }
+
     /**
      * @param int $min
      * @param int $max

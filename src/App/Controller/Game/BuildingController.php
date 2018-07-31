@@ -48,8 +48,8 @@ class BuildingController extends Controller
             $countKingdomBuildings = $this->em->getRepository(KingdomBuilding::class)->count(['kingdom' => $kingdom]);
 
             if ($countKingdomBuildings >= $kingdom->getLocationBuildings()) {
-
                 $this->addFlash('notice-danger', $this->translator->trans('messages.lack-location', [], 'game'));
+
                 return $this->redirectToRoute('game_kingdom');
             }
 
@@ -74,11 +74,13 @@ class BuildingController extends Controller
      */
     public function destroyAction(KingdomBuilding $id)
     {
-        dump($id); die();
+        dump($id);
+        die();
         $kingdom = $this->getUser()->getKingdom();
 
         if ($kingdom !== $kingdomBuilding->getKingdom()) {
             $this->addFlash('notice-danger', $this->translator->trans('messages.not-destroy-building', [], 'game'));
+
             return $this->redirectToRoute('game_kingdom');
         }
 
@@ -86,6 +88,7 @@ class BuildingController extends Controller
         $this->em->flush();
 
         $this->addFlash('notice', $this->translator->trans('messages.destroyed-building', [], 'game'));
+
         return $this->redirectToRoute('game_kingdom');
     }
 }
