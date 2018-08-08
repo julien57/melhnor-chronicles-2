@@ -320,6 +320,14 @@ input:focus, textarea:focus, button:focus {
     border-radius: 7px;
 }
 
+.alert-ok {
+    width: 40%;
+    height: 100px;
+    background: url('../img/alert-ok.jpg') no-repeat;
+    background-size: contain;
+    color: green;
+}
+
 @media screen and (max-width: 1024px) {
 
     #form3 #image_avatar {
