@@ -154,13 +154,14 @@ class Army
         $this->boat = $boat;
     }
 
-    public static function initArmy()
+    public static function initArmy(Kingdom $kingdom)
     {
         $army = new self();
 
         $army->soldier = self::START_ARMY_NUMBER;
         $army->archer = self::START_ARMY_NUMBER;
         $army->boat = self::START_ARMY_NUMBER;
+        $army->kingdom = $kingdom;
 
         return $army;
     }

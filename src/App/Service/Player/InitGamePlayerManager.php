@@ -53,7 +53,7 @@ class InitGamePlayerManager
     {
         $kingdom = Kingdom::initKingdom($createPlayerDTO);
         $player = Player::initPlayer($createPlayerDTO, $kingdom);
-        $army = Army::initArmy();
+        $army = Army::initArmy($kingdom);
 
         $this->em->persist($kingdom);
         $this->em->persist($player);

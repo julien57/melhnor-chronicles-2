@@ -127,6 +127,7 @@ title:
     archers: Archers
     boat: Navires de transport
     state: Etat
+    online: En ligne
 
 message:
     population-gain: La population a augmenté de %number% habitants.

@@ -9,6 +9,18 @@
 {% endblock %}
 
 {% block content %}
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+            <h3>Joueurs connectés</h3>
+            <h4 class="modal-title" id="myModalLabel">{{ countPlayersConnected }}</h4>
+        </div>
+        <div class="col-md-4">
+            <h3>Joueurs inscrits</h3>
+            <h4 class="modal-title" id="myModalLabel">{{ totalPlayers }}</h4>
+        </div>
+    </div>
+
     <h2>{{ 'title.title-game'|trans }}</h2>
 
     <p class="section-description">

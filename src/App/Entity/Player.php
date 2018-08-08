@@ -66,6 +66,13 @@ class Player implements UserInterface
     private $roles = [];
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_online", type="boolean")
+     */
+    private $isOnline;
+
+    /**
      * @var \DateTime|null
      *
      * @ORM\Column(name="date_registration", type="datetime")
@@ -237,6 +244,25 @@ class Player implements UserInterface
         $this->plainPassword = $plainPassword;
 
         $this->password = null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOnline(): bool
+    {
+        $now = new \DateTime();
+        $now->modify('-5 minutes');
+
+        return $this->lastConnection > $now;
+    }
+
+    /**
+     * @param bool $isOnline
+     */
+    public function setIsOnline(bool $isOnline): void
+    {
+        $this->isOnline = $isOnline;
     }
 
     /**

@@ -34,7 +34,7 @@ class KingdomController extends Controller
             $levelingBuildingManager->searchLevelModified($formBuilding->getData()->getKingdomBuildings());
         }
 
-        $kingdomResources = $em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
+        $kingdomResources = $em->getRepository(KingdomResource::class)->getResourceByisFood($kingdom);
         $kingdomBuildings = $em->getRepository(KingdomBuilding::class)->findBy(['kingdom' => $kingdom]);
 
         return $this->render('Game/kingdom.html.twig', [
