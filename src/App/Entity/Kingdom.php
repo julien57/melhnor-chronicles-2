@@ -23,6 +23,8 @@ class Kingdom
 
     const SOLDIER_PRICE_UNITY = 100;
 
+    const HORSEMAN_PRICE_UNITY = 100;
+
     const BOAT_PRICE_UNITY = 200;
 
     /**

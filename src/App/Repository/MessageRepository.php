@@ -12,7 +12,8 @@ class MessageRepository extends EntityRepository
         $query = $this->_em->createQuery(
             'SELECT m, s FROM AppBundle:Message m 
              JOIN m.sender s
-             WHERE m.recipient = :recipient'
+             WHERE m.recipient = :recipient
+             ORDER BY m.atDate DESC'
         );
         $query->setParameter('recipient', $player);
 

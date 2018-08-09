@@ -328,6 +328,19 @@ input:focus, textarea:focus, button:focus {
     color: green;
 }
 
+.alert-notok {
+    width: 40%;
+    height: 100px;
+    background: url('../img/alert-danger.jpg') no-repeat;
+    background-size: contain;
+    color: firebrick;
+}
+
+.navbar-nav img {
+    width: 15px;
+    color: red;
+}
+
 @media screen and (max-width: 1024px) {
 
     #form3 #image_avatar {

@@ -3248,6 +3248,24 @@ input:focus, textarea:focus, button:focus {
   -moz-border-radius: 7px;
   border-radius: 7px; }
 
+.alert-ok {
+  width: 40%;
+  height: 100px;
+  background: url("../img/alert-ok.jpg") no-repeat;
+  background-size: contain;
+  color: green; }
+
+.alert-notok {
+  width: 40%;
+  height: 100px;
+  background: url("../img/alert-danger.jpg") no-repeat;
+  background-size: contain;
+  color: firebrick; }
+
+.navbar-nav img {
+  width: 15px;
+  color: red; }
+
 @media screen and (max-width: 1024px) {
   #form3 #image_avatar {
     height: 320px;
@@ -3456,24 +3474,6 @@ label:not(#foo) > input[type='checkbox']:checked + span {
 option {
   background: #b2321f;
   color: #ffcb8d; }
-
-@keyframes oneToTwo {
-  0% {
-    transform: translate(0px);
-    -webkit-transform: translate(0px);
-    -moz-transform: translate(0px);
-    -o-transform: translate(0px); }
-  100% {
-    transform: translate(100px, 20px);
-    -webkit-transform: translate(100px, 20px);
-    -moz-transform: translate(100px, 20px);
-    -o-transform: translate(100px, 20px); } }
-
-.oneTotwo {
-  animation: oneToTwo 60s;
-  -webkit-animation: oneToTwo 60s;
-  -moz-animation: oneToTwo 60s;
-  -o-animation: oneToTwo 60s; }
 
 .navbar-custom {
   background: linear-gradient(rgba(34, 34, 34, 0.95), rgba(34, 34, 34, 0.75));

@@ -61,6 +61,26 @@ class ArmyRecruitment
             $kingdom->getArmy()->setArcher($totalArchers);
         }
 
+        if ($armyRecruitmentDTO->getHorseman()) {
+            $horseman = $armyRecruitmentDTO->getHorseman();
+
+            $isAvailableForHorseman = $this->isPossibleForHorseman($horseman, $kingdom);
+
+            if (!$isAvailableForHorseman) {
+                return false;
+            }
+
+            $totalHorseman = $kingdom->getArmy()->getHorseman() + $armyRecruitmentDTO->getHorseman();
+
+            $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalHorseman);
+
+            if (!$verifyMaxUnity) {
+                return false;
+            }
+
+            $kingdom->getArmy()->setHorseman($totalHorseman);
+        }
+
         if ($armyRecruitmentDTO->getBoat()) {
             $boats = $armyRecruitmentDTO->getBoat();
             $isAvailableForBoats = $this->isPossibleForBoat($boats, $kingdom);
@@ -80,7 +100,10 @@ class ArmyRecruitment
             $kingdom->getArmy()->setBoat($totalBoats);
         }
 
-        if (!$armyRecruitmentDTO->getSoldier() && !$armyRecruitmentDTO->getArcher() && !$armyRecruitmentDTO->getBoat()) {
+        if (!$armyRecruitmentDTO->getSoldier() &&
+            !$armyRecruitmentDTO->getArcher() &&
+            !$armyRecruitmentDTO->getBoat() &&
+            !$armyRecruitmentDTO->getHorseman()) {
             return false;
         }
 
@@ -131,6 +154,10 @@ class ArmyRecruitment
 
         $goldRequired = $soldiers * Kingdom::SOLDIER_PRICE_UNITY;
         $totalGold = $kingdom->getGold() - $goldRequired;
+
+        if ($totalGold < 0) {
+            return false;
+        }
         $kingdom->setGold($totalGold);
 
         return true;
@@ -177,6 +204,58 @@ class ArmyRecruitment
         $kingdom->setPopulation($totalPopulation);
 
         $goldRequired = $archers * Kingdom::SOLDIER_PRICE_UNITY;
+        $totalGold = $kingdom->getGold() - $goldRequired;
+
+        if ($totalGold < 0) {
+            return false;
+        }
+        $kingdom->setGold($totalGold);
+
+        return true;
+    }
+
+    private function isPossibleForHorseman(int $horseman, Kingdom $kingdom): bool
+    {
+        if ($kingdom->getPopulation() < $horseman || $kingdom->getGold() < ($horseman * Kingdom::HORSEMAN_PRICE_UNITY)) {
+            return false;
+        }
+
+        $resourcesId = [];
+        /** @var KingdomResource $kingdomResource */
+        foreach ($kingdom->getKingdomResources() as $kingdomResource) {
+            if ($kingdomResource->getResource()->getId() === Resource::ARMOR_ID &&
+                $kingdomResource->getQuantity() > $horseman) {
+                $armorQuantity = $kingdomResource->getQuantity() - $horseman;
+                $kingdomResource->setQuantity($armorQuantity);
+
+                $resourcesId[] = Resource::ARMOR_ID;
+            }
+            if ($kingdomResource->getResource()->getId() === Resource::WEAPON_ID &&
+                $kingdomResource->getQuantity() > $horseman) {
+                $weaponQuantity = $kingdomResource->getQuantity() - $horseman;
+                $kingdomResource->setQuantity($weaponQuantity);
+
+                $resourcesId[] = Resource::WEAPON_ID;
+            }
+            if ($kingdomResource->getResource()->getId() === Resource::HORSE_ID &&
+                $kingdomResource->getQuantity() > $horseman) {
+                $weaponQuantity = $kingdomResource->getQuantity() - $horseman;
+                $kingdomResource->setQuantity($weaponQuantity);
+
+                $resourcesId[] = Resource::HORSE_ID;
+            }
+        }
+
+        if (count($resourcesId) < 3) {
+            $this->em->refresh($kingdomResource);
+
+            return false;
+        }
+
+        $totalPopulation = $kingdom->getPopulation() - $horseman;
+        $kingdom->setPopulation($totalPopulation);
+
+        $goldRequired = $horseman * Kingdom::HORSEMAN_PRICE_UNITY;
         $totalGold = $kingdom->getGold() - $goldRequired;
         $kingdom->setGold($totalGold);
 
@@ -225,6 +304,10 @@ class ArmyRecruitment
 
         $goldRequired = $boats * Kingdom::BOAT_PRICE_UNITY;
         $totalGold = $kingdom->getGold() - $goldRequired;
+
+        if ($totalGold < 0) {
+            return false;
+        }
         $kingdom->setGold($totalGold);
 
         return true;

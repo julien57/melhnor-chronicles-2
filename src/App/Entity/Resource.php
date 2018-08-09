@@ -27,6 +27,8 @@ class Resource
 
     const BOW_ID = 13;
 
+    const HORSE_ID = 11;
+
     /**
      * @var int
      *

@@ -87,6 +87,13 @@ class Player implements UserInterface
     private $lastConnection;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="is_not_read", type="boolean")
+     */
+    private $isNotRead = false;
+
+    /**
      * @var Avatar
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", cascade={"persist"})
@@ -226,6 +233,22 @@ class Player implements UserInterface
     public function getKingdom(): ?Kingdom
     {
         return $this->kingdom;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNotRead(): bool
+    {
+        return $this->isNotRead;
+    }
+
+    /**
+     * @param bool $isNotRead
+     */
+    public function setIsNotRead(bool $isNotRead): void
+    {
+        $this->isNotRead = $isNotRead;
     }
 
     /**
