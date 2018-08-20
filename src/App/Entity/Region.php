@@ -48,9 +48,18 @@ class Region
      */
     private $buildings;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="KingdomArmy", mappedBy="region", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $armysRegion;
+
     public function __construct()
     {
         $this->buildings = new ArrayCollection();
+        $this->armysRegion = new ArrayCollection();
     }
 
     /**

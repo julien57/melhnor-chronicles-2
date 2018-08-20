@@ -15,6 +15,7 @@
         <h2>Armée</h2>
 
             <div class="row" id="recruitment">
+
                 {% if form.soldier is defined %}
                     <div class="col-md-3">
                         <div class="col-md-4">
@@ -29,12 +30,17 @@
                                 100 Pièces d'or
                             </p>
                             <p class="panel-item__summary">
-                                {{ army.soldier }}/
-                                    {% for building in buildings %}
-                                        {% if building.building.id == constant('App\\Entity\\KingdomBuilding::BUILDING_RECRUITMENT_SOLDIER') %}
-                                            {{ building.maxUnityArmy }}
-                                        {% endif %}
-                                    {% endfor %}
+                                {% for kingdomArmy in kingdomArmys %}
+                                    {% if kingdomArmy.army.id == 1 %}
+                                        {{ kingdomArmy.quantity }}
+                                    {% endif %}
+                                {% endfor %}
+                                /
+                                {% for building in buildings %}
+                                    {% if building.building.id == constant('App\\Entity\\KingdomBuilding::BUILDING_RECRUITMENT_SOLDIER') %}
+                                        {{ building.maxUnityArmy }}
+                                    {% endif %}
+                                {% endfor %}
                                 unités dans le royaume.
                             </p>
                         </div>
@@ -54,7 +60,12 @@
                                 100 Pièces d'or
                             </p>
                             <p class="panel-item__summary">
-                                {{ army.archer }}/
+                                {% for kingdomArmy in kingdomArmys %}
+                                    {% if kingdomArmy.army.id == 2 %}
+                                        {{ kingdomArmy.quantity }}
+                                    {% endif %}
+                                {% endfor %}
+                                /
                                 {% for building in buildings %}
                                     {% if building.building.id == constant('App\\Entity\\KingdomBuilding::BUILDING_RECRUITMENT_ARCHERY') %}
                                         {{ building.maxUnityArmy }}
@@ -80,7 +91,12 @@
                                 100 Pièces d'or
                             </p>
                             <p class="panel-item__summary">
-                                {{ army.horseman }}/
+                                {% for kingdomArmy in kingdomArmys %}
+                                    {% if kingdomArmy.army.id == 3 %}
+                                        {{ kingdomArmy.quantity }}
+                                    {% endif %}
+                                {% endfor %}
+                                /
                                 {% for building in buildings %}
                                     {% if building.building.id == constant('App\\Entity\\KingdomBuilding::BUILDING_RECRUITMENT_STABLE') %}
                                         {{ building.maxUnityArmy }}
@@ -105,7 +121,12 @@
                                 200 Pièces d'or
                             </p>
                             <p class="panel-item__summary">
-                                {{ army.boat }}/
+                                {% for kingdomArmy in kingdomArmys %}
+                                    {% if kingdomArmy.army.id == 4 %}
+                                        {{ kingdomArmy.quantity }}
+                                    {% endif %}
+                                {% endfor %}
+                                /
                                 {% for building in buildings %}
                                     {% if building.building.id == constant('App\\Entity\\KingdomBuilding::BUILDING_RECRUITMENT_BOAT') %}
                                         {{ building.maxUnityArmy }}

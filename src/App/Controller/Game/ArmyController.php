@@ -3,6 +3,7 @@
 namespace App\Controller\Game;
 
 use App\Entity\Army;
+use App\Entity\KingdomArmy;
 use App\Entity\KingdomBuilding;
 use App\Form\RecruitmentType;
 use App\Model\ArmyRecruitmentDTO;
@@ -23,12 +24,12 @@ class ArmyController extends Controller
     public function armyAction(Request $request, ArmyRecruitment $armyRecruitment, TranslatorInterface $translator): Response
     {
         $kingdom = $this->getUser()->getKingdom();
-        $army = $this->getDoctrine()->getRepository(Army::class)->findByKingdom($kingdom);
+        $kingdomArmys = $this->getDoctrine()->getRepository(KingdomArmy::class)->findByKingdom($kingdom);
         $buildings = $this->getDoctrine()->getRepository(KingdomBuilding::class)->getBuildingsFromKingdom($kingdom);
 
         $armyRecruitmentDTO = new ArmyRecruitmentDTO();
         $form = $this->createForm(RecruitmentType::class, $armyRecruitmentDTO, [
-            'army' => $army,
+            'kingdomArmys' => $kingdomArmys,
             'buildings' => $buildings,
         ]);
         $form->handleRequest($request);
@@ -54,7 +55,7 @@ class ArmyController extends Controller
         }
 
         return $this->render('Game/army.html.twig', [
-            'army' => $army,
+            'kingdomArmys' => $kingdomArmys,
             'kingdom' => $kingdom,
             'buildings' => $buildings,
             'form' => $form->createView(),

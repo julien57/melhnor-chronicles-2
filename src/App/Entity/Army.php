@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,6 +15,14 @@ class Army
 {
     const START_ARMY_NUMBER = 0;
 
+    const SOLDIER_ID = 1;
+
+    const ARCHER_ID = 2;
+
+    const HORSEMAN_ID = 3;
+
+    const BOAT_ID = 4;
+
     /**
      * @var int
      *
@@ -24,39 +33,31 @@ class Army
     private $id;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="soldier", type="integer")
+     * @ORM\Column(name="name", type="string")
      */
-    private $soldier = self::START_ARMY_NUMBER;
+    private $name;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="archer", type="integer")
+     * @ORM\Column(name="img", type="string")
      */
-    private $archer = self::START_ARMY_NUMBER;
+    private $img;
 
     /**
-     * @var int
+     * @var ArrayCollection
      *
-     * @ORM\Column(name="horseman", type="integer")
+     * @ORM\OneToMany(targetEntity="KingdomArmy", mappedBy="army", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $horseman = self::START_ARMY_NUMBER;
+    private $kingdomArmys;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="boat", type="integer")
-     */
-    private $boat = self::START_ARMY_NUMBER;
-
-    /**
-     * @var Kingdom
-     *
-     * @ORM\OneToOne(targetEntity="App\Entity\Kingdom", inversedBy="army")
-     */
-    private $kingdom;
+    public function __construct()
+    {
+        $this->kingdomArmys = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -75,94 +76,50 @@ class Army
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getSoldier(): int
+    public function getName(): string
     {
-        return $this->soldier;
+        return $this->name;
     }
 
     /**
-     * @param int $soldier
+     * @param string $name
      */
-    public function setSoldier(int $soldier): void
+    public function setName(string $name): void
     {
-        $this->soldier = $soldier;
+        $this->name = $name;
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getArcher(): int
+    public function getImg(): string
     {
-        return $this->archer;
+        return $this->img;
     }
 
     /**
-     * @param int $archer
+     * @param string $img
      */
-    public function setArcher(int $archer): void
+    public function setImg(string $img): void
     {
-        $this->archer = $archer;
+        $this->img = $img;
     }
 
     /**
-     * @return Kingdom
+     * @return ArrayCollection
      */
-    public function getKingdom(): Kingdom
+    public function getKingdomArmys(): ArrayCollection
     {
-        return $this->kingdom;
+        return $this->kingdomArmys;
     }
 
     /**
-     * @param Kingdom $kingdom
+     * @param ArrayCollection $kingdomArmys
      */
-    public function setKingdom(Kingdom $kingdom): void
+    public function setKingdomArmys(ArrayCollection $kingdomArmys): void
     {
-        $this->kingdom = $kingdom;
-    }
-
-    /**
-     * @return int
-     */
-    public function getHorseman(): int
-    {
-        return $this->horseman;
-    }
-
-    /**
-     * @param int $horseman
-     */
-    public function setHorseman(int $horseman): void
-    {
-        $this->horseman = $horseman;
-    }
-
-    /**
-     * @return int
-     */
-    public function getBoat(): int
-    {
-        return $this->boat;
-    }
-
-    /**
-     * @param int $boat
-     */
-    public function setBoat(int $boat): void
-    {
-        $this->boat = $boat;
-    }
-
-    public static function initArmy(Kingdom $kingdom)
-    {
-        $army = new self();
-
-        $army->soldier = self::START_ARMY_NUMBER;
-        $army->archer = self::START_ARMY_NUMBER;
-        $army->boat = self::START_ARMY_NUMBER;
-        $army->kingdom = $kingdom;
-
-        return $army;
+        $this->kingdomArmys = $kingdomArmys;
     }
 }
