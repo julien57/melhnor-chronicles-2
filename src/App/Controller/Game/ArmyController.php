@@ -2,7 +2,6 @@
 
 namespace App\Controller\Game;
 
-use App\Entity\Army;
 use App\Entity\KingdomArmy;
 use App\Entity\KingdomBuilding;
 use App\Form\RecruitmentType;
