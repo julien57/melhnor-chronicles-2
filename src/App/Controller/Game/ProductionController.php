@@ -36,7 +36,7 @@ class ProductionController extends Controller
             return $this->redirectToRoute('game_kingdom');
         }
 
-        $productionResult = $resourcesManager->processProduction();
+        $productionResult = $resourcesManager->processProduction($player);
         $resourcesConsumed = $populationManager->addPopulation($player);
 
         return $this->render('Game/production.html.twig', [

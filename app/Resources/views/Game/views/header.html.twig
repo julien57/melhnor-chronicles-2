@@ -1,4 +1,4 @@
-<header id="home">
+<div id="home-game">
     <nav class="navbar navbar-inverse navbar-custom navbar-fixed-top">
         <div class="container">
             <div class="navbar navbar-header">
@@ -17,9 +17,15 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="plain-link"><a href="{{ path('game_throne') }}">{{ 'menu.throne'|trans }}</a></li>
                         <li class="plain-link"><a href="{{ path('game_kingdom') }}">{{ 'menu.kingdom'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_army') }}">{{ 'menu.army'|trans }}</a></li>
                         <li class="plain-link"><a href="{{ path('game_market') }}">{{ 'menu.market'|trans }}</a></li>
-                        <li class="plain-link"><a href="{{ path('game_messaging') }}">{{ 'menu.messaging'|trans }}</a></li>
+                        <li class="plain-link"><a href="{{ path('game_messaging') }}">{{ 'menu.messaging'|trans }}
+                        {% if app.user.isNotRead %}
+                            <img src="{{ asset('front/favicon/quote.png') }}" class="icon-not-read"/>
+                        {% endif %}
+                        </a></li>
                         <li class="plain-link"><a href="{{ path('game_ranking') }}">{{ 'menu.ranking'|trans }}</a></li>
+                        <li class="plain-link" id="menu-map-world"><a href="#">Carte</a></li>
                         <li class="plain-link"><a href="{{ path('game_security_logout') }}">{{ 'menu.disconnection'|trans }}</a></li>
                     </ul>
                 {% else %}
@@ -33,7 +39,5 @@
             </div>
         </div>
     </nav>
-    <h1>
-        <img onload="this.style.opacity='1';" class="big-logo" src="{{ asset('front/img/logo-MC2.png') }}" alt="Melhnor Chronicles 2">
-    </h1>
-</header>
+
+</div>

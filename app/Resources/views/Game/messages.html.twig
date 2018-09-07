@@ -26,7 +26,7 @@
                         </div>
                         <div class="col-md-8 text-message messages">
                             <h3>{{ message.subject }}</h3>
-                            <p>De {{ message.sender.username }} le {{ message.atDate|date("m/d/Y") }} à {{ message.atDate|date("H:i") }}</p>
+                            <p>De {{ message.sender.username }} le {{ message.atDate|date("d/m/Y") }} à {{ message.atDate|date("H:i") }}</p>
                             <p class="message-body">{{ message.message }}</p>
                         </div>
                         <div class="row col-md-4 col-md-offset-4">

@@ -19,6 +19,16 @@ class Resource
 
     const ID_LUXURY_RESOURCES = [7, 8, 9, 10];
 
+    const ARMOR_ID = 14;
+
+    const WEAPON_ID = 12;
+
+    const IRON_ID = 21;
+
+    const BOW_ID = 13;
+
+    const HORSE_ID = 11;
+
     /**
      * @var int
      *

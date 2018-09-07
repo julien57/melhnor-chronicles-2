@@ -35,8 +35,12 @@ class MessagingController extends Controller
      */
     public function messagesAction(): Response
     {
+        /** @var Player $player */
         $player = $this->getUser();
         $messages = $this->em->getRepository(Message::class)->getMessages($player);
+
+        $player->setIsNotRead(false);
+        $this->em->flush();
 
         return $this->render('Game/messages.html.twig', ['messages' => $messages]);
     }
@@ -77,6 +81,9 @@ class MessagingController extends Controller
             $sender = $this->getUser();
 
             $message = Message::createMessage($writeMessageDTO, $sender);
+
+            $recipient = $writeMessageDTO->getRecipient();
+            $recipient->setIsNotRead(true);
 
             $this->em->persist($message);
             $this->em->flush();

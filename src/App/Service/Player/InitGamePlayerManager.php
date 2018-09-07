@@ -2,6 +2,7 @@
 
 namespace App\Service\Player;
 
+use App\Entity\Army;
 use App\Entity\Kingdom;
 use App\Entity\KingdomResource;
 use App\Entity\Player;
@@ -52,9 +53,11 @@ class InitGamePlayerManager
     {
         $kingdom = Kingdom::initKingdom($createPlayerDTO);
         $player = Player::initPlayer($createPlayerDTO, $kingdom);
+        $army = Army::initArmy($kingdom);
 
         $this->em->persist($kingdom);
         $this->em->persist($player);
+        $this->em->persist($army);
         $this->em->flush();
 
         $this->session->getFlashBag()->add('notice', $this->translator->trans('messages.service-init-player-welcome', [], 'game'));
@@ -90,6 +93,11 @@ class InitGamePlayerManager
         $this->em->persist($initKingdomStone);
 
         $this->em->flush();
+    }
+
+    public function initArmy()
+    {
+        $army = new Army();
     }
 
     /**

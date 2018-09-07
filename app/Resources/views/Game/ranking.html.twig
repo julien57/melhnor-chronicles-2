@@ -21,6 +21,7 @@
                     <th scope="col">{{ 'title.pseudo'|trans }}</th>
                     <th scope="col">{{ 'menu.kingdom'|trans }}</th>
                     <th scope="col">{{ 'title.population'|trans }}</th>
+                    <th scope="col">{{ 'title.online'|trans }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +31,13 @@
                     <td class="features-p">{{ player.username }}</td>
                     <td class="features-p">{{ player.kingdom.name }}</td>
                     <td class="features-p">{{ player.kingdom.population }}</td>
+                    <td class="features-p">
+                        {% if player.isOnline %}
+                            <img src="{{ asset('front/img/online.png') }}"/>
+                        {% else %}
+                            <img src="{{ asset('front/img/offline.png') }}"/>
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -19,6 +19,14 @@ class Kingdom
 
     const GOLD_STARTER_NUMBER = 5000;
 
+    const LOCATION_STARTER_NUMBER = 8;
+
+    const SOLDIER_PRICE_UNITY = 100;
+
+    const HORSEMAN_PRICE_UNITY = 100;
+
+    const BOAT_PRICE_UNITY = 200;
+
     /**
      * @var int
      *
@@ -64,6 +72,13 @@ class Kingdom
     private $gold = self::GOLD_STARTER_NUMBER;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="location_buildings", type="integer")
+     */
+    private $locationBuildings = self::LOCATION_STARTER_NUMBER;
+
+    /**
      * @var Region
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Region")
@@ -86,6 +101,13 @@ class Kingdom
      * )
      */
     private $kingdomResources;
+
+    /**
+     * @var Army|null
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\Army", mappedBy="kingdom", cascade={"remove"})
+     */
+    private $army;
 
     public function __construct()
     {
@@ -206,6 +228,22 @@ class Kingdom
     }
 
     /**
+     * @return Army|null
+     */
+    public function getArmy(): ?Army
+    {
+        return $this->army;
+    }
+
+    /**
+     * @param Army|null $army
+     */
+    public function setArmy(?Army $army): void
+    {
+        $this->army = $army;
+    }
+
+    /**
      * Add kingdomBuilding
      *
      * @param KingdomBuilding $kingdomBuilding
@@ -269,5 +307,21 @@ class Kingdom
         }
 
         return $filteredKingdomResources->first();
+    }
+
+    /**
+     * @return int
+     */
+    public function getLocationBuildings(): int
+    {
+        return $this->locationBuildings;
+    }
+
+    /**
+     * @param int $locationBuildings
+     */
+    public function setLocationBuildings(int $locationBuildings): void
+    {
+        $this->locationBuildings = $locationBuildings;
     }
 }

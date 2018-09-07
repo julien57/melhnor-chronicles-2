@@ -1,4 +1,4 @@
-var regions = {
+const regions = {
     "region1": {
         "name": "Les Gorges du Monde",
         "description": "Autrefois, un gouffre sans fond est apparu sans crier gare à l’endroit où se trouve maintenant l’Ile de la Rédemption. A cette époque, des milliers de monstres en sont sortis et ont déferlés sur le continent. Quand les armées du continent ont repoussé ces créatures et sont arrivés aux Gorges, ils sont parvenus à boucher le gouffre avec des monticules de terres qui forment aujourd’hui l’Ile de la Rédemption. Si aucune créature n’est jamais réapparue, beaucoup pensent que celles-ci se préparent à une nouvelle invasion. Ce n’est pas le cas des habitants de cette Ile fertile où il fait toutefois bon vivre."

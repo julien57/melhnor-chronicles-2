@@ -86,6 +86,7 @@ menu:
     market: Commerce
     messaging: Messagerie
     ranking: Classement
+    army: Armée
 
 title:
     mc2: Melhnor Chronicles 2
@@ -121,11 +122,19 @@ title:
     players-ranking: Classement des joueurs
     position: position
     pseudo: pseudo
+    army: Armée
+    soldiers: Soldats
+    archers: Archers
+    horseman: Cavaliers
+    boat: Navires de transport
+    state: Etat
+    online: En ligne
 
 message:
     population-gain: La population a augmenté de %number% habitants.
     population-lost: %number% habitants sont morts de famine.
     no-resources: Aucune
+    no-army-building: Vous devez construire des bâtiments en rapport avec l'armée pour pouvoir recruter.
 
 button:
     next: Suivant
@@ -140,6 +149,10 @@ button:
 
 messaging:
     title: Messagerie
+
+action-points:
+    5PA: (5PA)
+    10PA: (10PA)
 
 donjon:
     administration: Administration

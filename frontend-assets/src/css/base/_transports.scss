@@ -1,0 +1,21 @@
+@keyframes oneToTwo {
+  0% {
+    transform: translate(0px);
+    -webkit-transform: translate(0px);
+    -moz-transform: translate(0px);
+    -o-transform: translate(0px);
+  }
+  100% {
+    transform: translate(100px, 20px);
+    -webkit-transform: translate(100px, 20px);
+    -moz-transform: translate(100px, 20px);
+    -o-transform: translate(100px, 20px);
+  }
+}
+
+.oneTotwo {
+  animation: oneToTwo 60s;
+  -webkit-animation: oneToTwo 60s;
+  -moz-animation: oneToTwo 60s;
+  -o-animation: oneToTwo 60s;
+}
