@@ -17,7 +17,7 @@ class RecruitmentType extends AbstractType
     {
         $builder
             ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) use ($options) {
-                if ($options['army'] !== null) {
+                if ($options['kingdomArmys'] !== null) {
                     /** @var KingdomBuilding $kingdomBuilding */
                     foreach ($options['buildings'] as $kingdomBuilding) {
                         if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_SOLDIER) {
@@ -50,7 +50,7 @@ class RecruitmentType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => ArmyRecruitmentDTO::class,
-            'army' => 'army',
+            'kingdomArmys' => 'kingdomArmys',
             'buildings' => 'buildings',
         ]);
     }

@@ -2,7 +2,9 @@
 
 namespace App\Service\Recruitment;
 
+use App\Entity\Army;
 use App\Entity\Kingdom;
+use App\Entity\KingdomArmy;
 use App\Entity\KingdomBuilding;
 use App\Entity\KingdomResource;
 use App\Entity\Resource;
@@ -23,6 +25,8 @@ class ArmyRecruitment
 
     public function recruitmentProcess(ArmyRecruitmentDTO $armyRecruitmentDTO, Kingdom $kingdom)
     {
+        $kingdomArmys = $this->em->getRepository(KingdomArmy::class)->findByKingdom($kingdom);
+
         if ($armyRecruitmentDTO->getSoldier()) {
             $soldiers = $armyRecruitmentDTO->getSoldier();
             $isAvailableForSoldiers = $this->isPossibleForSoldier($soldiers, $kingdom);
@@ -31,15 +35,21 @@ class ArmyRecruitment
                 return false;
             }
 
-            $totalSoldiers = $kingdom->getArmy()->getSoldier() + $armyRecruitmentDTO->getSoldier();
+            /** @var KingdomArmy $kingdomArmy */
+            foreach ($kingdomArmys as $kingdomArmy) {
 
-            $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalSoldiers);
+                if ($kingdomArmy->getArmy()->getId() === Army::SOLDIER_ID) {
+                    $totalSoldiers = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getSoldier();
 
-            if (!$verifyMaxUnity) {
-                return false;
+                    $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalSoldiers);
+
+                    if (!$verifyMaxUnity) {
+                        return false;
+                    }
+
+                    $kingdomArmy->setQuantity($totalSoldiers);
+                }
             }
-
-            $kingdom->getArmy()->setSoldier($totalSoldiers);
         }
 
         if ($armyRecruitmentDTO->getArcher()) {
@@ -50,15 +60,21 @@ class ArmyRecruitment
                 return false;
             }
 
-            $totalArchers = $kingdom->getArmy()->getArcher() + $armyRecruitmentDTO->getArcher();
+            /** @var KingdomArmy $kingdomArmy */
+            foreach ($kingdomArmys as $kingdomArmy) {
 
-            $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalArchers);
+                if ($kingdomArmy->getArmy()->getId() === Army::ARCHER_ID) {
+                    $totalArchers = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getArcher();
 
-            if (!$verifyMaxUnity) {
-                return false;
+                    $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalArchers);
+
+                    if (!$verifyMaxUnity) {
+                        return false;
+                    }
+
+                    $kingdomArmy->setQuantity($totalArchers);
+                }
             }
-
-            $kingdom->getArmy()->setArcher($totalArchers);
         }
 
         if ($armyRecruitmentDTO->getHorseman()) {
@@ -70,15 +86,21 @@ class ArmyRecruitment
                 return false;
             }
 
-            $totalHorseman = $kingdom->getArmy()->getHorseman() + $armyRecruitmentDTO->getHorseman();
+            /** @var KingdomArmy $kingdomArmy */
+            foreach ($kingdomArmys as $kingdomArmy) {
 
-            $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalHorseman);
+                if ($kingdomArmy->getArmy()->getId() === Army::HORSEMAN_ID) {
+                    $totalHorsemans = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getHorseman();
 
-            if (!$verifyMaxUnity) {
-                return false;
+                    $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalHorsemans);
+
+                    if (!$verifyMaxUnity) {
+                        return false;
+                    }
+
+                    $kingdomArmy->setQuantity($totalHorsemans);
+                }
             }
-
-            $kingdom->getArmy()->setHorseman($totalHorseman);
         }
 
         if ($armyRecruitmentDTO->getBoat()) {
@@ -89,15 +111,21 @@ class ArmyRecruitment
                 return false;
             }
 
-            $totalBoats = $kingdom->getArmy()->getBoat() + $armyRecruitmentDTO->getBoat();
+            /** @var KingdomArmy $kingdomArmy */
+            foreach ($kingdomArmys as $kingdomArmy) {
 
-            $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalBoats);
+                if ($kingdomArmy->getArmy()->getId() === Army::BOAT_ID) {
+                    $totalBoats = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getBoat();
 
-            if (!$verifyMaxUnity) {
-                return false;
+                    $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalBoats);
+
+                    if (!$verifyMaxUnity) {
+                        return false;
+                    }
+
+                    $kingdomArmy->setQuantity($totalBoats);
+                }
             }
-
-            $kingdom->getArmy()->setBoat($totalBoats);
         }
 
         if (!$armyRecruitmentDTO->getSoldier() &&

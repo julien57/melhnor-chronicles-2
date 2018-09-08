@@ -103,16 +103,17 @@ class Kingdom
     private $kingdomResources;
 
     /**
-     * @var Army|null
+     * @var ArrayCollection
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\Army", mappedBy="kingdom", cascade={"remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\KingdomArmy", mappedBy="kingdom", cascade={"remove"})
      */
-    private $army;
+    private $kingdomArmys;
 
     public function __construct()
     {
         $this->kingdomResources = new ArrayCollection();
         $this->kingdomBuildings = new ArrayCollection();
+        $this->kingdomArmys = new ArrayCollection();
     }
 
     /**
@@ -228,19 +229,19 @@ class Kingdom
     }
 
     /**
-     * @return Army|null
+     * @return ArrayCollection
      */
-    public function getArmy(): ?Army
+    public function getKingdomArmys(): ArrayCollection
     {
-        return $this->army;
+        return $this->kingdomArmys;
     }
 
     /**
-     * @param Army|null $army
+     * @param ArrayCollection $kingdomArmys
      */
-    public function setArmy(?Army $army): void
+    public function setKingdomArmys(ArrayCollection $kingdomArmys): void
     {
-        $this->army = $army;
+        $this->kingdomArmys = $kingdomArmys;
     }
 
     /**

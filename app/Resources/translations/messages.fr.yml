@@ -126,9 +126,10 @@ title:
     soldiers: Soldats
     archers: Archers
     horseman: Cavaliers
-    boat: Navires de transport
+    boat: Navires de guerre
     state: Etat
     online: En ligne
+    battle: Bataille
 
 message:
     population-gain: La population a augmenté de %number% habitants.
@@ -201,6 +202,7 @@ description:
     tos: Vous devez lire les conditions générales d'utilisation avant de vosu inscrire
     write_message: Ecrire un message à un autre joueur
     ranking: Le classement des joueurs en fonction de la population
+    battle: Etes-vous prêt à vous lancer dans un guerre ? les pertes entre les 2 camps vont être importantes
 
 error:
     dangerous-way: Vous avez emprunté un chemin bien trop dangereux !

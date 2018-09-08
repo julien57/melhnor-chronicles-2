@@ -38,14 +38,10 @@
                         </div>
                         {{ 'title.army'|trans }}
                         <div class="panel-item__summary">
-                            {{ 'title.soldiers'|trans }} : {{ app.user.kingdom.army.soldier }}
-                            <br>
-                            {{ 'title.archers'|trans }} : {{ app.user.kingdom.army.archer }}
-                            <br>
-                            {{ 'title.horseman'|trans }} : {{ app.user.kingdom.army.horseman }}
-                            <br>
-                            {{ 'title.boat'|trans }} : {{ app.user.kingdom.army.boat }}
-                            <br>
+                            {% for kingdomArmy in kingdomArmys %}
+                                {{ kingdomArmy.army.name }} : {{ kingdomArmy.quantity }}
+                                <br>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
