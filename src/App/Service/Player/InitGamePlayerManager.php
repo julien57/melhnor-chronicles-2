@@ -4,10 +4,12 @@ namespace App\Service\Player;
 
 use App\Entity\Army;
 use App\Entity\Kingdom;
+use App\Entity\KingdomArmy;
 use App\Entity\KingdomResource;
 use App\Entity\Player;
 use App\Entity\Resource;
 use App\Model\CreatePlayerDTO;
+use App\Repository\KingdomRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -53,16 +55,28 @@ class InitGamePlayerManager
     {
         $kingdom = Kingdom::initKingdom($createPlayerDTO);
         $player = Player::initPlayer($createPlayerDTO, $kingdom);
-        $army = Army::initArmy($kingdom);
+
+        $this->initArmy($kingdom, Army::SOLDIER_ID);
+        $this->initArmy($kingdom, Army::ARCHER_ID);
+        $this->initArmy($kingdom, Army::HORSEMAN_ID);
+        $this->initArmy($kingdom, Army::BOAT_ID);
 
         $this->em->persist($kingdom);
         $this->em->persist($player);
-        $this->em->persist($army);
         $this->em->flush();
 
         $this->session->getFlashBag()->add('notice', $this->translator->trans('messages.service-init-player-welcome', [], 'game'));
 
         return new RedirectResponse($this->router->generate('game_security_login'));
+    }
+
+    public function initArmy(Kingdom $kingdom, $armyId)
+    {
+        $army = $this->em->getRepository(Army::class)->find($armyId);
+        $initKingdomArmy = KingdomArmy::initKingdomArmy($kingdom, $army);
+
+        $this->em->persist($initKingdomArmy);
+        $this->em->flush();
     }
 
     /**
@@ -93,11 +107,6 @@ class InitGamePlayerManager
         $this->em->persist($initKingdomStone);
 
         $this->em->flush();
-    }
-
-    public function initArmy()
-    {
-        $army = new Army();
     }
 
     /**

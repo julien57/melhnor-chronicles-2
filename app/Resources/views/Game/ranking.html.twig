@@ -26,6 +26,7 @@
             </thead>
             <tbody>
             {% for key,player in players %}
+                {%  if player.username != 'admin' %}
                 <tr>
                     <th scope="row" class="features-p">{{ key+1 }}</th>
                     <td class="features-p">{{ player.username }}</td>
@@ -39,6 +40,7 @@
                         {% endif %}
                     </td>
                 </tr>
+                    {%  endif %}
             {% endfor %}
             </tbody>
         </table>

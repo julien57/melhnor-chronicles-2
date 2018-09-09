@@ -379,6 +379,7 @@ class Player implements UserInterface
         $player->mail = $createPlayerDTO->getMail();
         $player->avatar = $createPlayerDTO->getAvatar();
         $player->roles = ['ROLE_PLAYER'];
+        $player->isOnline = true;
         $player->kingdom = $kingdom;
 
         return $player;

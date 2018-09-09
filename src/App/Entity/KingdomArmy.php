@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class KingdomArmy
 {
+    const START_ARMY_NUMBER = 0;
+
     /**
      * @var int
      *
@@ -38,7 +40,7 @@ class KingdomArmy
     /**
      * @var Kingdom
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\Kingdom", inversedBy="kingdomArmys")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Kingdom", inversedBy="kingdomArmys", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $kingdom;
@@ -105,5 +107,15 @@ class KingdomArmy
     public function setKingdom(Kingdom $kingdom): void
     {
         $this->kingdom = $kingdom;
+    }
+
+    public static function initKingdomArmy(Kingdom $kingdom, Army $army): self
+    {
+        $kingdomArmy = new self();
+        $kingdomArmy->setQuantity(self::START_ARMY_NUMBER);
+        $kingdomArmy->setArmy($army);
+        $kingdomArmy->kingdom = $kingdom;
+
+        return $kingdomArmy;
     }
 }

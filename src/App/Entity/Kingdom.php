@@ -105,7 +105,7 @@ class Kingdom
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToOne(targetEntity="App\Entity\KingdomArmy", mappedBy="kingdom", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\KingdomArmy", mappedBy="kingdom", cascade={"remove"})
      */
     private $kingdomArmys;
 

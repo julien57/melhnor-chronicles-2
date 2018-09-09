@@ -13,8 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Army
 {
-    const START_ARMY_NUMBER = 0;
-
     const SOLDIER_ID = 1;
 
     const ARCHER_ID = 2;
