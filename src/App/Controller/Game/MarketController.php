@@ -3,6 +3,8 @@
 namespace App\Controller\Game;
 
 use App\Entity\Market;
+use App\Entity\Message;
+use App\Entity\Player;
 use App\Form\SaleResourceType;
 use App\Model\SaleResourceDTO;
 use App\Service\Market\PurchaseResourceManager;
@@ -89,8 +91,13 @@ class MarketController extends Controller
         // Process at transaction
         $this->purchaseResourceManager->processTransaction($market, $buyer);
 
+        $kingdomSaler = $market->getKingdomResource()->getKingdom();
+        $saler = $this->em->getRepository(Player::class)->findByKingdom($kingdomSaler);
+        $messageSaler = Message::createAutomaticMessage($market, $saler, $buyer);
+
         // When the the transaction is perform, remove the advert
         $this->em->remove($market);
+        $this->em->persist($messageSaler);
         $this->em->flush();
 
         $resourceName = $market->getKingdomResource()->getResource()->getName();

@@ -120,7 +120,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
      * You may throw an AuthenticationException if you wish. If you return
      * null, then a UsernameNotFoundException is thrown for you.
      *
-     * @param mixed $credentials
+     * @param mixed                 $credentials
      * @param UserProviderInterface $userProvider
      *
      * @throws AuthenticationException
@@ -143,7 +143,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
      *
      * The *credentials* are the return value from getCredentials()
      *
-     * @param mixed $credentials
+     * @param mixed         $credentials
      * @param UserInterface $user
      *
      * @return bool
@@ -175,6 +175,7 @@ class LoginFormAuthentificator extends AbstractFormLoginAuthenticator
         }
         $token->getUser()->setLastConnection(new \DateTime());
         $this->em->flush();
+
         return new RedirectResponse($targetPath);
     }
 }

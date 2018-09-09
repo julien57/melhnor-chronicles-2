@@ -28,6 +28,13 @@ class Region
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="picture", type="string", length=255)
+     */
+    private $picture;
+
+    /**
      * @var string|null
      *
      * @ORM\Column(name="description", type="text")
@@ -41,9 +48,18 @@ class Region
      */
     private $buildings;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="KingdomArmy", mappedBy="region", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $armysRegion;
+
     public function __construct()
     {
         $this->buildings = new ArrayCollection();
+        $this->armysRegion = new ArrayCollection();
     }
 
     /**
@@ -118,5 +134,21 @@ class Region
     public function getBuildings()
     {
         return $this->buildings;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPicture(): string
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     */
+    public function setPicture(string $picture): void
+    {
+        $this->picture = $picture;
     }
 }

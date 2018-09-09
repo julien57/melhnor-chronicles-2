@@ -14,6 +14,17 @@ html, body {
     text-rendering: optimizeLegibility;
 }
 
+#map-icon {
+    width: 20px;
+    height: 20px;
+    color: white;
+    margin-top: 15px;
+}
+
+#menu-map-world {
+    display: flex;
+}
+
 section {
     padding: 3% 1%;
 }
@@ -99,6 +110,12 @@ input:focus, textarea:focus, button:focus {
     }
 }
 
+#throne-interface {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
 .building-icon {
     margin-bottom: 30px;
     display: flex;
@@ -178,7 +195,6 @@ input:focus, textarea:focus, button:focus {
 
 #map_world {
     width: 80%;
-    border: 5px solid darksalmon;
     margin-bottom: 20px;
 }
 
@@ -189,6 +205,140 @@ input:focus, textarea:focus, button:focus {
 #monster-404 {
     border-radius: 7px;
     width: 15%;
+}
+
+@keyframes anim-cloud {
+    0% {
+        transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+        -moz-transform: translateX(-100%);
+        -o-transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(115%) rotate(55deg);
+        -webkit-transform: translateX(115%) rotate(55deg);
+        -moz-transform: translateX(115%) rotate(55deg);
+        -o-transform: translateX(115%) rotate(55deg);
+    }
+}
+
+@keyframes anim-monster {
+    0% {
+        transform: rotate(5deg);
+        -webkit-transform: rotate(5deg);
+        -moz-transform: rotate(5deg);
+        -o-transform: rotate(5deg);
+    }
+    50% {
+        transform: rotate(20deg);
+        -webkit-transform: rotate(20deg);
+        -moz-transform: rotate(20deg);
+        -o-transform: rotate(20deg);
+    }
+    100% {
+        transform: rotate(5deg);
+        -webkit-transform: rotate(5deg);
+        -moz-transform: rotate(5deg);
+        -o-transform: rotate(5deg);
+    }
+}
+
+@keyframes anim-black-cloud {
+    0% {
+        width: 90px;
+    }
+    50% {
+        width: 110px;
+    }
+    100% {
+        width: 90px;
+    }
+}
+
+@keyframes anim-whirlwind {
+    0% {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+    }
+}
+
+#cloud-map {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    z-index: 999;
+    animation: anim-cloud 60s infinite;
+    -webkit-animation: anim-cloud 60s infinite;
+    -moz-animation: anim-cloud 60s infinite;
+    -o-animation: anim-cloud 60s infinite;
+    opacity: 0.5;
+}
+
+#monster-face {
+    animation: anim-monster 5s infinite;
+    -webkit-animation: anim-monster 5s infinite;
+    -moz-animation: anim-monster 5s infinite;
+    -o-animation: anim-monster 5s infinite;
+}
+
+#black-cloud {
+    animation: anim-black-cloud 5s infinite;
+    -webkit-animation: anim-black-cloud 5s infinite;
+    -moz-animation: anim-black-cloud 5s infinite;
+    -o-animation: anim-black-cloud 5s infinite;
+}
+
+#whirlwind {
+    animation: anim-whirlwind 10s infinite;
+    -webkit-animation: anim-whirlwind 10s infinite;
+    -moz-animation: anim-whirlwind 10s infinite;
+    -o-animation: anim-whirlwind 10s infinite;
+    position: absolute;
+    top: 685px;
+    left: 240px;
+    opacity: 0.2;
+}
+
+#button-close {
+    margin-top: 25px;
+    margin-left: 350px;
+    cursor: pointer;
+}
+
+.avatar_recruitment {
+    width: 100%;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+}
+
+.alert-ok {
+    width: 40%;
+    height: 100px;
+    background: url('../img/alert-ok.jpg') no-repeat;
+    background-size: contain;
+    color: green;
+}
+
+.alert-notok {
+    width: 40%;
+    height: 100px;
+    background: url('../img/alert-danger.jpg') no-repeat;
+    background-size: contain;
+    color: firebrick;
+}
+
+.navbar-nav img {
+    width: 15px;
+    color: red;
 }
 
 @media screen and (max-width: 1024px) {
@@ -214,6 +364,14 @@ input:focus, textarea:focus, button:focus {
     .building-icon {
         text-align: center;
     }
+
+    #menu-map-world {
+        display: none;
+    }
+
+    .navbar-logo {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -224,6 +382,11 @@ input:focus, textarea:focus, button:focus {
 
     #img_avatars {
         background-position: center;
+    }
+
+    #dark-window {
+        width: 80%;
+        text-align: center;
     }
 
     #form2 #map_world {
@@ -263,6 +426,23 @@ input:focus, textarea:focus, button:focus {
     .messages {
         padding-top: 10px;
         width: 90%;
+    }
+
+    #throne-interface {
+        justify-content: center;
+    }
+
+    #recruitment {
+        display: flex;
+    }
+
+    .avatar_recruitment {
+        width: 50%;
+    }
+
+    #form-recruitment {
+        width: 30%;
+        margin: auto;
     }
 }
 
@@ -314,6 +494,16 @@ input:focus, textarea:focus, button:focus {
 
         .message-body {
             height: 40%;
+        }
+    }
+
+    #recruitment {
+        flex-wrap: wrap;
+        justify-content: center;
+
+        .avatar_recruitment {
+            width: 75%;
+            margin-top: 15px;
         }
     }
 }

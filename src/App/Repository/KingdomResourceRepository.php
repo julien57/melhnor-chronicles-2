@@ -20,6 +20,20 @@ class KingdomResourceRepository extends EntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function getResourceByisFood(Kingdom $kingdom)
+    {
+        $qb = $this
+            ->createQueryBuilder('kr')
+            ->join('kr.resource', 'r')
+            ->addSelect('r')
+            ->where('kr.kingdom = :kingdom')
+            ->setParameter('kingdom', $kingdom)
+            ->orderBy('r.isFood', 'DESC')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function getKingdomExistingResource($kingdom, $resource)
     {
         $qb = $this

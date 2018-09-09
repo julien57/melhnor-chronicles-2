@@ -158,4 +158,19 @@ class Message
 
         return $messaging;
     }
+
+    public static function createAutomaticMessage(Market $market, Player $saler, Player $buyer)
+    {
+        $resourceName = $market->getKingdomResource()->getResource()->getName();
+        $quantity = $market->getQuantity();
+
+        $messaging = new self();
+
+        $messaging->recipient = $saler;
+        $messaging->setSubject('Ressource vendu au marché !');
+        $messaging->sender = $buyer;
+        $messaging->message = 'Mon seigneur, je viens d\'acheter une quantité de '.$quantity.' de '.$resourceName.' provenant de votre royaume.';
+
+        return $messaging;
+    }
 }

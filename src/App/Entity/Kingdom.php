@@ -19,6 +19,14 @@ class Kingdom
 
     const GOLD_STARTER_NUMBER = 5000;
 
+    const LOCATION_STARTER_NUMBER = 8;
+
+    const SOLDIER_PRICE_UNITY = 100;
+
+    const HORSEMAN_PRICE_UNITY = 100;
+
+    const BOAT_PRICE_UNITY = 200;
+
     /**
      * @var int
      *
@@ -64,6 +72,13 @@ class Kingdom
     private $gold = self::GOLD_STARTER_NUMBER;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="location_buildings", type="integer")
+     */
+    private $locationBuildings = self::LOCATION_STARTER_NUMBER;
+
+    /**
      * @var Region
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\Region")
@@ -87,10 +102,18 @@ class Kingdom
      */
     private $kingdomResources;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\KingdomArmy", mappedBy="kingdom", cascade={"remove"})
+     */
+    private $kingdomArmys;
+
     public function __construct()
     {
         $this->kingdomResources = new ArrayCollection();
         $this->kingdomBuildings = new ArrayCollection();
+        $this->kingdomArmys = new ArrayCollection();
     }
 
     /**
@@ -206,6 +229,22 @@ class Kingdom
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getKingdomArmys(): ArrayCollection
+    {
+        return $this->kingdomArmys;
+    }
+
+    /**
+     * @param ArrayCollection $kingdomArmys
+     */
+    public function setKingdomArmys(ArrayCollection $kingdomArmys): void
+    {
+        $this->kingdomArmys = $kingdomArmys;
+    }
+
+    /**
      * Add kingdomBuilding
      *
      * @param KingdomBuilding $kingdomBuilding
@@ -269,5 +308,21 @@ class Kingdom
         }
 
         return $filteredKingdomResources->first();
+    }
+
+    /**
+     * @return int
+     */
+    public function getLocationBuildings(): int
+    {
+        return $this->locationBuildings;
+    }
+
+    /**
+     * @param int $locationBuildings
+     */
+    public function setLocationBuildings(int $locationBuildings): void
+    {
+        $this->locationBuildings = $locationBuildings;
     }
 }

@@ -41,8 +41,16 @@ services:
     App\Service\Player\InitGamePlayerManager:
         public: true
 
+    App\Service\Recruitment\ArmyRecruitment:
+        public: false
+
     app.doctrine.player_creation_listener:
         class: App\Doctrine\PlayerCreationListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+
+    app.doctrine.activity_player_listener:
+        class: App\Doctrine\ActivityPlayerListener
         tags:
             - { name: doctrine.event_listener, event: postPersist }
 

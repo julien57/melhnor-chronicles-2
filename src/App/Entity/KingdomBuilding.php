@@ -15,6 +15,16 @@ class KingdomBuilding
 
     const LEVEL_BUILDING_START_BUILD = 1;
 
+    const BUILDING_RECRUITMENT_SOLDIER = 21;
+
+    const BUILDING_RECRUITMENT_ARCHERY = 22;
+
+    const BUILDING_RECRUITMENT_STABLE = 15;
+
+    const BUILDING_RECRUITMENT_BOAT = 23;
+
+    const MAX_UNITY_START = 10;
+
     /**
      * @var int
      *
@@ -30,6 +40,13 @@ class KingdomBuilding
      * @ORM\Column(name="level", type="integer")
      */
     private $level = self::LEVEL_BUILDING_NOT_BUILD;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="max_unity_army", type="integer")
+     */
+    private $maxUnityArmy = self::MAX_UNITY_START;
 
     /**
      * @var Kingdom
@@ -99,6 +116,22 @@ class KingdomBuilding
     public function setBuilding(Building $building): void
     {
         $this->building = $building;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaxUnityArmy(): int
+    {
+        return $this->maxUnityArmy;
+    }
+
+    /**
+     * @param int $maxUnityArmy
+     */
+    public function setMaxUnityArmy(int $maxUnityArmy): void
+    {
+        $this->maxUnityArmy = $maxUnityArmy;
     }
 
     public static function initKingdomBuilding(BuildBuildingDTO $buildBuildingDTO, Kingdom $kingdom)
