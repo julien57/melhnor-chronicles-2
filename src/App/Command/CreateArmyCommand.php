@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\Army;
+use App\Entity\Avatar;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,11 +40,40 @@ class CreateArmyCommand extends Command
             '',
         ]);
 
-        $armys = ['Soldats', 'Archers', 'Cavaliers', 'Navires de guerre'];
+        // Create Army
+
+        $armys = [
+            [
+                'name' => 'Soldats',
+                'img' => 'horde62.jpg',
+                'power' => 7,
+                'life' => 10
+            ],
+            [
+                'name' => 'Archers',
+                'img' => 'redempteurs15.jpg',
+                'power' => 5,
+                'life' => 8
+            ],
+            [
+                'name' => 'Cavaliers',
+                'img' => 'horde58.jpg',
+                'power' => 10,
+                'life' => 15
+            ],
+            [
+                'name' => 'Navires de guerre',
+                'img' => 'transport.jpg',
+                'power' => 13,
+                'life' => 20
+            ]
+        ];
 
         foreach ($armys as $armyConfig) {
             $army = new Army();
-            $army->setName($armyConfig);
+            $army->setName($armyConfig['name']);
+            $army->setImg($armyConfig['img']);
+            $army->setPower($armyConfig['power']);
 
             $this->em->persist($army);
         }

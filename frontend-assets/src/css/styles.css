@@ -2991,8 +2991,8 @@ h2, h3 {
 .features-item .item-name-caption, .gallery-item .item-name-caption, .gallery-item .item-price-caption {
   border-radius: 5px;
   color: white;
-  font-size: 80%;
-  font-weight: 400;
+  font-size: 15%;
+  font-weight: 100;
   padding: 10px;
   position: absolute;
   z-index: 2; }
@@ -3853,7 +3853,7 @@ h3 {
   .modal #modal-price-tag {
     border: none;
     cursor: auto;
-    font-size: 180%;
+    font-size: 40%;
     color: #ecd19a;
     text-shadow: 0px 0px 6px #000000; }
 

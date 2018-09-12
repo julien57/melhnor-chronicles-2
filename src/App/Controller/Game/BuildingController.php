@@ -74,8 +74,6 @@ class BuildingController extends Controller
      */
     public function destroyAction(KingdomBuilding $id)
     {
-        dump($id);
-        die();
         $kingdom = $this->getUser()->getKingdom();
 
         if ($kingdom !== $kingdomBuilding->getKingdom()) {

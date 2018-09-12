@@ -173,4 +173,16 @@ class Message
 
         return $messaging;
     }
+
+    public static function messageForWinner(Player $chiefArmy, Player $player, Event $event)
+    {
+        $messaging = new self();
+
+        $messaging->sender = $chiefArmy;
+        $messaging->recipient = $player;
+        $messaging->setSubject($event->getName());
+        $messaging->message = 'Je nous félicite mon seigneur, ' . $event->getName() . ' est enfin mort et nous avons remporté la plus grosse partie du butin : 10 000 pièces d\'or !';
+
+        return $messaging;
+    }
 }

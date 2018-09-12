@@ -18,4 +18,12 @@ class BattleController extends Controller
 
         return $this->render('Game/battle.html.twig', ['players' => $players]);
     }
+
+    /**
+     * @Route("/strategie/bataille/{id}", name="game_battle_strategy")
+     */
+    public function strategyBattleAction(Player $defender)
+    {
+        
+    }
 }

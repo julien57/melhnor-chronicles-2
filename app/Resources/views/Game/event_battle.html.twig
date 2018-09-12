@@ -1,0 +1,33 @@
+{% extends "game_layout.html.twig" %}
+
+{% block title %}
+    {{ 'title.battle'|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ 'description.battle'|trans }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+
+        <h2>Déroulement de la bataille</h2>
+
+        <div class="row">
+            <div class="col-md-3">
+                <img src="{{ asset('front/img/avatars/') }}{{ player.avatar.idavatar }}.jpg" id="showcase-img" class="img-thumbnail" alt="Avatar joueur">
+            </div>
+            <div class="col-md-5">
+                {% for historic in historicBattle %}
+                    <p class="panel-item__summary">{{ historic|raw }}</p>
+                {% endfor %}
+            </div>
+            <div class="col-md-3">
+                <img src="{{ asset('front/img/event/') }}{{ event.img }}" id="showcase-img" class="img-thumbnail" alt="avatar event">
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

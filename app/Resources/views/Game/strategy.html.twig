@@ -1,0 +1,86 @@
+{% extends "game_layout.html.twig" %}
+
+{% block title %}
+    {{ 'title.battle'|trans }}
+{% endblock %}
+
+{% block description %}
+    {{ 'description.battle'|trans }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <h2>Stratégie</h2>
+
+        <div class="col-md-12">
+            {{ form_start(form, {'attr': {'class': 'contact-form', 'id': 'form-recruitment'}}) }}
+
+            <div class="row">
+                <div class="col-md-3">
+                    {% if form.soldier is defined %}
+                        {{ form_label(form.soldier, 'Nombre de soldats') }}
+                        {% for kingdomArmy in kingdomArmys %}
+                            {% if kingdomArmy.army.id is constant('App\\Entity\\Army::SOLDIER_ID') %}
+                                <p class="panel-item__summary">{{ kingdomArmy.quantity }} disponibles</p>
+                            {% endif %}
+                        {% endfor %}
+
+                        {{ form_widget(form.soldier, {'attr': {'class': 'form-control'}}) }}
+                    {% endif %}
+                </div>
+
+                <div class="col-md-3">
+                    {% if form.archer is defined %}
+                        {{ form_label(form.archer, 'Nombre d\'archers') }}
+                        {% for kingdomArmy in kingdomArmys %}
+                            {% if kingdomArmy.army.id is constant('App\\Entity\\Army::ARCHER_ID') %}
+                                <p class="panel-item__summary">{{ kingdomArmy.quantity }} disponibles</p>
+                            {% endif %}
+                        {% endfor %}
+
+                        {{ form_widget(form.archer, {'attr': {'class': 'form-control'}}) }}
+                    {% endif %}
+                </div>
+
+                <div class="col-md-3">
+                    {% if form.horseman is defined %}
+                        {{ form_label(form.horseman, 'Nombre de cavaliers') }}
+                        {% for kingdomArmy in kingdomArmys %}
+                            {% if kingdomArmy.army.id is constant('App\\Entity\\Army::HORSEMAN_ID') %}
+                                <p class="panel-item__summary">{{ kingdomArmy.quantity }} disponibles</p>
+                            {% endif %}
+                        {% endfor %}
+
+                        {{ form_widget(form.horseman, {'attr': {'class': 'form-control'}}) }}
+                    {% endif %}
+                </div>
+
+                <div class="col-md-3">
+                    {% if form.boat is defined %}
+                        {{ form_label(form.boat, 'Nombre de navires de guerre') }}
+                        {% for kingdomArmy in kingdomArmys %}
+                            {% if kingdomArmy.army.id is constant('App\\Entity\\Army::BOAT_ID') %}
+                                <p class="panel-item__summary">{{ kingdomArmy.quantity }} disponibles</p>
+                            {% endif %}
+                        {% endfor %}
+
+                        {{ form_widget(form.boat, {'attr': {'class': 'form-control'}}) }}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="button-submit"></div>
+                    <button type="submit" class="btn">{{ 'button.fight'|trans }} (5 PA)</button>
+                </div>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Controller\Game;
 
 use App\Entity\KingdomArmy;
+use App\Entity\KingdomEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +22,11 @@ class ThroneController extends Controller
     {
         $kingdom = $this->getUser()->getKingdom();
         $kingdomArmys = $em->getRepository(KingdomArmy::class)->findByKingdom($kingdom);
+        $kingdomEvents = $em->getRepository(KingdomEvent::class)->findBy(['kingdom' => $kingdom]);
 
-        return $this->render('Game/throne.html.twig', ['kingdomArmys' => $kingdomArmys]);
+        return $this->render('Game/throne.html.twig', [
+            'kingdomArmys' => $kingdomArmys,
+            'kingdomEvents' => $kingdomEvents
+        ]);
     }
 }

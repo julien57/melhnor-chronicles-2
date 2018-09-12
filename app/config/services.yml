@@ -49,11 +49,6 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postPersist }
 
-    app.doctrine.activity_player_listener:
-        class: App\Doctrine\ActivityPlayerListener
-        tags:
-            - { name: doctrine.event_listener, event: postPersist }
-
     App\Service\Market\SaleResourceManager:
         public: true
 
