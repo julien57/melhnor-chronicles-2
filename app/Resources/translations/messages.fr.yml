@@ -87,6 +87,7 @@ menu:
     messaging: Messagerie
     ranking: Classement
     army: Armée
+    events: Events
 
 title:
     mc2: Melhnor Chronicles 2
@@ -130,6 +131,7 @@ title:
     state: Etat
     online: En ligne
     battle: Bataille
+    events: Events
 
 message:
     population-gain: La population a augmenté de %number% habitants.
@@ -147,6 +149,9 @@ button:
     buy: Acheter
     write-message: Ecrire un message
     send: Répondre
+    details: Détails
+    participate: Participer
+    fight: Combattre
 
 messaging:
     title: Messagerie
@@ -203,6 +208,7 @@ description:
     write_message: Ecrire un message à un autre joueur
     ranking: Le classement des joueurs en fonction de la population
     battle: Etes-vous prêt à vous lancer dans un guerre ? les pertes entre les 2 camps vont être importantes
+    event: Participez aux events pour remporter des ressources ou autres...
 
 error:
     dangerous-way: Vous avez emprunté un chemin bien trop dangereux !

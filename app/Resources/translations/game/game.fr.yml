@@ -10,6 +10,11 @@ messages:
     message-sent: Message bien envoyé !
     unavailable-action-points: Pas assez de points d'action !
     unavailable-resource-kingdom: La ressource sélectionnée n'existe pas ou la quantité est trop élevée.
+    unavailable-ap: Vous n'avez pas assez de points d'action pour y participer.
+    already-participate: Vous participez déjà à cet event !
+    unaivalable-army: Le nombre d'armée est trop élevé.
+    unaivalable-participation: Vous devez d'abord participer à un évènement.
+    available-ap: Vous participez maintenant à l'évènement %name%
     add-resource-market: Ressource ajoutée au marché !
     service-leveling-unavailable-resource: Ressources manquantes !
     service-leveling-increased-level: Niveau du bâtiment augmenté !

@@ -45,6 +45,20 @@ class Army
     private $img;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="power", type="integer")
+     */
+    private $power;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="life", type="integer")
+     */
+    private $life;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="KingdomArmy", mappedBy="army", fetch="EXTRA_LAZY")
@@ -103,6 +117,38 @@ class Army
     public function setImg(string $img): void
     {
         $this->img = $img;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPower(): int
+    {
+        return $this->power;
+    }
+
+    /**
+     * @param int $power
+     */
+    public function setPower(int $power): void
+    {
+        $this->power = $power;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLife(): int
+    {
+        return $this->life;
+    }
+
+    /**
+     * @param int $life
+     */
+    public function setLife(int $life): void
+    {
+        $this->life = $life;
     }
 
     /**

@@ -37,7 +37,7 @@
                             <td class="features-p">{{ player.username }}</td>
                             <td class="features-p">{{ player.kingdom.name }}</td>
                             <td class="features-p">{{ player.kingdom.region.id }} - {{ player.kingdom.region.name }}</td>
-                            <td class="features-p"><a href="#" class="btn">Attaquer</a></td>
+                            <td class="features-p"><a href="/strategie/bataille/{{ player.id }}" class="btn">Attaquer</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>

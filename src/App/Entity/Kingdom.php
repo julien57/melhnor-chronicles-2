@@ -103,6 +103,13 @@ class Kingdom
     private $kingdomResources;
 
     /**
+     * @var KingdomEvent
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\KingdomEvent", mappedBy="kingdom")
+     */
+    private $kingdomEvents;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="App\Entity\KingdomArmy", mappedBy="kingdom", cascade={"remove"})
@@ -114,6 +121,7 @@ class Kingdom
         $this->kingdomResources = new ArrayCollection();
         $this->kingdomBuildings = new ArrayCollection();
         $this->kingdomArmys = new ArrayCollection();
+        $this->kingdomEvents = new ArrayCollection();
     }
 
     /**
@@ -242,6 +250,22 @@ class Kingdom
     public function setKingdomArmys(ArrayCollection $kingdomArmys): void
     {
         $this->kingdomArmys = $kingdomArmys;
+    }
+
+    /**
+     * @return KingdomEvent
+     */
+    public function getKingdomEvents(): KingdomEvent
+    {
+        return $this->kingdomEvents;
+    }
+
+    /**
+     * @param KingdomEvent $kingdomEvents
+     */
+    public function setKingdomEvents(KingdomEvent $kingdomEvents): void
+    {
+        $this->kingdomEvents = $kingdomEvents;
     }
 
     /**

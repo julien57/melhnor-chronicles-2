@@ -86,4 +86,14 @@ class PlayerRepository extends EntityRepository
 
         return $qb->getQuery()->getSingleScalarResult();
     }
+
+    public function getChiefArmy()
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.username = :username')
+            ->setParameter('username', 'chef des armées')
+            ->getQuery();
+
+        return $qb->getOneOrNullResult();
+    }
 }

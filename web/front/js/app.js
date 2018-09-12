@@ -29,17 +29,24 @@ $(document).ready(function() {
     /////////////////////////////////////
     //      MODAL WINDOW GALLERY       //
     /////////////////////////////////////
-    $('.gallery-item').on('click', function() {
+    $('.link-participate').hide();
+
+    $('.gallery-item').on('click', function(e) {
+        e.preventDefault();
         var label = $('#myModalLabel');
         var img = $('#showcase-img');
         var price = $('#modal-price-tag');
         var body = $('#modalBody');
         var dataModel = $(this).find('img');
         var modelfeats = $('#model-feats').find('li');
+        var link = $('.pattern a');
+        var linkPart = $(this).find('.link-participate');
 
-        label.text('Dragonic: ' + $(this).find('.item-name-caption').text());
+        label.text($(this).find('.item-name-caption').text());
         price.text($(this).find('.item-price-caption').text());
+
         img.attr('src', dataModel.attr('src'));
+        link.attr('href', linkPart.text());
     });
 
     $('div.thumbnail-50').on('click', function(){

@@ -113,7 +113,7 @@
                             <img src="{{ asset('front/img/transport.jpg') }}" class="avatar_recruitment">
                         </div>
                         <div class="col-md-8">
-                            <p class="panel-item__summary">BATEAUX DE TRANSPORT</p>
+                            <p class="panel-item__summary">NAVIRES DE GUERRE</p>
                             <p class="panel-item__summary">
                                 4 Habitant<br>
                                 1000 Bois<br>
@@ -170,7 +170,7 @@
                         {% endif %}
 
                         {% if form.boat is defined %}
-                            {{ form_label(form.boat, 'Nombre de navires de transport') }}
+                            {{ form_label(form.boat, 'Nombre de navires de guerre') }}
 
                             {{ form_widget(form.boat, {'attr': {'class': 'form-control'}}) }}
                         {% endif %}

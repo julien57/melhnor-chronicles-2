@@ -17,7 +17,6 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">{{ 'title.position'|trans }}</th>
                     <th scope="col">{{ 'title.pseudo'|trans }}</th>
                     <th scope="col">{{ 'menu.kingdom'|trans }}</th>
                     <th scope="col">{{ 'title.population'|trans }}</th>
@@ -26,9 +25,8 @@
             </thead>
             <tbody>
             {% for key,player in players %}
-                {%  if player.username != 'admin' %}
+                {%  if player.id != 1 and player.id != 0 %}
                 <tr>
-                    <th scope="row" class="features-p">{{ key+1 }}</th>
                     <td class="features-p">{{ player.username }}</td>
                     <td class="features-p">{{ player.kingdom.name }}</td>
                     <td class="features-p">{{ player.kingdom.population }}</td>

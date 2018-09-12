@@ -45,6 +45,29 @@
                         </div>
                     </div>
                 </div>
+                <h4>Events en cours :</h4>
+                <ul>
+                    {% if kingdomEvents is not empty %}
+                        {% for kingdomEvent in kingdomEvents %}
+                            <div class="row">
+                                <li class="panel-item__summary">{{ kingdomEvent.event.name }} ({{ kingdomEvent.event.difficulty }}) : {{ kingdomEvent.damage }} points infligés
+                                </li>
+                                <div class="col-md-8">
+                                    <a href="/strategie/event/{{ kingdomEvent.event.id }}" class="button-game">
+                                        <span class="button-game-bg-left"></span>
+                                        <span class="button-game-bg-mid">
+                                    <span>Préparer une attaque</span>
+                                    </span>
+                                        <span class="button-game-bg-right"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="panel-item__summary">Aucune participation à un évènement.</p>
+                    {% endif %}
+                </ul>
+
             </div>
             <div class="col-md-5">
                 <h3>{{ 'title.region'|trans }}</h3>
