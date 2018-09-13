@@ -26,7 +26,7 @@ class ThroneController extends Controller
 
         return $this->render('Game/throne.html.twig', [
             'kingdomArmys' => $kingdomArmys,
-            'kingdomEvents' => $kingdomEvents
+            'kingdomEvents' => $kingdomEvents,
         ]);
     }
 }

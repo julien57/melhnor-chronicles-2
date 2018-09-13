@@ -37,7 +37,6 @@ class ArmyRecruitment
 
             /** @var KingdomArmy $kingdomArmy */
             foreach ($kingdomArmys as $kingdomArmy) {
-
                 if ($kingdomArmy->getArmy()->getId() === Army::SOLDIER_ID) {
                     $totalSoldiers = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getSoldier();
 
@@ -62,7 +61,6 @@ class ArmyRecruitment
 
             /** @var KingdomArmy $kingdomArmy */
             foreach ($kingdomArmys as $kingdomArmy) {
-
                 if ($kingdomArmy->getArmy()->getId() === Army::ARCHER_ID) {
                     $totalArchers = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getArcher();
 
@@ -88,7 +86,6 @@ class ArmyRecruitment
 
             /** @var KingdomArmy $kingdomArmy */
             foreach ($kingdomArmys as $kingdomArmy) {
-
                 if ($kingdomArmy->getArmy()->getId() === Army::HORSEMAN_ID) {
                     $totalHorsemans = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getHorseman();
 
@@ -113,7 +110,6 @@ class ArmyRecruitment
 
             /** @var KingdomArmy $kingdomArmy */
             foreach ($kingdomArmys as $kingdomArmy) {
-
                 if ($kingdomArmy->getArmy()->getId() === Army::BOAT_ID) {
                     $totalBoats = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getBoat();
 

@@ -96,4 +96,18 @@ class PlayerRepository extends EntityRepository
 
         return $qb->getOneOrNullResult();
     }
+
+    public function allPlayersWithoutAdmin()
+    {
+        $query = $this
+            ->createQueryBuilder('p')
+            ->where('p.username != :admin')
+            ->setParameter('admin', 'admin')
+            ->andWhere('p.username != :chef')
+            ->setParameter('chef', 'chef des armées')
+            ->orderBy('p.username', 'DESC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

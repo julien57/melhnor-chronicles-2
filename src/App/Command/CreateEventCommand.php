@@ -3,7 +3,6 @@
 namespace App\Command;
 
 use App\Entity\Event;
-use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -66,7 +65,7 @@ class CreateEventCommand extends Command
                 'power' => self::DRAGON_EASY_POWER,
                 'flamethrowerAttack' => self::FLAMETHROWER_EASY_ATTACK,
                 'life' => self::DRAGON_EASY_LIFE,
-                'ap' => self::DRAGON_EASY_AP
+                'ap' => self::DRAGON_EASY_AP,
             ],
             [
                 'name' => 'Le dragon de l\'ombre',
@@ -79,7 +78,7 @@ class CreateEventCommand extends Command
                 'power' => self::DRAGON_NORMAL_POWER,
                 'flamethrowerAttack' => self::FLAMETHROWER_NORMAL_ATTACK,
                 'life' => self::DRAGON_NORMAL_LIFE,
-                'ap' => self::DRAGON_NORMAL_AP
+                'ap' => self::DRAGON_NORMAL_AP,
             ],
             [
                 'name' => 'Le dragon de l\'ombre',
@@ -92,8 +91,8 @@ class CreateEventCommand extends Command
                 'power' => self::DRAGON_HARD_POWER,
                 'flamethrowerAttack' => self::FLAMETHROWER_HARD_ATTACK,
                 'life' => self::DRAGON_HARD_LIFE,
-                'ap' => self::DRAGON_HARD_AP
-            ]
+                'ap' => self::DRAGON_HARD_AP,
+            ],
         ];
 
         foreach ($shadowDragons as $shadowDragon) {
@@ -111,7 +110,6 @@ class CreateEventCommand extends Command
             $this->em->persist($event);
             $this->em->flush();
         }
-
 
         $output->writeln('L\'évenement des dragons à bien été ajouté !');
     }
