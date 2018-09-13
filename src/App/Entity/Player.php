@@ -18,6 +18,8 @@ class Player implements UserInterface
 
     const ACTION_POINTS_FOR_PRODUCTION = 10;
 
+    const ACTION_POINTS_FOR_BATTLE = 10;
+
     /**
      * @var int
      *

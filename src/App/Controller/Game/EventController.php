@@ -100,6 +100,7 @@ class EventController extends Controller
                 'notice-danger',
                 $this->translator->trans('messages.unaivalable-participation', [], 'game')
             );
+
             return $this->redirectToRoute('game_event');
         }
 
@@ -109,12 +110,12 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($player->getActionPoints() < Event::DRAGON_PRICE_BATTLE) {
                 $this->addFlash(
                     'notice-danger',
                     $this->translator->trans('messages.unavailable-ap', [], 'game')
                 );
+
                 return $this->redirectToRoute('game_event_strategy', ['id' => $event->getId()]);
             }
 
@@ -125,6 +126,7 @@ class EventController extends Controller
                     'notice-danger',
                     $this->translator->trans('messages.unaivalable-army', [], 'game')
                 );
+
                 return $this->redirectToRoute('game_event_strategy', ['id' => $event->getId()]);
             }
 
@@ -137,14 +139,13 @@ class EventController extends Controller
             return $this->render('Game/event_battle.html.twig', [
                 'player' => $player,
                 'historicBattle' => $historicBattle,
-                'event' => $event
+                'event' => $event,
             ]);
         }
 
         return $this->render('Game/strategy.html.twig', [
             'kingdomArmys' => $kingdomArmys,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
-
 }

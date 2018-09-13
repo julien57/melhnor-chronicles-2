@@ -30,6 +30,7 @@ class ProductionResourcesManager
 
     /**
      * @param Player $player
+     *
      * @return array
      */
     public function processProduction(Player $player): array
@@ -38,22 +39,17 @@ class ProductionResourcesManager
 
         /** @var KingdomBuilding $kingdomBuilding */
         foreach ($kingdom->getKingdomBuildings() as $kingdomBuilding) {
-
             $buildingsResources = $this->em->getRepository(BuildingResource::class)->getBuildingsForResources($kingdomBuilding->getBuilding());
 
             /** @var BuildingResource $buildingResource */
             foreach ($buildingsResources as $buildingResource) {
-
                 if ($buildingResource->isRequired()) {
-
                     $this->requiredInProduction($kingdom, $buildingResource, $kingdomBuilding);
                 }
             }
 
             foreach ($buildingsResources as $buildingResource) {
-
                 if ($buildingResource->isProduction()) {
-
                     $this->producedInProduction($kingdom, $buildingResource);
                 }
             }
@@ -65,7 +61,7 @@ class ProductionResourcesManager
     }
 
     /**
-     * @param Kingdom $kingdom
+     * @param Kingdom          $kingdom
      * @param BuildingResource $buildingResource
      */
     private function producedInProduction(Kingdom $kingdom, BuildingResource $buildingResource)
@@ -78,6 +74,7 @@ class ProductionResourcesManager
 
         if (array_key_exists($buildingResource->getBuilding()->getId(), $this->buildingRequireResources)) {
             $requireResources = $this->requiredForProduceInProduction($kingdom, $buildingResource, $kingdomBuilding);
+
             return $requireResources;
         }
 
@@ -87,10 +84,8 @@ class ProductionResourcesManager
         );
 
         if (!$kingdomResource) {
-
             $this->createKingdomResource($resourceProduce, $kingdom, $resource);
         } else {
-
             $quantity = $kingdomResource->getQuantity();
             $totalQuantity = $quantity + $resourceProduce;
             $kingdomResource->setQuantity($totalQuantity);
@@ -100,9 +95,9 @@ class ProductionResourcesManager
     }
 
     /**
-     * @param Kingdom $kingdom
+     * @param Kingdom          $kingdom
      * @param BuildingResource $buildingResource
-     * @param KingdomBuilding $kingdomBuilding
+     * @param KingdomBuilding  $kingdomBuilding
      */
     private function requiredInProduction(Kingdom $kingdom, BuildingResource $buildingResource, KingdomBuilding $kingdomBuilding): void
     {
@@ -150,13 +145,11 @@ class ProductionResourcesManager
         $kingdomResourceProduced = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $buildingResource->getResource());
 
         if (!$kingdomResourceProduced) {
-
             $this->createKingdomResource($resourceProduced, $kingdom, $buildingResource->getResource());
 
             $newResourceProduced = $this->em->getRepository(KingdomResource::class)->getKingdomExistingResource($kingdom, $buildingResource->getResource());
             $this->resultProduction['produced'][$newResourceProduced->getResource()->getName()] = $resourceProduced;
         } else {
-
             $resourceProducedInKingdom = $kingdomResourceProduced->getQuantity() + $resourceProduced;
             $kingdomResourceProduced->setQuantity($resourceProducedInKingdom);
 
@@ -165,9 +158,9 @@ class ProductionResourcesManager
     }
 
     /**
-     * @param int $resourceProduced
-     * @param Kingdom $kingdom
-     * @param Resource $resource
+     * @param int      $resourceProduced
+     * @param Kingdom  $kingdom
+     * @param resource $resource
      */
     private function createKingdomResource(int $resourceProduced, Kingdom $kingdom, Resource $resource): void
     {

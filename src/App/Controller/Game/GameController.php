@@ -20,7 +20,7 @@ class GameController extends Controller
 
         return $this->render('Game/index.html.twig', [
             'countPlayersConnected' => $countPlayersConnected,
-            'totalPlayers' => $totalPlayers
+            'totalPlayers' => $totalPlayers,
         ]);
     }
 }

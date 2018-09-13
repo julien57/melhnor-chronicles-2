@@ -19,13 +19,14 @@ class VerifyActionPointsManager
         $this->em = $em;
     }
 
-    public function isEventParticipate(Event $event, Player $player) {
-
+    public function isEventParticipate(Event $event, Player $player)
+    {
         $isParticipate = $this->em->getRepository(KingdomEvent::class)->getKingdomEvent($player->getKingdom(), $event);
 
         if ($isParticipate === null) {
             return true;
         }
+
         return false;
     }
 

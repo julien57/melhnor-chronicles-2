@@ -9,7 +9,6 @@ use App\Entity\KingdomResource;
 use App\Entity\Player;
 use App\Entity\Resource;
 use App\Model\CreatePlayerDTO;
-use App\Repository\KingdomRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
