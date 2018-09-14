@@ -79,8 +79,8 @@ class ProductionResourcesManager
         }
 
         $resourceProduce = $this->randomResultProduction(
-            ($population / 50) * $kingdomBuilding->getLevel(),
-            ($population / 35) * $kingdomBuilding->getLevel()
+            ($population / 30) * $kingdomBuilding->getLevel(),
+            ($population / 17 ) * $kingdomBuilding->getLevel()
         );
 
         if (!$kingdomResource) {

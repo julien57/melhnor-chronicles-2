@@ -345,9 +345,13 @@ class ArmyRecruitment
      */
     private function verifyLimitUnity(Kingdom $kingdom, int $unity): bool
     {
+        $kingdomBuildings = $this->em->getRepository(KingdomBuilding::class)->findBy(['kingdom' => $kingdom]);
+
         /** @var KingdomBuilding $kingdomBuilding */
-        foreach ($kingdom->getKingdomBuildings() as $kingdomBuilding) {
+        foreach ($kingdomBuildings as $kingdomBuilding) {
+
             if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_SOLDIER) {
+
                 if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
                     return false;
                 }
@@ -363,7 +367,16 @@ class ArmyRecruitment
                 return true;
             }
 
+            if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_STABLE) {
+                if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
+                    return false;
+                }
+
+                return true;
+            }
+
             if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_BOAT) {
+
                 if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
                     return false;
                 }

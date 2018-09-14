@@ -83,9 +83,9 @@ class LevelingBuildingManager
     /**
      * @param $kingdomBuildingsForm
      *
-     * @return RedirectResponse
+     * @return bool
      */
-    public function searchLevelModified($kingdomBuildingsForm): RedirectResponse
+    public function searchLevelModified($kingdomBuildingsForm): bool
     {
         /** @var KingdomBuilding $kingdomBuilding */
         foreach ($kingdomBuildingsForm as $kingdomBuilding) {
@@ -99,19 +99,10 @@ class LevelingBuildingManager
                 $resourcesRequired = $this->processingResourcesKingdom($modifiedBuilding);
 
                 if (!$resourcesRequired) {
-                    $this->session->getFlashBag()->add(
-                        'notice-danger',
-                        $this->translator->trans('messages.service-leveling-unavailable-resource', [], 'game')
-                    );
-
-                    return new RedirectResponse($this->router->generate('game_kingdom'));
+                    return false;
                 }
-                $this->session->getFlashBag()->add(
-                    'notice',
-                    $this->translator->trans('messages.service-leveling-increased-level', [], 'game')
-                );
 
-                return new RedirectResponse($this->router->generate('game_kingdom'));
+                return true;
             }
         }
     }
@@ -169,6 +160,7 @@ class LevelingBuildingManager
 
         if ($modifiedBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_SOLDIER ||
             $modifiedBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_ARCHERY ||
+            $modifiedBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_STABLE ||
             $modifiedBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_BOAT) {
             $increaseUnityMax = $modifiedBuilding->getMaxUnityArmy() + 10;
             $modifiedBuilding->setMaxUnityArmy($increaseUnityMax);
