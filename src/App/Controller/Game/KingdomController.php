@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class KingdomController extends Controller
 {
@@ -25,13 +26,29 @@ class KingdomController extends Controller
      * @Route("/royaume", name="game_kingdom")
      * @Security("has_role('ROLE_PLAYER')")
      */
-    public function kingdomAction(Request $request, EntityManagerInterface $em, LevelingBuildingManager $levelingBuildingManager): Response
+    public function kingdomAction(Request $request, EntityManagerInterface $em, LevelingBuildingManager $levelingBuildingManager, TranslatorInterface $translator): Response
     {
         $kingdom = $this->getUser()->getKingdom();
         $formBuilding = $this->createForm(KingdomType::class, $kingdom)->handleRequest($request);
 
         if ($formBuilding->isSubmitted() && $formBuilding->isValid()) {
-            $levelingBuildingManager->searchLevelModified($formBuilding->getData()->getKingdomBuildings());
+            $isValid = $levelingBuildingManager->searchLevelModified($formBuilding->getData()->getKingdomBuildings());
+
+            if (!$isValid) {
+                $this->addFlash(
+                    'notice-danger',
+                    $translator->trans('messages.service-leveling-unavailable-resource', [], 'game')
+                );
+
+                return $this->redirectToRoute('game_kingdom');
+            }
+
+            $this->addFlash(
+                'notice',
+                $translator->trans('messages.service-leveling-increased-level', [], 'game')
+            );
+
+            return $this->redirectToRoute('game_kingdom');
         }
 
         $kingdomResources = $em->getRepository(KingdomResource::class)->getResourceByisFood($kingdom);

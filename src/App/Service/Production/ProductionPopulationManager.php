@@ -16,6 +16,8 @@ class ProductionPopulationManager
 
     private $resourceConsumed = [];
 
+    private $totalResourcesConsumed = 0;
+
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
@@ -30,12 +32,12 @@ class ProductionPopulationManager
         $population = $kingdom->getPopulation();
         $kingdomResources = $this->em->getRepository(KingdomResource::class)->findByKingdom($kingdom);
 
-        $addPopulation = null;
         /** @var KingdomResource $kingdomResource */
         foreach ($kingdomResources as $kingdomResource) {
             /** @var resource $resource */
             $resource = $kingdomResource->getResource();
 
+            $addPopulation = 0;
             if ($resource->isFood()) {
                 if (in_array($resource->getId(), Resource::ID_LUXURY_RESOURCES)) {
                     $populationWon = $this->PopulationUseLuxury($kingdomResource);
@@ -48,6 +50,16 @@ class ProductionPopulationManager
                     $addPopulation -= $populationLost;
                 }
             }
+        }
+
+        foreach ($this->resourceConsumed['consumed'] as $totalResources => $value) {
+            $this->totalResourcesConsumed = $this->totalResourcesConsumed + $value;
+        }
+
+        if ($this->totalResourcesConsumed > $player->getKingdom()->getPopulation()) {
+            $addPopulation = $addPopulation + 100;
+        } else {
+            $addPopulation = $addPopulation - 40;
         }
 
         if ($addPopulation > 600) {

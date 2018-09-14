@@ -30,6 +30,10 @@ class PlayerRepository extends EntityRepository
             ->createQueryBuilder('p')
             ->join('p.kingdom', 'k')
             ->addSelect('k')
+            ->where('p.username != :admin')
+            ->setParameter('admin', 'admin')
+            ->andWhere('p.username != :chef')
+            ->setParameter('chef', 'chef des armées')
             ->orderBy('k.population', 'DESC')
             ->getQuery();
 
@@ -105,7 +109,7 @@ class PlayerRepository extends EntityRepository
             ->setParameter('admin', 'admin')
             ->andWhere('p.username != :chef')
             ->setParameter('chef', 'chef des armées')
-            ->orderBy('p.username', 'DESC')
+            ->orderBy('p.username', 'ASC')
             ->getQuery();
 
         return $query->getResult();

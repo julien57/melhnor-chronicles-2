@@ -25,11 +25,13 @@
             <div class="col-md-4">
                 <h3>{{ 'title.produced-resources'|trans }}</h3>
                 <div class="section-description">
-                    {% for resource, quantity in resultProduce.produced %}
-                        <p>{{ resource }} : {{ quantity }}</p>
+                    {%  if resultProduce is not empty %}
+                        {% for resource, quantity in resultProduce.produced %}
+                            <p>{{ resource }} : {{ quantity }}</p>
+                        {% endfor %}
                     {% else %}
                         <p>{{ 'message.no-resources'|trans }}</p>
-                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="col-md-4">

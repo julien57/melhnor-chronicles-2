@@ -26,6 +26,11 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    app.doctrine.activity_player_listener:
+        class: App\Doctrine\ActivityPlayerListener
+        tags:
+            - { name: doctrine.event_listener, event: postUpdate }
+
     App\Service\Leveling\LevelingBuildingManager:
         public: true
 
