@@ -4,6 +4,7 @@ namespace App\Controller\Game;
 
 use App\Entity\KingdomArmy;
 use App\Entity\KingdomEvent;
+use App\Service\Season\SeasonManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,15 +19,17 @@ class ThroneController extends Controller
      * @Route("/salle-du-trone", name="game_throne")
      * @Security("has_role('ROLE_PLAYER')")
      */
-    public function throneAction(EntityManagerInterface $em): Response
+    public function throneAction(EntityManagerInterface $em, SeasonManager $seasonManager): Response
     {
         $kingdom = $this->getUser()->getKingdom();
         $kingdomArmys = $em->getRepository(KingdomArmy::class)->findByKingdom($kingdom);
         $kingdomEvents = $em->getRepository(KingdomEvent::class)->findBy(['kingdom' => $kingdom]);
+        $gameDate = $seasonManager->displayDate();
 
         return $this->render('Game/throne.html.twig', [
             'kingdomArmys' => $kingdomArmys,
             'kingdomEvents' => $kingdomEvents,
+            'gameDate' => $gameDate
         ]);
     }
 }

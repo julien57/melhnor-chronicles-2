@@ -185,4 +185,17 @@ class Message
 
         return $messaging;
     }
+
+    public static function messageBattleDefender(Player $chiefArmy, Player $playerAttacker, Player $playerDefender, int $populationDead)
+    {
+        $messaging = new self();
+
+        $messaging->sender = $chiefArmy;
+        $messaging->recipient = $playerDefender;
+        $messaging->setSubject('Attaque de '.$playerAttacker->getUsername());
+        $message = 'Mon roi, le '.$playerAttacker->getKingdom()->getName().' nous a attaqué ! '. $populationDead .' villageois morts. Que pensez-vous d\'une riposte ?';
+        $messaging->setMessage($message);
+
+        return $messaging;
+    }
 }
