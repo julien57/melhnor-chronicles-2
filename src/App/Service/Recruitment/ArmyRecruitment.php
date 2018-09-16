@@ -26,6 +26,7 @@ class ArmyRecruitment
     public function recruitmentProcess(ArmyRecruitmentDTO $armyRecruitmentDTO, Kingdom $kingdom)
     {
         $kingdomArmys = $this->em->getRepository(KingdomArmy::class)->findByKingdom($kingdom);
+        $kingdomBuildings = $this->em->getRepository(KingdomBuilding::class)->findBy(['kingdom' => $kingdom]);
 
         if ($armyRecruitmentDTO->getSoldier()) {
             $soldiers = $armyRecruitmentDTO->getSoldier();
@@ -40,7 +41,7 @@ class ArmyRecruitment
                 if ($kingdomArmy->getArmy()->getId() === Army::SOLDIER_ID) {
                     $totalSoldiers = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getSoldier();
 
-                    $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalSoldiers);
+                    $verifyMaxUnity = $this->verifyLimitSoldiers($kingdomBuildings, $totalSoldiers);
 
                     if (!$verifyMaxUnity) {
                         return false;
@@ -64,7 +65,7 @@ class ArmyRecruitment
                 if ($kingdomArmy->getArmy()->getId() === Army::ARCHER_ID) {
                     $totalArchers = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getArcher();
 
-                    $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalArchers);
+                    $verifyMaxUnity = $this->verifyLimitArchers($kingdomBuildings, $totalArchers);
 
                     if (!$verifyMaxUnity) {
                         return false;
@@ -89,7 +90,7 @@ class ArmyRecruitment
                 if ($kingdomArmy->getArmy()->getId() === Army::HORSEMAN_ID) {
                     $totalHorsemans = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getHorseman();
 
-                    $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalHorsemans);
+                    $verifyMaxUnity = $this->verifyLimitHorsemans($kingdomBuildings, $totalHorsemans);
 
                     if (!$verifyMaxUnity) {
                         return false;
@@ -113,7 +114,7 @@ class ArmyRecruitment
                 if ($kingdomArmy->getArmy()->getId() === Army::BOAT_ID) {
                     $totalBoats = $kingdomArmy->getQuantity() + $armyRecruitmentDTO->getBoat();
 
-                    $verifyMaxUnity = $this->verifyLimitUnity($kingdom, $totalBoats);
+                    $verifyMaxUnity = $this->verifyLimitBoats($kingdomBuildings, $totalBoats);
 
                     if (!$verifyMaxUnity) {
                         return false;
@@ -153,6 +154,7 @@ class ArmyRecruitment
         foreach ($kingdom->getKingdomResources() as $kingdomResource) {
             if ($kingdomResource->getResource()->getId() === Resource::ARMOR_ID &&
                 $kingdomResource->getQuantity() > $soldiers) {
+
                 $armorQuantity = $kingdomResource->getQuantity() - $soldiers;
                 $kingdomResource->setQuantity($armorQuantity);
 
@@ -160,6 +162,7 @@ class ArmyRecruitment
             }
             if ($kingdomResource->getResource()->getId() === Resource::WEAPON_ID &&
                 $kingdomResource->getQuantity() > $soldiers) {
+
                 $weaponQuantity = $kingdomResource->getQuantity() - $soldiers;
                 $kingdomResource->setQuantity($weaponQuantity);
 
@@ -338,15 +341,12 @@ class ArmyRecruitment
     }
 
     /**
-     * @param Kingdom $kingdom
-     * @param int     $unity
-     *
+     * @param array $kingdomBuildings
+     * @param int $unity
      * @return bool
      */
-    private function verifyLimitUnity(Kingdom $kingdom, int $unity): bool
+    private function verifyLimitSoldiers(array $kingdomBuildings, int $unity): bool
     {
-        $kingdomBuildings = $this->em->getRepository(KingdomBuilding::class)->findBy(['kingdom' => $kingdom]);
-
         /** @var KingdomBuilding $kingdomBuilding */
         foreach ($kingdomBuildings as $kingdomBuilding) {
 
@@ -355,32 +355,51 @@ class ArmyRecruitment
                 if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
                     return false;
                 }
-
                 return true;
             }
+        }
+    }
+
+    private function verifyLimitArchers(array $kingdomBuildings, int $unity): bool
+    {
+        /** @var KingdomBuilding $kingdomBuilding */
+        foreach ($kingdomBuildings as $kingdomBuilding) {
 
             if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_ARCHERY) {
+
                 if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
                     return false;
                 }
-
                 return true;
             }
+        }
+    }
+
+    private function verifyLimitHorsemans(array $kingdomBuildings, int $unity): bool
+    {
+        /** @var KingdomBuilding $kingdomBuilding */
+        foreach ($kingdomBuildings as $kingdomBuilding) {
 
             if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_STABLE) {
+
                 if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
                     return false;
                 }
-
                 return true;
             }
+        }
+    }
+
+    private function verifyLimitBoats(array $kingdomBuildings, int $unity): bool
+    {
+        /** @var KingdomBuilding $kingdomBuilding */
+        foreach ($kingdomBuildings as $kingdomBuilding) {
 
             if ($kingdomBuilding->getBuilding()->getId() === KingdomBuilding::BUILDING_RECRUITMENT_BOAT) {
 
                 if ($kingdomBuilding->getMaxUnityArmy() < $unity) {
                     return false;
                 }
-
                 return true;
             }
         }

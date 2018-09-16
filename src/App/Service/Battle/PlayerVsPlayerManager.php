@@ -5,6 +5,7 @@ namespace App\Service\Battle;
 use App\Entity\Army;
 use App\Entity\Kingdom;
 use App\Entity\KingdomArmy;
+use App\Entity\Message;
 use App\Entity\Player;
 use App\Model\ArmyStrategyDTO;
 use Doctrine\ORM\EntityManagerInterface;
@@ -273,6 +274,20 @@ class PlayerVsPlayerManager
             $i++;
         }
 
+        // Send a message to defender
+        $chiefArmy = $this->em->getRepository(Player::class)->getChiefArmy();
+        $playerAttacker = $this->em->getRepository(Player::class)->findOneBy(['kingdom' => $kingdomAttacker]);
+        $defender->setIsNotRead(true);
+
+        $message = Message::messageBattleDefender(
+            $chiefArmy,
+            $playerAttacker,
+            $defender,
+            $this->deadPopulationDefender
+        );
+        $this->em->persist($message);
+        $this->em->flush();
+
         // If defender not have army, attackant kill population
         if ($this->nbArmyDefender === 0) {
             $this->historic[] = "Cela ne sert à rien de lancer une bataille, il n'y a pas d'armée ennemie.";
@@ -282,6 +297,7 @@ class PlayerVsPlayerManager
             $populationDead = ceil(($randomDeadPopulation * $populationDefender) / 150);
 
             $defender->getKingdom()->setPopulation($populationDefender - $populationDead);
+            $this->finishBattle($kingdomAttacker);
             $this->em->flush();
 
             $this->historic[] = 'Le chef des armées a déclaré : <i>Malgré tout, nous avons quand même tué '.$populationDead.' habitants qui commençaient à se rebeller.</i>';
@@ -305,18 +321,22 @@ class PlayerVsPlayerManager
     private function finishBattle(Kingdom $kingdomAttacker): void
     {
         $kingdomArmys = $this->em->getRepository(KingdomArmy::class)->findBy(['kingdom' => $kingdomAttacker]);
+
         /** @var KingdomArmy $kingdomArmy */
         foreach ($kingdomArmys as $kingdomArmy) {
-            if ($kingdomArmy->getId() === Army::SOLDIER_ID) {
+            if ($kingdomArmy->getArmy()->getId() === Army::SOLDIER_ID) {
                 $remainingSoldier = $kingdomArmy->getQuantity() + $this->nbSoldiers;
                 $kingdomArmy->setQuantity($remainingSoldier);
-            } elseif ($kingdomArmy->getId() === Army::ARCHER_ID) {
+
+            } elseif ($kingdomArmy->getArmy()->getId() === Army::ARCHER_ID) {
                 $remainingArcher = $kingdomArmy->getQuantity() + $this->nbArchers;
                 $kingdomArmy->setQuantity($remainingArcher);
-            } elseif ($kingdomArmy->getId() === Army::HORSEMAN_ID) {
+
+            } elseif ($kingdomArmy->getArmy()->getId() === Army::HORSEMAN_ID) {
                 $remainingHorseman = $kingdomArmy->getQuantity() + $this->nbHorsemans;
                 $kingdomArmy->setQuantity($remainingHorseman);
-            } elseif ($kingdomArmy->getId() === Army::BOAT_ID) {
+
+            } elseif ($kingdomArmy->getArmy()->getId() === Army::BOAT_ID) {
                 $remainingBoat = $kingdomArmy->getQuantity() + $this->nbBoats;
                 $kingdomArmy->setQuantity($remainingBoat);
             }

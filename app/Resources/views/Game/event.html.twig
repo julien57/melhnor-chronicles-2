@@ -69,7 +69,7 @@
                     <div class="col-xs-5 col-sm-3 col-sm-offset-1 gallery-item item-3 thumbnail-50" data-toggle="modal" data-target="#shop-modal">
                         <div class="link-participate">/participation-event/{{ event.id }}</div>
                         <img src="{{ asset('front/img/event/') }}{{ event.imgMin }}" alt="iOS Version">
-                        <span class="item-price-caption hidden-xs">{{ event.description }} {{ event.ap }} PA + 5 PA par combat</span>
+                        <span class="item-price-caption hidden-xs">{{ event.description|raw }} {{ event.ap }} PA + 5 PA par combat</span>
                         <span class="item-name-caption hidden-xs">{{ event.name }} ({{ event.difficulty }})</span>
                         <div class="panel-item__text">
                             <h3 class="panel-item__title">{{ event.name }} ({{ event.difficulty }})</h3>

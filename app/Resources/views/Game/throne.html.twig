@@ -74,6 +74,7 @@
 
                 <div class="col-md-12 text-center">
                     <p class="panel-item__summary col-md-offset-2">{{ 'title.region'|trans }} : {{ app.user.kingdom.region.name }}</p>
+                    <p class="section-description">{{ gameDate }}</p>
                     <img src="{{ asset('front/img/regions/') }}{{ app.user.kingdom.region.picture }}.png" alt="{{ app.user.kingdom.region.name }}" id="map_world"/>
                     <p id="description_region" class="panel-item__summary">{{ app.user.kingdom.region.description }}</p>
                 </div>
