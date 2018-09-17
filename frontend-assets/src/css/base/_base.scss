@@ -126,6 +126,7 @@ input:focus, textarea:focus, button:focus {
     background: url('../img/name-building.png') no-repeat;
     background-size: 100% 100%;
     padding: 10px 0;
+    margin-top: 5px;
 }
 
 #level-building {
@@ -339,6 +340,14 @@ input:focus, textarea:focus, button:focus {
 .navbar-nav img {
     width: 15px;
     color: red;
+}
+
+.tooltip {
+    position: absolute;
+    width: 200px;
+    height:100px;
+    background-color: #9a784c;
+    border: 2px solid #734a32;
 }
 
 @media screen and (max-width: 1024px) {
