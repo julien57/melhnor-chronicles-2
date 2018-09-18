@@ -33,9 +33,9 @@ let registration = {
 
         windowAvatar.appendChild(img);
     },
-    choice_avatar: (e, imgAvatar) => {
+    choice_avatar: (e, imgAvatar, next = false) => {
         const windowAvatar = document.getElementById('img_avatars');
-        const nameValue = e.target.value;
+        let nameValue = e.target.value;
 
         if (nameValue >= 1 && nameValue <= 5) {
             imgAvatar.src = 'front/img/avatars/adorateurs' + nameValue + '.jpg';
@@ -72,6 +72,12 @@ let registration = {
 
 mapForm.style.display = 'none';
 avatarForm.style.display = 'none';
+
+document.addEventListener('keypress', (e) => {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+    }
+});
 
 document.getElementById('next1').addEventListener('click', function () {
     registration.verify_input();
