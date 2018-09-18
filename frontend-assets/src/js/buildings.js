@@ -90,5 +90,9 @@ const buildings = {
     "23": {
         "name": "Port",
         "description": "Les ports permettent la construction de navires de transport."
+    },
+    "24": {
+        "name": "Mine d'or",
+        "description": "La mine d'or permet d'extraire de l'or et d'en faire des pièces."
     }
 };
