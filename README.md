@@ -7,7 +7,7 @@ The game use Symfony 3.4.
 
 * Symfony 3.4
 * PHP 7.1
-* Web-server (Nginx, Apache2 ou PHP built-in server)
+* Web-server (Apache)
 * Database (MySQL)
 * Cron Task (for call command "game:add-action-points" each hour)
 
@@ -23,7 +23,7 @@ The game use Symfony 3.4.
 * Contact admin
 * Read game rules
 
-### Player
+### Playerserver
 * Login to your account
 * Build buildings in his kingdom and level up
 * Produce resources based on buildings
